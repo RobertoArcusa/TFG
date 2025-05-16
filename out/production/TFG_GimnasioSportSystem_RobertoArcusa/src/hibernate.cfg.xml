@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Conexión a la base de datos -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bbdd_gimnasio?useSSL=false&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property> <!-- 🔁 cambia esto si tu usuario es distinto -->
+        <property name="hibernate.connection.password"></property>     <!-- 🔁 pon tu contraseña aquí si tienes -->
+
+        <!-- Dialecto de MySQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- Mostrar SQL por consola (opcional, útil para debug) -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Actualizar el esquema si cambian las entidades -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mapeo de clases -->
+        <mapping class="com.robertoarcusa.tfg.clases.Clase"/>
+        <mapping class="com.robertoarcusa.tfg.clases.Entrenador"/>
+        <mapping class="com.robertoarcusa.tfg.clases.Inscripcion"/>
+        <mapping class="com.robertoarcusa.tfg.clases.Pago"/>
+        <mapping class="com.robertoarcusa.tfg.clases.SesionClase"/>
+        <mapping class="com.robertoarcusa.tfg.clases.Socio"/>
+    </session-factory>
+</hibernate-configuration>

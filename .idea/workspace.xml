@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="hibernate-configuration-5.2" />
+        <option value="hibernate-main-5.2" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2w367eZpahPvfSTYYOP32YPh2l7" />
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="JPA.DatabaseSchemaImportDialog" value="54260391-d981-4725-9144-0451aa225676" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.27594072" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src" />
+    </key>
+    <key name="ImportMappingsDialog.RecentPackages">
+      <recent name="com.robertoarcusa.tfg" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\informes" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\lib" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\imagenes" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.robertoarcusa.tfg.vistas.LoginUsuario" />
+      <module name="TFG_GimnasioSportSystem_RobertoArcusa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robertoarcusa.tfg.vistas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="TFG_GimnasioSportSystem_RobertoArcusa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegistroUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.robertoarcusa.tfg.vistas.RegistroUsuario" />
+      <module name="TFG_GimnasioSportSystem_RobertoArcusa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robertoarcusa.tfg.vistas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestHibernateConnection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.robertoarcusa.tfg.util.TestHibernateConnection" />
+      <module name="TFG_GimnasioSportSystem_RobertoArcusa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.robertoarcusa.tfg.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.LoginUsuario" />
+        <item itemvalue="Application.RegistroUsuario" />
+        <item itemvalue="Application.TestHibernateConnection" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="" />
+      <created>1745257743925</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745257743925</updated>
+      <workItem from="1745257746934" duration="9480000" />
+      <workItem from="1745345469019" duration="2257000" />
+      <workItem from="1745398431523" duration="32581000" />
+      <workItem from="1745515998754" duration="9369000" />
+      <workItem from="1745527442099" duration="7000" />
+      <workItem from="1745666739807" duration="9918000" />
+      <workItem from="1745769571649" duration="17323000" />
+      <workItem from="1745857935213" duration="9671000" />
+      <workItem from="1745875294514" duration="850000" />
+      <workItem from="1745943967264" duration="17324000" />
+      <workItem from="1746037590998" duration="1189000" />
+      <workItem from="1746096676050" duration="2084000" />
+      <workItem from="1746100397773" duration="1900000" />
+      <workItem from="1746102326560" duration="282000" />
+      <workItem from="1746102620947" duration="3664000" />
+      <workItem from="1746107572129" duration="5488000" />
+      <workItem from="1746116197363" duration="1103000" />
+      <workItem from="1746179878217" duration="7808000" />
+      <workItem from="1746191767680" duration="6503000" />
+      <workItem from="1746202163286" duration="3229000" />
+      <workItem from="1746265363258" duration="8045000" />
+      <workItem from="1746288061298" duration="3522000" />
+      <workItem from="1746354969598" duration="17263000" />
+      <workItem from="1746551003489" duration="6203000" />
+      <workItem from="1746558319037" duration="4191000" />
+      <workItem from="1746644836792" duration="3422000" />
+      <workItem from="1746724604182" duration="6468000" />
+      <workItem from="1746734655554" duration="1191000" />
+      <workItem from="1746891091049" duration="796000" />
+      <workItem from="1746892033311" duration="5426000" />
+      <workItem from="1746961745078" duration="2399000" />
+      <workItem from="1746979775068" duration="4655000" />
+      <workItem from="1747069533535" duration="7952000" />
+      <workItem from="1747154931326" duration="4749000" />
+      <workItem from="1747163082221" duration="4272000" />
+      <workItem from="1747249776341" duration="218000" />
+      <workItem from="1747250019420" duration="2588000" />
+      <workItem from="1747330477842" duration="4526000" />
+      <workItem from="1747415087875" duration="1295000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
