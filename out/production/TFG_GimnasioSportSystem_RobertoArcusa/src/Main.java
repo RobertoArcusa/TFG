@@ -7,6 +7,7 @@ public class Main {
         FlatLightLaf.setup();
 
         // Llamamos a la clase LoginUsuario
+
         SwingUtilities.invokeLater(() -> {
             com.robertoarcusa.tfg.vistas.LoginUsuario ventana = new com.robertoarcusa.tfg.vistas.LoginUsuario();
             ventana.setVisible(true);

@@ -25,22 +25,37 @@ public class PanelInformes extends JPanel {
     private JButton btnInformeTotalEntrenadoresEspecialidad;
 
     public PanelInformes() {
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        btnInformeSocios = new JButton("GENERAR INFORME • LISTADO DE SOCIOS");
-        btnInformeEntrenadores = new JButton("GENERAR INFORME • ENTRENADORES POR ESPECIALIDAD");
-        btnInformeClases = new JButton("GENERAR INFORME • MEDIA CAPACIDAD MÁXIMA CLASES");
-        btnInformeTotalEntrenadoresEspecialidad = new JButton("GENERAR INFORME  • TOTAL ENTRENADORES POR ESPECIALIDAD");
+        // TÍTULO
+        JLabel titulo = new JLabel("GENERADOR DE INFORMES", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 30));
+        titulo.setForeground(new Color(0, 102, 204));
+        add(titulo, BorderLayout.NORTH);
 
-        // Estilo común para todos los botones
-        Dimension buttonSize = new Dimension(500, 120); // Ancho x Alto
-        Font buttonFont = new Font("Arial", Font.PLAIN, 16); // Fuente más grande
+        // PANEL DE BOTONES
+        JPanel panelBotones = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 15, 15, 15); // Margen entre botones
+
+        // Botones
+        btnInformeSocios = new JButton("LISTADO DE SOCIOS");
+        btnInformeEntrenadores = new JButton("LISTADO ENTRENADORES POR ESPECIALIDAD");
+        btnInformeClases = new JButton("LISTADO MEDIA CAPACIDAD MÁXIMA CLASES");
+        btnInformeTotalEntrenadoresEspecialidad = new JButton("LISTADO TOTAL ENTRENADORES POR ESPECIALIDAD");
+        JButton btnGraficoPagos = new JButton("LISTADO GRÁFICO TIPOS DE PAGO");
+
+        // Tamaño y fuente
+        Dimension buttonSize = new Dimension(500, 180);
+        Font buttonFont = new Font("Arial", Font.PLAIN, 16);
 
         JButton[] botones = {
                 btnInformeSocios,
                 btnInformeEntrenadores,
                 btnInformeClases,
-                btnInformeTotalEntrenadoresEspecialidad
+                btnInformeTotalEntrenadoresEspecialidad,
+                btnGraficoPagos
         };
 
         for (JButton boton : botones) {
@@ -48,56 +63,39 @@ public class PanelInformes extends JPanel {
             boton.setFont(buttonFont);
         }
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        // Botones en cuadrícula 2x2
+        gbc.gridx = 0; gbc.gridy = 0; panelBotones.add(btnInformeSocios, gbc);
+        gbc.gridx = 1; gbc.gridy = 0; panelBotones.add(btnInformeEntrenadores, gbc);
+        gbc.gridx = 0; gbc.gridy = 1; panelBotones.add(btnInformeClases, gbc);
+        gbc.gridx = 1; gbc.gridy = 1; panelBotones.add(btnInformeTotalEntrenadoresEspecialidad, gbc);
+
+        // Botón gráfico pagos (ocupa 2 columnas)
         gbc.gridx = 0;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.insets = new Insets(15, 0, 15, 0); // Espaciado vertical
-
-        gbc.gridy = 0;
-        add(btnInformeSocios, gbc);
-
-        gbc.gridy = 1;
-        add(btnInformeEntrenadores, gbc);
-
         gbc.gridy = 2;
-        add(btnInformeClases, gbc);
+        gbc.gridwidth = 2; // <<--- OCUPA DOS COLUMNAS
+        panelBotones.add(btnGraficoPagos, gbc);
+        gbc.gridwidth = 1; // Restablecer
 
-        gbc.gridy = 3;
-        add(btnInformeTotalEntrenadoresEspecialidad, gbc);
+        add(panelBotones, BorderLayout.CENTER);
 
-        btnInformeSocios.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Llamamos al método que genera el informe
-                generarInformeSocios();
+        // EVENTOS
+        btnInformeSocios.addActionListener(e -> generarInformeSocios());
+
+        btnInformeEntrenadores.addActionListener(e -> {
+            String especialidad = JOptionPane.showInputDialog(null, "Introduce la especialidad:");
+            if (especialidad != null && !especialidad.trim().isEmpty()) {
+                generarInformeEntrenadoresPorEspecialidad(especialidad.trim());
             }
         });
 
-        btnInformeEntrenadores.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String especialidad = JOptionPane.showInputDialog(null, "Introduce la especialidad:");
-                if (especialidad != null && !especialidad.trim().isEmpty()) {
-                    generarInformeEntrenadoresPorEspecialidad(especialidad.trim());
-                }
-            }
-        });
+        btnInformeClases.addActionListener(e -> generarInformeCapacidadMaximaClases());
 
-        btnInformeClases.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Llamamos al método que genera el informe
-                generarInformeCapacidadMaximaClases();
-            }
-        });
+        btnInformeTotalEntrenadoresEspecialidad.addActionListener(e -> generarInformeTotEntrenadoresEspecialidad());
 
-        btnInformeTotalEntrenadoresEspecialidad.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Llamamos al método que genera el informe
-                generarInformeTotEntrenadoresEspecialidad();
-            }
+        btnGraficoPagos.addActionListener(e -> {
+            // Aquí va la llamada al método correspondiente que generará el informe gráfico
+            generarGraficoTiposDePago();
         });
-
     }
 
     public void generarInformeSocios() {
@@ -252,6 +250,45 @@ public class PanelInformes extends JPanel {
             e.printStackTrace();
         }
     }
+
+    public void generarGraficoTiposDePago() {
+        try {
+            // Ruta del informe
+            InputStream input = getClass().getResourceAsStream("/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper");
+
+            if (input == null) {
+                System.out.println("No se encontró el archivo .jasper");
+                return;
+            } else {
+                System.out.println("Archivo .jasper encontrado correctamente");
+            }
+
+            // Cargar el driver JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Conexión a la base de datos
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/bbdd_gimnasio", "root", "");
+
+            // Cargar el informe
+            JasperReport informe = (JasperReport) JRLoader.loadObject(input);
+
+            // No se necesita enviar parámetros
+            Map<String, Object> parametros = new HashMap<>();
+
+            // Llenar el informe
+            JasperPrint jasperPrint = JasperFillManager.fillReport(informe, parametros, conexion);
+
+            // Mostrar el informe
+            JasperViewer.viewReport(jasperPrint, false);
+
+            // Cerrar conexión
+            conexion.close();
+
+        } catch (ClassNotFoundException | SQLException | JRException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // Getters si necesitas manejar los eventos desde fuera
     public JButton getBtnInformeSocios() {

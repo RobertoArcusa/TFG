@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/jcommon-1.0.23.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jfreechart-1.0.19.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,9 +58,10 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="JPA.DatabaseSchemaImportDialog" value="54260391-d981-4725-9144-0451aa225676" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jfreechart-1.0.19.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.27594072" />
@@ -55,8 +74,8 @@
       <recent name="com.robertoarcusa.tfg" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\informes" />
       <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\lib" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\informes" />
       <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources" />
       <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg" />
       <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\imagenes" />
@@ -179,7 +198,10 @@
       <workItem from="1747250019420" duration="2588000" />
       <workItem from="1747330477842" duration="4526000" />
       <workItem from="1747415087875" duration="1295000" />
-      <workItem from="1747425624937" duration="43000" />
+      <workItem from="1747425624937" duration="671000" />
+      <workItem from="1747474173636" duration="3817000" />
+      <workItem from="1747478888905" duration="180000" />
+      <workItem from="1747479087747" duration="622000" />
     </task>
     <servers />
   </component>
@@ -191,7 +213,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
