@@ -138,7 +138,7 @@ public class VentanaPrincipal extends JFrame {
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             for (int i = tabbedPane.getTabCount() - 1; i >= 0; i--) {
                 String titulo = tabbedPane.getTitleAt(i).toUpperCase();
-                if (titulo.equals("SOCIOS") || titulo.equals("PAGOS")) {
+                if (titulo.equals("SOCIOS") || titulo.equals("PAGOS") || titulo.equals("INFORMES")) {
                     tabbedPane.removeTabAt(i);
                 }
             }

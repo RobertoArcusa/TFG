@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/jcommon-1.0.23.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jfreechart-1.0.19.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/libraries/Hibernate_5_4_11_5_4_11.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -202,6 +186,7 @@
       <workItem from="1747474173636" duration="3817000" />
       <workItem from="1747478888905" duration="180000" />
       <workItem from="1747479087747" duration="622000" />
+      <workItem from="1747495539010" duration="911000" />
     </task>
     <servers />
   </component>
