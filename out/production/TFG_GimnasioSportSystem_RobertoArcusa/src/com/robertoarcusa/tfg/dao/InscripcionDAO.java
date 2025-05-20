@@ -51,7 +51,7 @@ public class InscripcionDAO {
         }
     }
 
-    public List<Inscripcion> obtenerTodasLasInscripciones() {
+    public static List<Inscripcion> obtenerTodasLasInscripciones() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             return session.createQuery("from Inscripcion", Inscripcion.class).list();  // Traemos todas las inscripciones

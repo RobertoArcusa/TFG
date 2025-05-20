@@ -66,9 +66,6 @@ public class PanelSocios extends JPanel {
             //comboTipoUsuario.setVisible(false); // Oculta el combo de tipo usuario
         }
 
-
-
-
         // Configuración de JDatePicker
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();

@@ -174,7 +174,6 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
-
     private void agregarSesionClase() {
         Clase claseSeleccionada = (Clase) comboClase.getSelectedItem();
         if (claseSeleccionada == null) {

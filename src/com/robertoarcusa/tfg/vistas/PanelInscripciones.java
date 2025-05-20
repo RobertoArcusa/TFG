@@ -14,8 +14,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -111,36 +110,27 @@ public class PanelInscripciones extends JPanel {
 
         txtBuscarInscripcion = new JTextField(20);
         txtBuscarInscripcion.setForeground(Color.GRAY);
-        txtBuscarInscripcion.setText("Introduce ID o nombre del socio");
+        txtBuscarInscripcion.setText("Introduce un nombre de un usuario");
 
-        // FocusListener para limpiar el texto cuando se hace clic
-        txtBuscarInscripcion.addFocusListener(new FocusListener() {
+        txtBuscarInscripcion.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
-                if (txtBuscarInscripcion.getText().equals("Introduce ID o nombre del socio")) {
+                if (txtBuscarInscripcion.getText().equals("Introduce un nombre de un usuario")) {
                     txtBuscarInscripcion.setText("");
-                    txtBuscarInscripcion.setForeground(Color.BLACK); // Cambiar el color de la fuente
+                    txtBuscarInscripcion.setForeground(Color.BLACK);
                 }
             }
 
             public void focusLost(FocusEvent e) {
-                if (txtBuscarInscripcion.getText().equals("")) {
-                    txtBuscarInscripcion.setText("Introduce ID o nombre del socio");
-                    txtBuscarInscripcion.setForeground(Color.GRAY); // Restaurar el color gris
+                if (txtBuscarInscripcion.getText().isEmpty()) {
+                    txtBuscarInscripcion.setText("Introduce un nombre de un usuario");
+                    txtBuscarInscripcion.setForeground(Color.GRAY);
                 }
             }
         });
 
-        txtBuscarInscripcion.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-                actualizarFiltro();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                actualizarFiltro();
-            }
-
-            public void changedUpdate(DocumentEvent e) {
-                actualizarFiltro();
+        txtBuscarInscripcion.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                actualizarFiltro(txtBuscarInscripcion.getText());
             }
         });
 
@@ -158,11 +148,13 @@ public class PanelInscripciones extends JPanel {
 
         cargarInscripciones();
 
+        // (Empieza exactamente igual que tu clase original)
         tablaInscripciones.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                int fila = tablaInscripciones.getSelectedRow();
-                if (fila >= 0) {
-                    cargarDatosInscripcion(fila);
+                int filaVista = tablaInscripciones.getSelectedRow();
+                if (filaVista >= 0) {
+                    int filaModelo = tablaInscripciones.convertRowIndexToModel(filaVista);
+                    cargarDatosInscripcion(filaModelo);
                 }
             }
         });
@@ -217,14 +209,14 @@ public class PanelInscripciones extends JPanel {
     }
 
     private void modificarInscripcion() {
-        int fila = tablaInscripciones.getSelectedRow();
-        if (fila < 0) {
+        int filaVista = tablaInscripciones.getSelectedRow();
+        if (filaVista < 0) {
             JOptionPane.showMessageDialog(this, "Selecciona una inscripción.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Obtener el ID de la inscripción seleccionada
-        int id = (int) modeloTabla.getValueAt(fila, 0);
+        int filaModelo = tablaInscripciones.convertRowIndexToModel(filaVista);
+        int id = (int) modeloTabla.getValueAt(filaModelo, 0);
 
         // Obtener los nuevos valores de los combos
         Socio nuevoSocio = (Socio) comboSocios.getSelectedItem();
@@ -269,20 +261,20 @@ public class PanelInscripciones extends JPanel {
 
             cargarInscripciones();
             cargarSesiones();
-            //limpiarCampos();
 
             JOptionPane.showMessageDialog(this, "Inscripción modificada correctamente.");
         }
     }
 
     private void eliminarInscripcion() {
-        int fila = tablaInscripciones.getSelectedRow();
-        if (fila < 0) {
+        int filaVista = tablaInscripciones.getSelectedRow();
+        if (filaVista < 0) {
             JOptionPane.showMessageDialog(this, "Selecciona una inscripción.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
+        int filaModelo = tablaInscripciones.convertRowIndexToModel(filaVista);
+        int id = (int) modeloTabla.getValueAt(filaModelo, 0);
         InscripcionDAO dao = new InscripcionDAO();
         Inscripcion inscripcion = dao.obtenerInscripcionPorId(id);
 
@@ -302,20 +294,25 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
-    private void actualizarFiltro() {
-        String texto = txtBuscarInscripcion.getText().trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
-        } else {
-            RowFilter<DefaultTableModel, Object> filtroId = RowFilter.regexFilter("(?i)" + texto, 0);
-            RowFilter<DefaultTableModel, Object> filtroNombre = RowFilter.regexFilter("(?i)" + texto, 1);
-            sorter.setRowFilter(RowFilter.orFilter(Arrays.asList(filtroId, filtroNombre)));
+    private void actualizarFiltro(String filtro) {
+        modeloTabla.setRowCount(0);
+        List<Inscripcion> inscripciones = InscripcionDAO.obtenerTodasLasInscripciones();
 
+        for (Inscripcion inscripcion : inscripciones) {
+            String nombreSocio = inscripcion.getSocio().getNombreSocio();
+            if (nombreSocio != null && nombreSocio.toLowerCase().contains(filtro.toLowerCase())) {
+                modeloTabla.addRow(new Object[]{
+                        inscripcion.getIdInscripcion(),
+                        nombreSocio,
+                        inscripcion.getSesionclase().getClase().getNombreClase(),
+                        inscripcion.getSesionclase().getFechaHora()
+                });
+            }
         }
     }
 
-    private void cargarDatosInscripcion(int fila) {
-        int id = (int) modeloTabla.getValueAt(fila, 0);
+    private void cargarDatosInscripcion(int filaModelo) {
+        int id = (int) modeloTabla.getValueAt(filaModelo, 0);
         InscripcionDAO dao = new InscripcionDAO();
         Inscripcion inscripcion = dao.obtenerInscripcionPorId(id);
 

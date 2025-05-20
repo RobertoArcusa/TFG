@@ -194,7 +194,7 @@ public class PanelPagos extends JPanel {
             }
 
             public void focusLost(FocusEvent e) {
-                if (txtBuscarPago.getText().equals("")) {
+                if (txtBuscarPago.getText().isEmpty()) {
                     txtBuscarPago.setText("Introduce ID o nombre del socio");
                     txtBuscarPago.setForeground(Color.GRAY); // Restaurar el color gris
                 }
@@ -396,14 +396,14 @@ public class PanelPagos extends JPanel {
 
     private void actualizarFiltro() {
         String texto = txtBuscarPago.getText().trim();
-        if (texto.isEmpty()) {
-            sorter.setRowFilter(null);
+        if (texto.isEmpty() || texto.equalsIgnoreCase("Introduce ID o nombre del socio")) {
+            sorter.setRowFilter(null); // No aplicar ningún filtro
         } else {
-            RowFilter<DefaultTableModel, Object> filtroId = RowFilter.regexFilter("(?i)" + texto, 0);
             RowFilter<DefaultTableModel, Object> filtroNombre = RowFilter.regexFilter("(?i)" + texto, 1);
-            sorter.setRowFilter(RowFilter.orFilter(Arrays.asList(filtroId, filtroNombre)));
+            sorter.setRowFilter(filtroNombre); // Solo por nombre
         }
     }
+
 
     private void limpiarCampos() {
         comboSocio.setSelectedIndex(-1);

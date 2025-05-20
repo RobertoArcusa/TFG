@@ -30,8 +30,9 @@ public class PanelInformes extends JPanel {
 
         // TÍTULO
         JLabel titulo = new JLabel("GENERADOR DE INFORMES", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 30));
+        titulo.setFont(new Font("Arial", Font.BOLD, 45));
         titulo.setForeground(new Color(0, 102, 204));
+        titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         add(titulo, BorderLayout.NORTH);
 
         // PANEL DE BOTONES
