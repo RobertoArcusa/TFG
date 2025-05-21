@@ -17,8 +17,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/com/robertoarcusa/tfg/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/com/robertoarcusa/tfg/informes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/com/robertoarcusa/tfg/resources" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
