@@ -279,18 +279,24 @@ public class PanelInscripciones extends JPanel {
         Inscripcion inscripcion = dao.obtenerInscripcionPorId(id);
 
         if (inscripcion != null) {
-            dao.eliminarInscripcion(inscripcion);
+            boolean eliminada = dao.eliminarInscripcion(inscripcion);
+            if (!eliminada) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar la inscripción porque tiene datos relacionados. Primero elimínelos.",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                // Solo actualizar la capacidad si la eliminación fue correcta
+                SesionClase sesion = inscripcion.getSesionclase();
+                sesion.setCapacidadDisponible(sesion.getCapacidadDisponible() + 1);
 
-            SesionClase sesion = inscripcion.getSesionclase();
-            sesion.setCapacidadDisponible(sesion.getCapacidadDisponible() + 1);
+                SesionClaseDAO sesionDao = new SesionClaseDAO();
+                sesionDao.actualizarSesion(sesion);
 
-            SesionClaseDAO sesionDao = new SesionClaseDAO();
-            sesionDao.actualizarSesion(sesion);
-
-            cargarSesiones();
-            cargarInscripciones();
-            JOptionPane.showMessageDialog(this, "Inscripción eliminada.");
-            limpiarCampos();
+                cargarSesiones();
+                cargarInscripciones();
+                JOptionPane.showMessageDialog(this, "Inscripción eliminada.");
+                limpiarCampos();
+            }
         }
     }
 

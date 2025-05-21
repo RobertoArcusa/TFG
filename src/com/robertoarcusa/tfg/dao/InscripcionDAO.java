@@ -24,16 +24,17 @@ public class InscripcionDAO {
         }
     }
 
-    public void eliminarInscripcion(Inscripcion inscripcion) {
+    public boolean eliminarInscripcion(Inscripcion inscripcion) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
             session.delete(inscripcion);
             transaction.commit();
+            return true;
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback(); // Rollback si error
-            e.printStackTrace();
+            if (transaction != null) transaction.rollback();
+            return false;
         } finally {
             session.close();
         }

@@ -276,11 +276,17 @@ public class PanelSesionClase extends JPanel {
         SesionClase sesion = dao.obtenerSesionPorId(id);
 
         if (sesion != null) {
-            dao.eliminarSesion(sesion);
-            actualizarCapacidadDisponible();
-            cargarSesiones();
-            JOptionPane.showMessageDialog(this, "Sesión eliminada.");
-            limpiarCampos();
+            boolean eliminada = dao.eliminarSesion(sesion);
+            if (!eliminada) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar la sesión porque tiene datos relacionados. Primero elimínelos.",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                actualizarCapacidadDisponible();
+                cargarSesiones();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Sesión eliminada.");
+            }
         }
     }
 

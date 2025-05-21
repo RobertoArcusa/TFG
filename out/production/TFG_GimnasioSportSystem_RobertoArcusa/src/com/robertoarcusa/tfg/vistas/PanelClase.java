@@ -318,11 +318,18 @@ public class PanelClase extends JPanel {
         int id = (int) modeloTabla.getValueAt(fila, 0);
         ClaseDAO dao = new ClaseDAO();
         Clase clase = dao.obtenerClasePorId(id);
+
         if (clase != null) {
-            dao.eliminarClase(clase);
-            cargarClases();
-            limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Clase eliminada.");
+            boolean eliminada = dao.eliminarClase(clase);
+            if (!eliminada) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar la clase porque tiene datos relacionados. Primero elimínelos.",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                cargarClases();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Clase eliminada.");
+            }
         }
     }
 

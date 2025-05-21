@@ -36,27 +36,26 @@ public class PagoDAO {
         }
     }
 
-    public void eliminarPago(int idPago) {
+    public boolean eliminarPago(int idPago) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
 
         try {
             transaction = session.beginTransaction();
-
-            // Obtenemos el objeto Pago con el ID que hemos proporcionado
             Pago pago = session.get(Pago.class, idPago);
 
             if (pago != null) {
                 session.delete(pago);
                 transaction.commit();
+                return true;
             } else {
                 System.out.println("Pago no encontrado");
+                return false;
             }
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace(); // opcional para depurar
+            return false;
         } finally {
             session.close();
         }

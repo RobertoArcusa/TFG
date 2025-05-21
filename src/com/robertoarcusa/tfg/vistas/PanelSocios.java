@@ -349,13 +349,22 @@ public class PanelSocios extends JPanel {
             JOptionPane.showMessageDialog(this, "Selecciona un socio para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         int id = (int) modeloTabla.getValueAt(fila, 0);
         SocioDAO dao = new SocioDAO();
-        dao.eliminarSocio(id);
-        cargarSocios();
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Socio eliminado.");
+
+        boolean eliminado = dao.eliminarSocio(id);
+
+        if (!eliminado) {
+            JOptionPane.showMessageDialog(this, "No se puede eliminar el socio porque tiene datos relacionados. Por favor, elimine primero los datos relacionados.","Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            cargarSocios();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Socio eliminado correctamente.");
+        }
     }
+
 
     private void llenarDatosDesdeFormulario(Socio socio) {
         socio.setNombreSocio(txtNombre.getText());

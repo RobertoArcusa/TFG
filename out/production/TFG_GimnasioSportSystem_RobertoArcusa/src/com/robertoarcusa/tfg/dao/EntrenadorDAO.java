@@ -39,18 +39,21 @@ public class EntrenadorDAO {
         }
     }
 
-    public void eliminarEntrenador(Entrenador entrenador) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(entrenador);
-            transaction.commit();
+    public boolean eliminarEntrenador(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            Entrenador entrenador = session.get(Entrenador.class, id);
+
+            if (entrenador != null) {
+                session.delete(entrenador);
+                session.getTransaction().commit();
+                return true;
+            }
+            return false;
+
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
+            return false;
         }
     }
 

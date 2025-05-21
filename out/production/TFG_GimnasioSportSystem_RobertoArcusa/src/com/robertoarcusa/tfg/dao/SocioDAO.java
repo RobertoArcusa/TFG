@@ -33,21 +33,37 @@ public class SocioDAO {
         }
     }
 
-    public void eliminarSocio(int id) {
+    public boolean eliminarSocio(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
 
             Socio socio = session.get(Socio.class, id);
 
             if (socio != null) {
+                // Comprueba datos relacionados
+                Long pagosCount = (Long) session.createQuery("SELECT COUNT(p) FROM Pago p WHERE p.socio.idSocio = :id")
+                        .setParameter("id", id).uniqueResult();
+
+                Long inscripcionesCount = (Long) session.createQuery("SELECT COUNT(i) FROM Inscripcion i WHERE i.socio.idSocio = :id")
+                        .setParameter("id", id).uniqueResult();
+
+                if (pagosCount > 0 || inscripcionesCount > 0) {
+                    return false;  // No se elimina porque hay datos relacionados
+                }
+
                 session.delete(socio);
                 session.getTransaction().commit();
+                return true;  // Eliminado con éxito
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error al eliminar el socio");
         }
+        return false;  // No encontrado o no eliminado
     }
+
+
 
     public boolean existeDni(String dni) {
         Session session = HibernateUtil.getSessionFactory().openSession();

@@ -279,10 +279,17 @@ public class PanelPagos extends JPanel {
 
         int idPago = (int) modeloTabla.getValueAt(fila, 0);
         PagoDAO dao = new PagoDAO();
-        dao.eliminarPago(idPago);
-        cargarPagos();
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Pago eliminado.");
+        boolean eliminado = dao.eliminarPago(idPago);
+
+        if (!eliminado) {
+            JOptionPane.showMessageDialog(this,
+                    "No se puede eliminar el pago porque tiene datos relacionados o ha ocurrido un error.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            cargarPagos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Pago eliminado.");
+        }
     }
 
     private void cargarIdsSocios() {

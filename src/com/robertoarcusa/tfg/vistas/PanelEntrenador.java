@@ -320,18 +320,25 @@ public class PanelEntrenador extends JPanel {
     private void eliminarEntrenador() {
         int fila = tablaEntrenadores.getSelectedRow();
         if (fila < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona un entrenador.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecciona un entrenador para eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         int id = (int) modeloTabla.getValueAt(fila, 0);
         EntrenadorDAO dao = new EntrenadorDAO();
-        Entrenador entrenador = dao.obtenerEntrenadorPorId(id);
-        if (entrenador != null) {
-            dao.eliminarEntrenador(entrenador);
+        boolean eliminado = dao.eliminarEntrenador(id);
+
+        if (!eliminado) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se puede eliminar el entrenador porque tiene datos relacionados. Por favor, elimine primero los datos relacionados.",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } else {
             cargarEntrenadores();
             limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Entrenador eliminado.");
+            JOptionPane.showMessageDialog(this, "Entrenador eliminado correctamente.");
         }
     }
 

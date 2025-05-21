@@ -40,16 +40,17 @@ public class SesionClaseDAO {
         }
     }
 
-    public void eliminarSesion(SesionClase sesionClase) {
+    public boolean eliminarSesion(SesionClase sesionClase) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
             session.delete(sesionClase);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
