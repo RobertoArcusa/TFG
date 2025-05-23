@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.io.*;
 import java.net.URL;
 import java.util.Properties;
@@ -42,9 +44,16 @@ public class VentanaPrincipal extends JFrame {
 
         // Configuración de la ventana principal
         setTitle("Panel de administración - SportSystem");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);
+
+        // Tamaño inicial fijo 1440x900
+        setSize(1440, 900);
+        setLocationRelativeTo(null); // Centrar ventana al iniciar
+
+        // setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setMinimumSize(new Dimension(1024, 768));
 
         ImageIcon originalIcon = new ImageIcon(getClass().getResource("/com/robertoarcusa/tfg/resources/Icono_SportSystem.png"));
         Image icono = originalIcon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
@@ -161,7 +170,25 @@ public class VentanaPrincipal extends JFrame {
         // Añadir el tabbedPane al panel principal
         panelPrincipal.add(tabbedPane, BorderLayout.CENTER);
         add(panelPrincipal);
+
+        // Añadir listener para controlar maximizar/restaurar tamaño
+        final Dimension tamañoFijo = new Dimension(1440, 900);
+        addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                if ((e.getNewState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+                    // Ventana maximizada - deja que se maximice normalmente
+                    System.out.println("Ventana maximizada");
+                } else if ((e.getNewState() & Frame.NORMAL) == Frame.NORMAL) {
+                    // Ventana restaurada - vuelve al tamaño fijo
+                    setSize(tamañoFijo);
+                    setLocationRelativeTo(null); // Centrar ventana
+                    System.out.println("Ventana restaurada a tamaño fijo");
+                }
+            }
+        });
     }
+
 
     // Método para abrir la ventana de LoginUsuario
     private void abrirLoginUsuario() {

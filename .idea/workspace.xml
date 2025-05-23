@@ -9,21 +9,34 @@
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Clase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Clase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Entrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Entrenador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Inscripcion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Inscripcion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/SesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/SesionClase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Socio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/clases/Socio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/ClaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/ClaseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/EntrenadorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/EntrenadorDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/InscripcionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/InscripcionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SesionClaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SesionClaseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SocioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SocioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/LoginUsuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/LoginUsuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInscripciones.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInscripciones.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/RegistroUsuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/RegistroUsuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +222,10 @@
       <workItem from="1747679247366" duration="5109000" />
       <workItem from="1747767162281" duration="8515000" />
       <workItem from="1747778178794" duration="277000" />
-      <workItem from="1747848696317" duration="8817000" />
+      <workItem from="1747848696317" duration="9496000" />
+      <workItem from="1747895128898" duration="132000" />
+      <workItem from="1747933537219" duration="12628000" />
+      <workItem from="1748010663965" duration="3280000" />
     </task>
     <servers />
   </component>

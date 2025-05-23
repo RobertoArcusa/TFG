@@ -44,17 +44,17 @@ public class PanelPagos extends JPanel {
     public PanelPagos() {
         setLayout(new BorderLayout());
 
-        JPanel panelCampos = new JPanel(new GridLayout(1, 3, 10, 10));
+        // Panel de campos responsive
+        JPanel panelCampos = new JPanel(new GridBagLayout());
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints pc = new GridBagConstraints();
+        pc.insets = new Insets(5, 10, 5, 10);
+        pc.fill = GridBagConstraints.HORIZONTAL;
+        pc.anchor = GridBagConstraints.NORTHWEST;
+        pc.weighty = 1.0;
 
-        // Añadimos un margen arriba y abajo a panelCampos
-        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));  // 10 píxeles de margen superior e inferior
-
-        JPanel columna1 = new JPanel(new GridBagLayout());
-        JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel(new BorderLayout());
-
-        // Definimos los campos de texto y componentes
-        comboSocio = new JComboBox<String>();
+        // Componentes
+        comboSocio = new JComboBox<>();
         cargarIdsSocios();
         comboSocio.setPreferredSize(new Dimension(250, 45));
 
@@ -99,65 +99,71 @@ public class PanelPagos extends JPanel {
         panelBotonesRecibo.add(btnCargarRecibo);
         panelBotonesRecibo.add(btnEliminarRecibo);
 
-        // Configuración de GridBagConstraints para los componentes
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST; // Alinea la etiqueta a la izquierda
-        gbc.insets = new Insets(0, 0, 0, 35);
+        // Columnas internas
+        JPanel columna1 = new JPanel(new GridBagLayout());
+        JPanel columna2 = new JPanel(new GridBagLayout());
+        JPanel columna3 = new JPanel(new BorderLayout());
 
-        // Rellenamos las columnas con los componentes
+        // Configuración GridBagConstraints para columnas internas
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
+
         // Columna 1
-        columna1.add(new JLabel("SOCIO:"), gbc);
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 0, 5, 35);  // Espacio entre el campo y el siguiente campo
-        columna1.add(comboSocio, gbc);
+        c.gridx = 0; c.gridy = 0;
+        columna1.add(new JLabel("SOCIO:"), c);
+        c.gridx = 1;
+        columna1.add(comboSocio, c);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("FECHA PAGO:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(datePicker, gbc);
+        c.gridx = 0; c.gridy++;
+        columna1.add(new JLabel("FECHA PAGO:"), c);
+        c.gridx = 1;
+        columna1.add(datePicker, c);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("IMPORTE:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(txtImporte, gbc);
+        c.gridx = 0; c.gridy++;
+        columna1.add(new JLabel("IMPORTE:"), c);
+        c.gridx = 1;
+        columna1.add(txtImporte, c);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("TIPO CUOTA:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(comboTipoCuota, gbc);
+        c.gridx = 0; c.gridy++;
+        columna1.add(new JLabel("TIPO CUOTA:"), c);
+        c.gridx = 1;
+        columna1.add(comboTipoCuota, c);
 
         // Columna 2
-        gbc.gridx = 0; gbc.gridy = 0;
-        columna2.add(new JLabel("TIPO PAGO:"), gbc);
-        gbc.gridx = 1;
-        columna2.add(comboTipoPago, gbc);
+        c.gridx = 0; c.gridy = 0;
+        columna2.add(new JLabel("TIPO PAGO:"), c);
+        c.gridx = 1;
+        columna2.add(comboTipoPago, c);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("MÉTODO PAGO:"), gbc);
-        gbc.gridx = 1;
-        columna2.add(comboMetodoPago, gbc);
+        c.gridx = 0; c.gridy++;
+        columna2.add(new JLabel("MÉTODO PAGO:"), c);
+        c.gridx = 1;
+        columna2.add(comboMetodoPago, c);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("ESTADO:"), gbc);
-        gbc.gridx = 1;
-        columna2.add(comboEstado, gbc);
+        c.gridx = 0; c.gridy++;
+        columna2.add(new JLabel("ESTADO:"), c);
+        c.gridx = 1;
+        columna2.add(comboEstado, c);
 
-        // Columna 3
+        // Columna 3 (imagen recibo)
         columna3.add(new JLabel("FOTO RECIBO", SwingConstants.CENTER), BorderLayout.NORTH);
         columna3.add(lblRecibo, BorderLayout.CENTER);
         columna3.add(panelBotonesRecibo, BorderLayout.SOUTH);
 
-        // Añadimos márgenes a las columnas
-        columna1.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0));  // Añadimos margen izquierdo a la columna 1
-        columna3.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));  // Mantenemos el margen derecho en la columna 3
+        // Añadir columnas al panelCampos con pesos para que sean responsivas
+        pc.weightx = 0.33;
+        pc.gridx = 0; pc.gridy = 0;
+        panelCampos.add(columna1, pc);
 
-        // Añadimos las columnas al panelCampos
-        panelCampos.add(columna1);
-        panelCampos.add(columna2);
-        panelCampos.add(columna3);
+        pc.gridx = 1;
+        panelCampos.add(columna2, pc);
 
+        pc.gridx = 2;
+        panelCampos.add(columna3, pc);
+
+        // Tabla y modelo
         modeloTabla = new DefaultTableModel(new String[]{
                 "ID", "Socio", "Fecha", "Importe", "Tipo Cuota", "Tipo Pago", "Método", "Estado"
         }, 0) {
@@ -179,24 +185,22 @@ public class PanelPagos extends JPanel {
         btnEliminar.addActionListener(e -> eliminarPago());
         btnLimpiar.addActionListener(e -> limpiarCampos());
 
-        // --- NUEVO CAMPO DE BÚSQUEDA ---
         txtBuscarPago = new JTextField(20);
         txtBuscarPago.setForeground(Color.GRAY);
         txtBuscarPago.setText("Introduce ID o nombre del socio");
 
-        // FocusListener para limpiar el texto cuando se hace clic
         txtBuscarPago.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
                 if (txtBuscarPago.getText().equals("Introduce ID o nombre del socio")) {
                     txtBuscarPago.setText("");
-                    txtBuscarPago.setForeground(Color.BLACK); // Cambiar el color de la fuente
+                    txtBuscarPago.setForeground(Color.BLACK);
                 }
             }
 
             public void focusLost(FocusEvent e) {
                 if (txtBuscarPago.getText().isEmpty()) {
                     txtBuscarPago.setText("Introduce ID o nombre del socio");
-                    txtBuscarPago.setForeground(Color.GRAY); // Restaurar el color gris
+                    txtBuscarPago.setForeground(Color.GRAY);
                 }
             }
         });
@@ -215,15 +219,28 @@ public class PanelPagos extends JPanel {
             }
         });
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.add(new JLabel("BUSCAR PAGO"));
-        panelBotones.add(txtBuscarPago);
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnGuardar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnLimpiar);
+        // Panel inferior con GridBagLayout para más control responsivo
+        JPanel panelBotones = new JPanel(new GridBagLayout());
+        GridBagConstraints pb = new GridBagConstraints();
+        pb.insets = new Insets(5, 5, 5, 5);
+        pb.gridx = 0; pb.gridy = 0;
+        panelBotones.add(new JLabel("BUSCAR PAGO"), pb);
+        pb.gridx++;
+        pb.weightx = 1.0;
+        pb.fill = GridBagConstraints.HORIZONTAL;
+        panelBotones.add(txtBuscarPago, pb);
+        pb.weightx = 0;
+        pb.fill = GridBagConstraints.NONE;
+        pb.gridx++;
+        panelBotones.add(btnAgregar, pb);
+        pb.gridx++;
+        panelBotones.add(btnGuardar, pb);
+        pb.gridx++;
+        panelBotones.add(btnEliminar, pb);
+        pb.gridx++;
+        panelBotones.add(btnLimpiar, pb);
 
-        // Añadir los componentes al panel principal
+        // Añadir al panel principal
         add(panelCampos, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
         add(panelBotones, BorderLayout.SOUTH);
@@ -240,10 +257,10 @@ public class PanelPagos extends JPanel {
             }
         });
 
-        // Configurar TableRowSorter
         sorter = new TableRowSorter<>(modeloTabla);
         tablaPagos.setRowSorter(sorter);
     }
+
 
     private void agregarNuevoPago() {
         Pago pago = new Pago();

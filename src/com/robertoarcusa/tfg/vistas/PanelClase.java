@@ -36,29 +36,66 @@ public class PanelClase extends JPanel {
     public PanelClase() {
         setLayout(new BorderLayout());
 
-        JPanel panelCampos = new JPanel(new GridLayout(1, 3, 10, 10));
-        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        JPanel panelCampos = new JPanel(new GridBagLayout());
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
+        // --- Columna 1 ---
         JPanel columna1 = new JPanel(new GridBagLayout());
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.weightx = 1.0;
+
+        txtNombreClase = new JTextField(); txtNombreClase.setPreferredSize(new Dimension(350, 40));
+        txtCapacidadMaxima = new JTextField(); txtCapacidadMaxima.setPreferredSize(new Dimension(350, 40));
+        txtSala = new JTextField(); txtSala.setPreferredSize(new Dimension(350, 40));
+
+        c1.gridx = 0; c1.gridy = 0;
+        columna1.add(new JLabel("NOMBRE DE LA CLASE:"), c1); c1.gridx = 1;
+        columna1.add(txtNombreClase, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("CAPACIDAD MÁXIMA:"), c1); c1.gridx = 1;
+        columna1.add(txtCapacidadMaxima, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("SALA:"), c1); c1.gridx = 1;
+        columna1.add(txtSala, c1);
+
+        // --- Columna 2 ---
         JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel(new BorderLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1.0;
 
-        txtNombreClase = new JTextField();
-        txtNombreClase.setPreferredSize(new Dimension(250, 45));
-        txtCapacidadMaxima = new JTextField();
-        txtCapacidadMaxima.setPreferredSize(new Dimension(250, 45));
-        txtSala = new JTextField();
-        txtSala.setPreferredSize(new Dimension(250, 45));
-
-        comboNivelDificultad = new JComboBox<>(new String[] {"PRINCIPIANTE", "INTERMEDIO", "AVANZADO"});
-        comboNivelDificultad.setPreferredSize(new Dimension(250, 45));
+        comboNivelDificultad = new JComboBox<>(new String[]{"PRINCIPIANTE", "INTERMEDIO", "AVANZADO"});
+        comboNivelDificultad.setPreferredSize(new Dimension(350, 40));
         comboEntrenador = new JComboBox<>();
         cargarEntrenadores();
-        comboEntrenador.setPreferredSize(new Dimension(250, 45));
+        comboEntrenador.setPreferredSize(new Dimension(350, 40));
+
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("NIVEL DE DIFICULTAD:"), c2); c2.gridx = 1;
+        columna2.add(comboNivelDificultad, c2);
+
+        c2.gridx = 0; c2.gridy++;
+        columna2.add(new JLabel("ENTRENADOR:"), c2); c2.gridx = 1;
+        columna2.add(comboEntrenador, c2);
+
+        // --- Columna 3: Imagen ---
+        JPanel columna3 = new JPanel(new BorderLayout(5, 5));
+        JLabel lblTituloImagen = new JLabel("FOTO SALA", SwingConstants.CENTER);
+        columna3.add(lblTituloImagen, BorderLayout.NORTH);
 
         lblImagenClase = new JLabel("Sin foto", SwingConstants.CENTER);
         lblImagenClase.setPreferredSize(new Dimension(150, 150));
         lblImagenClase.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        columna3.add(lblImagenClase, BorderLayout.CENTER);
 
         JButton btnCargarImagen = new JButton("Cargar Imagen");
         btnCargarImagen.addActionListener(e -> cargarImagenClase());
@@ -73,48 +110,26 @@ public class PanelClase extends JPanel {
         JPanel panelBotonesImagen = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panelBotonesImagen.add(btnCargarImagen);
         panelBotonesImagen.add(btnEliminarImagen);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 5, 35);
-
-        columna1.add(new JLabel("NOMBRE DE LA CLASE:"), gbc); gbc.gridx = 1;
-        columna1.add(txtNombreClase, gbc);
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("CAPACIDAD MÁXIMA:"), gbc); gbc.gridx = 1;
-        columna1.add(txtCapacidadMaxima, gbc);
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("SALA:"), gbc); gbc.gridx = 1;
-        columna1.add(txtSala, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 0;
-        columna2.add(new JLabel("NIVEL DE DIFICULTAD:"), gbc); gbc.gridx = 1;
-        columna2.add(comboNivelDificultad, gbc);
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("ENTRENADOR:"), gbc); gbc.gridx = 1;
-        columna2.add(comboEntrenador, gbc);
-
-        columna3.add(new JLabel("FOTO SALA", SwingConstants.CENTER), BorderLayout.NORTH);
-        columna3.add(lblImagenClase, BorderLayout.CENTER);
         columna3.add(panelBotonesImagen, BorderLayout.SOUTH);
 
-        columna1.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0));
-        columna3.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));
+        // Añadir columnas al panel principal
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
+        panelCampos.add(columna1, gbc);
 
-        panelCampos.add(columna1);
-        panelCampos.add(columna2);
-        panelCampos.add(columna3);
+        gbc.gridx = 1; gbc.weightx = 0.4;
+        panelCampos.add(columna2, gbc);
 
+        gbc.gridx = 2; gbc.weightx = 0.2;
+        panelCampos.add(columna3, gbc);
+
+        // Tabla
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Capacidad", "Sala", "Nivel Dificultad", "Entrenador"}, 0) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            public boolean isCellEditable(int row, int column) { return false; }
         };
-
         tablaClases = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaClases);
 
+        // Botones y búsqueda
         btnAgregar = new JButton("Añadir Clase");
         btnGuardar = new JButton("Modificar Clase");
         btnEliminar = new JButton("Eliminar Clase");
@@ -134,32 +149,40 @@ public class PanelClase extends JPanel {
             }
         });
 
-        JPanel contenedorSuperior = new JPanel(new BorderLayout());
-        contenedorSuperior.add(panelCampos, BorderLayout.CENTER);
+        JPanel panelContenedorInferior = new JPanel();
+        panelContenedorInferior.setLayout(new GridBagLayout());
+        panelContenedorInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints ci = new GridBagConstraints();
+        ci.insets = new Insets(5, 5, 5, 5);
+        ci.gridx = 0;
+        ci.gridy = 0;
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.add(new JLabel("BUSCAR CLASE"));
-        panelBotones.add(txtBuscarClase);
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnGuardar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnLimpiarCampos);
+        // Panel búsqueda + botones
+        JPanel panelBusquedaYBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        add(contenedorSuperior, BorderLayout.NORTH);
+        panelBusquedaYBotones.add(new JLabel("BUSCAR CLASE"));
+        panelBusquedaYBotones.add(txtBuscarClase);
+
+        panelBusquedaYBotones.add(btnAgregar);
+        panelBusquedaYBotones.add(btnGuardar);
+        panelBusquedaYBotones.add(btnEliminar);
+        panelBusquedaYBotones.add(btnLimpiarCampos);
+
+        panelContenedorInferior.add(panelBusquedaYBotones, ci);
+
+
+        add(panelCampos, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelBotones, BorderLayout.SOUTH);
+        add(panelContenedorInferior, BorderLayout.SOUTH);
 
+        // Cargamos los datos y aplicamos restricciones por tipo de usuario
         Socio usuarioActual = Sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
-            // Ocultar campos y botones
             panelCampos.setVisible(false);
-            panelBotones.setVisible(false);
+            panelContenedorInferior.setVisible(false);
 
-            // Crear nuevo modelo sin la columna ID
             DefaultTableModel modeloBasico = new DefaultTableModel(new String[]{"Nombre", "Capacidad", "Sala", "Nivel Dificultad", "Entrenador"}, 0) {
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
+                public boolean isCellEditable(int row, int column) { return false; }
             };
 
             for (Clase c : ClaseDAO.obtenerTodasLasClases()) {
@@ -187,7 +210,6 @@ public class PanelClase extends JPanel {
             });
         }
     }
-
 
     private void cargarDatosClase(int id) {
         ClaseDAO dao = new ClaseDAO();

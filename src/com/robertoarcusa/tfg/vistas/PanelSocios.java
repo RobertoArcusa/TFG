@@ -33,40 +33,69 @@ public class PanelSocios extends JPanel {
     private JTextField txtBuscarSocio;
 
     public PanelSocios() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10)); // Pequeños gaps
 
-        // Crear panelCampos
-        JPanel panelCampos = new JPanel(new GridLayout(1, 3, 10, 10));
+        // PANEL CAMPOS CON GRIDBAGLAYOUT
+        JPanel panelCampos = new JPanel(new GridBagLayout());
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // Añadir un margen arriba y abajo a panelCampos
-        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));  // 10 píxeles de margen superior e inferior
-
-        // Crear las columnas con GridLayout
+        // --- COLUMNA 1 ---
         JPanel columna1 = new JPanel(new GridBagLayout());
-        JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel(new BorderLayout());
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.weightx = 1.0;  // Para que el JTextField se expanda horizontalmente
 
+        c1.gridx = 0; c1.gridy = 0;
+        columna1.add(new JLabel("NOMBRE:"), c1);
+        c1.gridx = 1;
         txtNombre = new JTextField();
-        txtNombre.setPreferredSize(new Dimension(250, 45));
+        txtNombre.setPreferredSize(new Dimension(350, 40));  // Tamaño preferido mayor
+        columna1.add(txtNombre, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("APELLIDOS:"), c1);
+        c1.gridx = 1;
         txtApellidos = new JTextField();
-        txtApellidos.setPreferredSize(new Dimension(250, 45));
+        txtApellidos.setPreferredSize(new Dimension(350, 40));
+        columna1.add(txtApellidos, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("DNI:"), c1);
+        c1.gridx = 1;
         txtDni = new JTextField();
-        txtDni.setPreferredSize(new Dimension(250, 45));
+        txtDni.setPreferredSize(new Dimension(350, 40));
+        columna1.add(txtDni, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("TELÉFONO:"), c1);
+        c1.gridx = 1;
         txtTelefono = new JTextField();
-        txtTelefono.setPreferredSize(new Dimension(250, 45));
+        txtTelefono.setPreferredSize(new Dimension(350, 40));
+        columna1.add(txtTelefono, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("CONTRASEÑA:"), c1);
+        c1.gridx = 1;
         txtContrasena = new JTextField();
-        txtContrasena.setPreferredSize(new Dimension(250, 45));
+        txtContrasena.setPreferredSize(new Dimension(350, 40));
+        columna1.add(txtContrasena, c1);
 
-        comboMembresia = new JComboBox<>(TipoMembresia.values());
-        comboMembresia.setPreferredSize(new Dimension(250, 45));
-        comboTipoUsuario = new JComboBox<>(TipoUsuario.values());
-        comboTipoUsuario.setPreferredSize(new Dimension(250, 45));
-        if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
-            comboTipoUsuario.setEnabled(false); // Deshabilita el combo de tipo usuario
-            //comboTipoUsuario.setVisible(false); // Oculta el combo de tipo usuario
-        }
 
-        // Configuración de JDatePicker
+        // --- COLUMNA 2 ---
+        JPanel columna2 = new JPanel(new GridBagLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1.0;
+
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("FECHA NACIMIENTO:"), c2);
+        c2.gridx = 1;
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
         p.put("text.today", "Hoy");
@@ -74,97 +103,72 @@ public class PanelSocios extends JPanel {
         p.put("text.year", "Año");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new FormateadorFecha());
-        datePicker.setPreferredSize(new Dimension(250, 45));
+        datePicker.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        columna2.add(datePicker, c2);
 
-        // Foto de perfil
+        c2.gridx = 0; c2.gridy++;
+        columna2.add(new JLabel("TIPO USUARIO:"), c2);
+        c2.gridx = 1;
+        comboTipoUsuario = new JComboBox<>(TipoUsuario.values());
+        comboTipoUsuario.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
+            comboTipoUsuario.setEnabled(false);
+        }
+        columna2.add(comboTipoUsuario, c2);
+
+        c2.gridx = 0; c2.gridy++;
+        columna2.add(new JLabel("TIPO MEMBRESÍA:"), c2);
+        c2.gridx = 1;
+        comboMembresia = new JComboBox<>(TipoMembresia.values());
+        comboMembresia.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        columna2.add(comboMembresia, c2);
+
+
+        // --- COLUMNA 3: FOTO ---
+        JPanel columna3 = new JPanel(new BorderLayout(5,5));
+        JLabel lblTituloFoto = new JLabel("FOTO SOCIO", SwingConstants.CENTER);
+        columna3.add(lblTituloFoto, BorderLayout.NORTH);
         lblFoto = new JLabel("Sin foto", SwingConstants.CENTER);
-        lblFoto.setPreferredSize(new Dimension(150, 150));
         lblFoto.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        columna3.add(lblFoto, BorderLayout.CENTER);
 
-        // Botones para cargar/eliminar foto
+        JPanel panelBotonesFoto = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         JButton btnCargarFoto = new JButton("Cargar Foto");
         btnCargarFoto.addActionListener(e -> cargarFoto());
-
         JButton btnEliminarFoto = new JButton("Eliminar Foto");
         btnEliminarFoto.addActionListener(e -> {
             fotoPerfilSeleccionada = null;
             lblFoto.setIcon(null);
             lblFoto.setText("Sin foto");
         });
-
-        // Panel para botones de foto
-        JPanel panelBotonesFoto = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panelBotonesFoto.add(btnCargarFoto);
         panelBotonesFoto.add(btnEliminarFoto);
+        columna3.add(panelBotonesFoto, BorderLayout.SOUTH);
 
-        // Configuración de GridBagConstraints para los componentes
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; // Coloca la etiqueta en la primera columna
-        gbc.gridy = 0; // Fila
-        gbc.anchor = GridBagConstraints.WEST; // Alinea la etiqueta a la izquierda
-        gbc.insets = new Insets(0, 0, 0, 35);  // Muy pequeño margen entre el label y el campo
-
-        // Rellenamos las columnas con los componentes
-        // Columna 1
-        columna1.add(new JLabel("NOMBRE:"), gbc);
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 0, 5, 35);  // Espacio entre el campo y el siguiente campo
-        columna1.add(txtNombre, gbc);
-
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("APELLIDOS:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(txtApellidos, gbc);
-
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("DNI:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(txtDni, gbc);
-
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("TELÉFONO:"), gbc);
-        gbc.gridx = 1;
-        columna1.add(txtTelefono, gbc);
-
-        // Columna 2
+        // AGREGAMOS LAS COLUMNAS AL PANEL CAMPOS
         gbc.gridx = 0; gbc.gridy = 0;
-        columna2.add(new JLabel("FECHA NACIMIENTO:"), gbc);
+        gbc.weightx = 0.4;
+        gbc.fill = GridBagConstraints.BOTH;
+        panelCampos.add(columna1, gbc);
+
         gbc.gridx = 1;
-        columna2.add(datePicker, gbc);
+        gbc.weightx = 0.4;
+        panelCampos.add(columna2, gbc);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("TIPO USUARIO:"), gbc);
-        gbc.gridx = 1;
-        columna2.add(comboTipoUsuario, gbc);
+        gbc.gridx = 2;
+        gbc.weightx = 0.2;
+        panelCampos.add(columna3, gbc);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("TIPO MEMBRESÍA:"), gbc);
-        gbc.gridx = 1;
-        columna2.add(comboMembresia, gbc);
-
-        // Columna 3
-        columna3.add(new JLabel("FOTO SOCIO", SwingConstants.CENTER), BorderLayout.NORTH);
-        columna3.add(lblFoto, BorderLayout.CENTER);
-        columna3.add(panelBotonesFoto, BorderLayout.SOUTH); // Panel con botones de foto
-
-        // Añadir márgenes a las columnas
-        columna1.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0));  // Añadir margen izquierdo a la columna 1
-        columna3.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));  // Mantener el margen derecho en columna 3
-
-        // Añadir las columnas al panelCampos
-        panelCampos.add(columna1);
-        panelCampos.add(columna2);
-        panelCampos.add(columna3);
-
+        // TABLA Y MODELO
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Apellidos", "DNI", "Teléfono", "Fecha nacimiento", "Tipo membresía", "Tipo usuario"}, 0) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
         tablaSocios = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaSocios);
 
+        // BOTONES ACCIÓN
         btnAgregar = new JButton("Añadir socio");
         btnGuardar = new JButton("Modificar socio");
         btnEliminar = new JButton("Eliminar socio");
@@ -175,11 +179,9 @@ public class PanelSocios extends JPanel {
         btnEliminar.addActionListener(e -> eliminarSocio());
         btnLimpiar.addActionListener(e -> limpiarCampos());
 
-        // Inicializamos el campo de texto de búsqueda
+        // BUSCADOR
         txtBuscarSocio = new JTextField(20);
-        setTextFieldHint(txtBuscarSocio, "Introduce un nombre de socio");  // Añadir hint al campo de búsqueda
-
-        // Añadir un listener para detectar cuando se escribe en el campo de búsqueda
+        setTextFieldHint(txtBuscarSocio, "Introduce un nombre de socio");
         txtBuscarSocio.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -187,34 +189,39 @@ public class PanelSocios extends JPanel {
             }
         });
 
-        // Panel de búsqueda con su etiqueta
-        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Panel para la búsqueda alineado a la izquierda
-        JLabel labelBuscarSocio = new JLabel("BUSCAR SOCIO");
-        panelBusqueda.add(labelBuscarSocio);  // Añadir la etiqueta "BUSCAR SOCIO"
-        panelBusqueda.add(txtBuscarSocio);   // Añadir el campo de búsqueda
+        // Panel combinado: búsqueda + botones, centrado
+        JPanel panelBusquedaBotones = new JPanel(new GridBagLayout());
+        panelBusquedaBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints ci = new GridBagConstraints();
+        ci.insets = new Insets(5, 5, 5, 5);
+        ci.gridx = 0;
+        ci.gridy = 0;
 
-        // Le damos un pequeño margen a la derecha del campo de búsqueda
-        panelBusqueda.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 5));  // Margen: arriba, izquierda, abajo, derecha (donde 15 es para separarlo de los botones)
+        // Subpanel con FlowLayout centrado
+        JPanel panelCentral = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        // Panel de botones donde se colocan los botones
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));  // Los botones centrados
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnGuardar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnLimpiar);
+        // Añadir búsqueda
+        panelCentral.add(new JLabel("BUSCAR SOCIO"));
+        panelCentral.add(txtBuscarSocio);
 
-        // Panel que contiene tanto la búsqueda como los botones
-        JPanel panelBusquedaBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));  // Alineamos los componentes al centro
-        panelBusquedaBotones.add(panelBusqueda);  // Añadimos el panel de búsqueda al panel principal
-        panelBusquedaBotones.add(panelBotones);   // Añadimos el panel de botones al panel principal
+        // Añadir botones
+        panelCentral.add(btnAgregar);
+        panelCentral.add(btnGuardar);
+        panelCentral.add(btnEliminar);
+        panelCentral.add(btnLimpiar);
 
-        // Añadir el panel completo (de búsqueda y botones) al panel principal
+        // Agregar el panel central al panel con GridBagLayout
+        panelBusquedaBotones.add(panelCentral, ci);
+
+
+        // Añadir a layout principal
         add(panelCampos, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
         add(panelBusquedaBotones, BorderLayout.SOUTH);
 
         cargarSocios();
 
+        // Selección tabla para cargar datos
         tablaSocios.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int fila = tablaSocios.getSelectedRow();

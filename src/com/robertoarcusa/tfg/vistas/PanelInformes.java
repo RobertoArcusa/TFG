@@ -25,30 +25,35 @@ public class PanelInformes extends JPanel {
     private JButton btnInformeTotalEntrenadoresEspecialidad;
 
     public PanelInformes() {
-        setLayout(new BorderLayout());
+        // Layout vertical para apilar título y panel de botones
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         // TÍTULO
         JLabel titulo = new JLabel("GENERADOR DE INFORMES", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 45));
+        titulo.setFont(new Font("Arial", Font.BOLD, 35));
         titulo.setForeground(new Color(0, 102, 204));
-        titulo.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
-        add(titulo, BorderLayout.NORTH);
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(titulo);
+
+        // Espacio vertical entre título y botones (pequeño)
+        add(Box.createRigidArea(new Dimension(0, 5)));
 
         // PANEL DE BOTONES
         JPanel panelBotones = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15); // Margen entre botones
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        // Botones
+        // Crear botones (igual que antes)
         btnInformeSocios = new JButton("LISTADO DE SOCIOS");
         btnInformeEntrenadores = new JButton("LISTADO ENTRENADORES POR ESPECIALIDAD");
         btnInformeClases = new JButton("LISTADO MEDIA CAPACIDAD MÁXIMA CLASES");
-        btnInformeTotalEntrenadoresEspecialidad = new JButton("LISTADO TOTAL ENTRENADORES POR ESPECIALIDAD");
+        btnInformeTotalEntrenadoresEspecialidad = new JButton("TOTAL ENTRENADORES POR ESPECIALIDAD");
         JButton btnGraficoPagos = new JButton("LISTADO GRÁFICO TIPOS DE PAGO");
 
-        // Tamaño y fuente
-        Dimension buttonSize = new Dimension(500, 180);
+        Dimension buttonSize = new Dimension(400, 100);
         Font buttonFont = new Font("Arial", Font.PLAIN, 16);
 
         JButton[] botones = {
@@ -64,22 +69,27 @@ public class PanelInformes extends JPanel {
             boton.setFont(buttonFont);
         }
 
-        // Botones en cuadrícula 2x2
-        gbc.gridx = 0; gbc.gridy = 0; panelBotones.add(btnInformeSocios, gbc);
-        gbc.gridx = 1; gbc.gridy = 0; panelBotones.add(btnInformeEntrenadores, gbc);
-        gbc.gridx = 0; gbc.gridy = 1; panelBotones.add(btnInformeClases, gbc);
-        gbc.gridx = 1; gbc.gridy = 1; panelBotones.add(btnInformeTotalEntrenadoresEspecialidad, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 1;
+        panelBotones.add(btnInformeSocios, gbc);
 
-        // Botón gráfico pagos (ocupa 2 columnas)
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2; // <<--- OCUPA DOS COLUMNAS
+        gbc.gridx = 1; gbc.gridy = 0;
+        panelBotones.add(btnInformeEntrenadores, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 1;
+        panelBotones.add(btnInformeClases, gbc);
+
+        gbc.gridx = 1; gbc.gridy = 1;
+        panelBotones.add(btnInformeTotalEntrenadoresEspecialidad, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
         panelBotones.add(btnGraficoPagos, gbc);
-        gbc.gridwidth = 1; // Restablecer
 
-        add(panelBotones, BorderLayout.CENTER);
+        // **Aquí descomenta para centrar el panel**
+        panelBotones.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // EVENTOS
+        add(panelBotones);
+
+        // EVENTOS igual que antes
         btnInformeSocios.addActionListener(e -> generarInformeSocios());
 
         btnInformeEntrenadores.addActionListener(e -> {
@@ -93,11 +103,10 @@ public class PanelInformes extends JPanel {
 
         btnInformeTotalEntrenadoresEspecialidad.addActionListener(e -> generarInformeTotEntrenadoresEspecialidad());
 
-        btnGraficoPagos.addActionListener(e -> {
-            // Aquí va la llamada al método correspondiente que generará el informe gráfico
-            generarGraficoTiposDePago();
-        });
+        btnGraficoPagos.addActionListener(e -> generarGraficoTiposDePago());
     }
+
+
 
     public void generarInformeSocios() {
         try {
@@ -120,8 +129,6 @@ public class PanelInformes extends JPanel {
 
             // Crear los parámetros para el informe (si necesitas algunos)
             Map<String, Object> parametros = new HashMap<>();
-            // Por ejemplo, si tienes parámetros en tu informe (no los tienes ahora mismo, pero si fuera el caso):
-            // parametros.put("parametro1", valor);
 
             // Llenar el informe con los datos
             JasperPrint jasperPrint = JasperFillManager.fillReport(informe, parametros, conexion);

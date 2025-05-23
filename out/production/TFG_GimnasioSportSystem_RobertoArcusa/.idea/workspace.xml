@@ -7,11 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/DatabaseInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TFG_GimnasioSportSystem_RobertoArcusa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TFG_GimnasioSportSystem_RobertoArcusa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -197,7 +203,9 @@
       <workItem from="1747679247366" duration="5109000" />
       <workItem from="1747767162281" duration="8515000" />
       <workItem from="1747778178794" duration="277000" />
-      <workItem from="1747848696317" duration="1949000" />
+      <workItem from="1747848696317" duration="9496000" />
+      <workItem from="1747895128898" duration="132000" />
+      <workItem from="1747933537219" duration="12628000" />
     </task>
     <servers />
   </component>

@@ -34,14 +34,13 @@ public class PanelInscripciones extends JPanel {
     public PanelInscripciones() {
         setLayout(new BorderLayout());
 
-        // Crear panelCampos
-        JPanel panelCampos = new JPanel(new GridLayout(1, 3, 10, 10));
-        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-
-        // Crear las columnas
-        JPanel columna1 = new JPanel(new GridBagLayout());
-        JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel(new GridBagLayout());
+        // Panel de campos con GridBagLayout para hacerlo responsive
+        JPanel panelCampos = new JPanel(new GridBagLayout());
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints pc = new GridBagConstraints();
+        pc.insets = new Insets(5, 10, 5, 10);
+        pc.fill = GridBagConstraints.HORIZONTAL;
+        pc.anchor = GridBagConstraints.CENTER;
 
         comboSocios = new JComboBox<>();
         comboSocios.setPreferredSize(new Dimension(250, 45));
@@ -54,41 +53,38 @@ public class PanelInscripciones extends JPanel {
         cargarSocios();
         cargarSesiones();
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 0, 15);
+        // Panel columna 1: SOCIO
+        JPanel columna1 = new JPanel(new GridBagLayout());
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.gridx = 0; c1.gridy = 0;
+        columna1.add(new JLabel("SOCIO:"), c1);
+        c1.gridx = 1;
+        columna1.add(comboSocios, c1);
 
-        // Columna 1 (Socio)
-        columna1.add(new JLabel("SOCIO:"), gbc);
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 0, 0, 15);
-        columna1.add(comboSocios, gbc);
+        // Panel columna 2: SESIÓN
+        JPanel columna2 = new JPanel(new GridBagLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("SESIÓN CLASE:"), c2);
+        c2.gridx = 1;
+        columna2.add(comboSesiones, c2);
 
-        // Columna 2 (Sesión Clase)
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        columna2.add(new JLabel("SESIÓN CLASE:"), gbc);
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 0, 0, 15);
-        columna2.add(comboSesiones, gbc);
+        // Panel columna 3: CAPACIDAD
+        JPanel columna3 = new JPanel(new GridBagLayout());
+        GridBagConstraints c3 = new GridBagConstraints();
+        c3.insets = new Insets(5, 5, 5, 5);
+        c3.gridx = 0; c3.gridy = 0;
+        columna3.add(lblCapacidadDisponible, c3);
 
-        // Columna 3 (Fecha Inscripción)
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 0, 0, 15);
-
-        // Añadir el JLabel de capacidad disponible en la última columna
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        columna3.add(lblCapacidadDisponible, gbc);
-
-        // Añadir las columnas al panelCampos
-        panelCampos.add(columna1);
-        panelCampos.add(columna2);
-        panelCampos.add(columna3);
+        // Añadir columnas al panelCampos
+        pc.gridx = 0; pc.gridy = 0;
+        panelCampos.add(columna1, pc);
+        pc.gridx = 1;
+        panelCampos.add(columna2, pc);
+        pc.gridx = 2;
+        panelCampos.add(columna3, pc);
 
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Socio", "Sesión", "Fecha Inscripción"}, 0) {
             public boolean isCellEditable(int row, int column) {
@@ -99,15 +95,18 @@ public class PanelInscripciones extends JPanel {
         tablaInscripciones = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaInscripciones);
 
+        // Botones
         btnAgregar = new JButton("Añadir Inscripción");
-        btnModificar = new JButton(("Modificar Inscripción"));
+        btnModificar = new JButton("Modificar Inscripción");
         btnEliminar = new JButton("Eliminar Inscripción");
         btnLimpiarCampos = new JButton("Limpiar Campos");
+
         btnAgregar.addActionListener(e -> agregarInscripcion());
         btnModificar.addActionListener(e -> modificarInscripcion());
         btnEliminar.addActionListener(e -> eliminarInscripcion());
         btnLimpiarCampos.addActionListener(e -> limpiarCampos());
 
+        // Campo de búsqueda
         txtBuscarInscripcion = new JTextField(20);
         txtBuscarInscripcion.setForeground(Color.GRAY);
         txtBuscarInscripcion.setText("Introduce un nombre de un usuario");
@@ -134,21 +133,31 @@ public class PanelInscripciones extends JPanel {
             }
         });
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.add(new JLabel("BUSCAR INSCRIPCIÓN"));
-        panelBotones.add(txtBuscarInscripcion);
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnModificar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnLimpiarCampos);
+        // Panel inferior combinado
+        JPanel panelInferior = new JPanel(new GridBagLayout());
+        GridBagConstraints pi = new GridBagConstraints();
+        pi.insets = new Insets(5, 5, 5, 5);
+        pi.gridx = 0; pi.gridy = 0;
+        panelInferior.add(new JLabel("BUSCAR INSCRIPCIÓN"), pi);
+        pi.gridx++;
+        panelInferior.add(txtBuscarInscripcion, pi);
+        pi.gridx++;
+        panelInferior.add(btnAgregar, pi);
+        pi.gridx++;
+        panelInferior.add(btnModificar, pi);
+        pi.gridx++;
+        panelInferior.add(btnEliminar, pi);
+        pi.gridx++;
+        panelInferior.add(btnLimpiarCampos, pi);
 
+        // Añadir todo al layout principal
         add(panelCampos, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelBotones, BorderLayout.SOUTH);
+        add(panelInferior, BorderLayout.SOUTH);
 
+        // Carga datos
         cargarInscripciones();
 
-        // (Empieza exactamente igual que tu clase original)
         tablaInscripciones.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int filaVista = tablaInscripciones.getSelectedRow();
@@ -165,9 +174,10 @@ public class PanelInscripciones extends JPanel {
         tablaInscripciones.setRowSorter(sorter);
 
         if (Sesion.esBasic()) {
-            btnLimpiarCampos.setVisible(false);  // Ocultar el botón si el usuario es BASIC
+            btnLimpiarCampos.setVisible(false);
         }
     }
+
 
     private void agregarInscripcion() {
         Socio socioSeleccionado = (Socio) comboSocios.getSelectedItem();
@@ -350,7 +360,7 @@ public class PanelInscripciones extends JPanel {
 
             modeloTabla.addRow(new Object[]{
                     inscripcion.getIdInscripcion(),
-                    socio.getNombreSocio(),
+                    socio.getNombreSocio() + " " + socio.getApellidosSocio(),
                     sesionTexto,
                     inscripcion.getFechaInscripcion()
             });
