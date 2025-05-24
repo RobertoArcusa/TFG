@@ -69,10 +69,11 @@ public class SesionClase {
         this.clase = clase;
     }
 
-    @OneToMany(mappedBy = "sesionclase")
+    @OneToMany(mappedBy = "sesionclase", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Inscripcion> getInscripciones() {
         return inscripciones;
     }
+
 
     public void setInscripciones(List<Inscripcion> inscripciones) {
         this.inscripciones = inscripciones;

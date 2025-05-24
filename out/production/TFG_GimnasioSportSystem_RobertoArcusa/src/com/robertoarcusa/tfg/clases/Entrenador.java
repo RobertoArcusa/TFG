@@ -120,7 +120,7 @@ public class Entrenador {
         return result;
     }
 
-    @OneToMany(mappedBy = "entrenador")
+    @OneToMany(mappedBy = "entrenador", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Clase> getClases() {
         return clases;
     }

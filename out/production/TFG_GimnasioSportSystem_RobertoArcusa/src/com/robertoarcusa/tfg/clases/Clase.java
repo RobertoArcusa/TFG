@@ -108,10 +108,11 @@ public class Clase {
         this.entrenador = entrenador;
     }
 
-    @OneToMany(mappedBy = "clase")
+    @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<SesionClase> getSesiones() {
         return sesiones;
     }
+
 
     public void setSesiones(List<SesionClase> sesiones) {
         this.sesiones = sesiones;
