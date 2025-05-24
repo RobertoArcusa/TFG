@@ -297,7 +297,6 @@ public class PanelInformes extends JPanel {
         }
     }
 
-
     // Getters si necesitas manejar los eventos desde fuera
     public JButton getBtnInformeSocios() {
         return btnInformeSocios;

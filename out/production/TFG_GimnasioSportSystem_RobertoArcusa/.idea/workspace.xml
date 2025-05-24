@@ -11,12 +11,30 @@
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/enums/TipoMembresia.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/enums/TipoMembresia.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelInformes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/PanelSocios.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/com/robertoarcusa/tfg/vistas/VentanaPrincipal.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/informeGraficoTipoPago.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/informeGraficoTipoPago.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/sql/bbdd_gimnasio.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/sql/bbdd_gimnasio.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/enums/TipoMembresia.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/enums/TipoMembresia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TFG_GimnasioSportSystem_RobertoArcusa/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/enums/TipoMembresia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/enums/TipoMembresia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes/informeGraficoTipoPago.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/resources/sql/bbdd_gimnasio.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,24 +76,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/robertoarcusa/tfg/resources/sql" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/robertoarcusa/tfg/informes" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.27594072" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources\sql" />
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\lib" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\informes" />
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources" />
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src" />
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="com.robertoarcusa.tfg" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\informes" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources\sql" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\lib" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg\resources" />
+      <recent name="C:\Users\Roberto\Desktop\TFG_Gimnasio_RobertoArcusa\TFG_GimnasioSportSystem_RobertoArcusa\src\com\robertoarcusa\tfg" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -206,6 +225,7 @@
       <workItem from="1747848696317" duration="9496000" />
       <workItem from="1747895128898" duration="132000" />
       <workItem from="1747933537219" duration="12628000" />
+      <workItem from="1748010663965" duration="3280000" />
     </task>
     <servers />
   </component>

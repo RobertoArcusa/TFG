@@ -44,15 +44,9 @@ public class VentanaPrincipal extends JFrame {
 
         // Configuración de la ventana principal
         setTitle("Panel de administración - SportSystem");
-
-        // Tamaño inicial fijo 1440x900
-        setSize(1440, 900);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Centrar ventana al iniciar
-
-        // setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setMinimumSize(new Dimension(1024, 768));
 
         ImageIcon originalIcon = new ImageIcon(getClass().getResource("/com/robertoarcusa/tfg/resources/Icono_SportSystem.png"));
@@ -178,17 +172,15 @@ public class VentanaPrincipal extends JFrame {
             public void windowStateChanged(WindowEvent e) {
                 if ((e.getNewState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
                     // Ventana maximizada - deja que se maximice normalmente
-                    System.out.println("Ventana maximizada");
+
                 } else if ((e.getNewState() & Frame.NORMAL) == Frame.NORMAL) {
                     // Ventana restaurada - vuelve al tamaño fijo
                     setSize(tamañoFijo);
                     setLocationRelativeTo(null); // Centrar ventana
-                    System.out.println("Ventana restaurada a tamaño fijo");
                 }
             }
         });
     }
-
 
     // Método para abrir la ventana de LoginUsuario
     private void abrirLoginUsuario() {

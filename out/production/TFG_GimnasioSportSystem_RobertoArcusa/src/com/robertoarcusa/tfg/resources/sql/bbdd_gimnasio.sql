@@ -9,8 +9,8 @@ CREATE TABLE Socio (
     dni VARCHAR(20) UNIQUE NOT NULL,
     fecha_nacimiento DATE,
     telefono VARCHAR(15),
-    tipo_membresia ENUM('BÁSICA', 'PREMIUM', 'VIP'),
-    foto_perfil BLOB,
+    tipo_membresia ENUM('BASICA', 'PREMIUM', 'VIP'),
+    foto_perfil LONGBLOB,
     tipo_usuario ENUM('ADMIN','EDITOR','BASIC') NOT NULL,
     contrasena varchar(300) NOT NULL
 );
@@ -23,7 +23,7 @@ CREATE TABLE Entrenador (
     telefono VARCHAR(15) NOT NULL,
     fecha_contratacion DATE NOT NULL,
     salario DOUBLE NOT NULL,
-    foto_perfil BLOB
+    foto_perfil LONGBLOB
 );
 
 CREATE TABLE Clase (
@@ -33,7 +33,7 @@ CREATE TABLE Clase (
     capacidad_maxima INT NOT NULL,
     nivel_dificultad ENUM('PRINCIPIANTE', 'INTERMEDIO', 'AVANZADO') NOT NULL,
     sala VARCHAR(50) NOT NULL,
-    imagen_clase BLOB,
+    imagen_clase LONGBLOB,
     FOREIGN KEY (id_entrenador) REFERENCES Entrenador(id_entrenador) ON DELETE CASCADE
 );
 
@@ -54,7 +54,7 @@ CREATE TABLE Pago (
     tipo_pago ENUM ('MATRICULA','CUOTA','INCIDENCIA') NOT NULL,
     metodo_pago ENUM('EFECTIVO', 'TARJETA', 'TRANSFERENCIA') NOT NULL,
     estado ENUM('PAGADO', 'PENDIENTE') NOT NULL,
-    recibo BLOB,
+    recibo LONGBLOB,
     FOREIGN KEY (id_socio) REFERENCES Socio(id_socio) ON DELETE CASCADE
 );
 
@@ -71,13 +71,13 @@ INSERT INTO Socio (nombre_socio, apellidos_socio, dni, fecha_nacimiento, telefon
 ('Carlos', 'Martínez', '11111111H', '1985-03-12', '600123456', 'PREMIUM', NULL, 'ADMIN', '$2a$12$e5Bme/Gzcqc83Tdwfq9zDOU4k3jb3wsibcgEg1/pDdOR/ssbTJat.'),
 ('Roberto', 'Alonso', '12345678Z', '1994-11-24', '606997856', 'PREMIUM', NULL, 'EDITOR', '$2a$12$Zdx0DyvzKjYd1Yo6FRb8aeciKLUfeZrug8cOEBFkw2n4eo65QAly.'),
 ('Laura', 'Gómez', '22222222J', '1990-07-23', '612345678', 'VIP', NULL, 'BASIC', '$2a$12$Frgc.4C4xgeYQXhtCK3cAus9vqU16YqYzOpIuHZOqFU9Vscf1paH.'),
-('Miguel', 'Sánchez', '00000004G', '1988-11-05', '698765432', 'BÁSICA', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Miguel', 'Sánchez', '00000004G', '1988-11-05', '698765432', 'BASICA', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Lucía', 'Fernández', '87654321X', '1992-04-18', '611223344', 'PREMIUM', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Javier', 'López', '88990011K', '1987-06-10', '633445566', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
-('Ana', 'Ruiz', '14151617Q', '1993-09-25', '644556677', 'BÁSICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Ana', 'Ruiz', '14151617Q', '1993-09-25', '644556677', 'BASICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Diego', 'Morales', '00000001R', '1980-12-03', '655667788', 'PREMIUM', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Sofía', 'Navarro', '00000002W', '1996-01-30', '666778899', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
-('Pablo', 'Torres', '00000003A', '1991-08-14', '677889900', 'BÁSICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO');
+('Pablo', 'Torres', '00000003A', '1991-08-14', '677889900', 'BASICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO');
 
 INSERT INTO Entrenador (nombre_entrenador, apellidos_entrenador, especialidad, telefono, fecha_contratacion, salario, foto_perfil) VALUES
 ('Juan', 'Pérez', 'Fitness', '612345678', '2020-01-15', 1800.00, NULL),
