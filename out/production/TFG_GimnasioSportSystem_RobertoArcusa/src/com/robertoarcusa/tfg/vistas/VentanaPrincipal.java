@@ -152,6 +152,7 @@ public class VentanaPrincipal extends JFrame {
             Component selected = tabbedPane.getSelectedComponent();
             if (selected instanceof PanelClase) {
                 ((PanelClase) selected).cargarEntrenadores();
+                ((PanelClase) selected).cargarClases();
             } else if (selected instanceof PanelSesionClase) {
                 ((PanelSesionClase) selected).cargarClases();
                 ((PanelSesionClase) selected).cargarSesiones();

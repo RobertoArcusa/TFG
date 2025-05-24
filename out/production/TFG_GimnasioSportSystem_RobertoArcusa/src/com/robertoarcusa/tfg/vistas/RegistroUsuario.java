@@ -51,7 +51,7 @@ public class RegistroUsuario extends JFrame {
         JLabel logo = new JLabel();
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         ImageIcon imagenOriginal = new ImageIcon(getClass().getResource("/com/robertoarcusa/tfg/resources/logo_inicio.png"));
-        Image imagenEscalada = imagenOriginal.getImage().getScaledInstance(500, 260, Image.SCALE_SMOOTH);
+        Image imagenEscalada = imagenOriginal.getImage().getScaledInstance(480, 240, Image.SCALE_SMOOTH);
         logo.setIcon(new ImageIcon(imagenEscalada));
         panelPrincipal.add(logo);
         panelPrincipal.add(Box.createRigidArea(new Dimension(0, 10)));

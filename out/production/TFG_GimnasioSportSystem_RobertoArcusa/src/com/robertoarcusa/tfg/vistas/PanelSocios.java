@@ -5,6 +5,7 @@ import com.robertoarcusa.tfg.dao.SocioDAO;
 import com.robertoarcusa.tfg.enums.TipoMembresia;
 import com.robertoarcusa.tfg.enums.TipoUsuario;
 import com.robertoarcusa.tfg.util.FormateadorFecha;
+import com.robertoarcusa.tfg.util.Seguridad;
 import com.robertoarcusa.tfg.util.Sesion;
 import org.jdatepicker.impl.*;
 import javax.swing.*;
@@ -113,6 +114,7 @@ public class PanelSocios extends JPanel {
         comboTipoUsuario.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
         if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
             comboTipoUsuario.setEnabled(false);
+            comboTipoUsuario.setSelectedIndex(-1);
         }
         columna2.add(comboTipoUsuario, c2);
 
@@ -326,6 +328,9 @@ public class PanelSocios extends JPanel {
 
         Socio nuevo = new Socio();
         llenarDatosDesdeFormulario(nuevo);
+        if (nuevo.getTipoUsuario()==null) {
+            nuevo.setTipoUsuario(TipoUsuario.BASIC);
+        }
         dao.agregarSocio(nuevo);
         limpiarCampos();
         cargarSocios();
@@ -357,28 +362,37 @@ public class PanelSocios extends JPanel {
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
-        SocioDAO dao = new SocioDAO();
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar este socio?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        boolean eliminado = dao.eliminarSocio(id);
+        if (opcion == JOptionPane.YES_OPTION) {
+            int id = (int) modeloTabla.getValueAt(fila, 0);
+            SocioDAO dao = new SocioDAO();
 
-        if (!eliminado) {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar el socio. Por favor, inténtelo de nuevo o contacte con el administrador.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            cargarSocios();
-            limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Socio eliminado correctamente.");
+            boolean eliminado = dao.eliminarSocio(id);
+
+            if (!eliminado) {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el socio. Por favor, inténtelo de nuevo o contacte con el administrador.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                cargarSocios();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Socio eliminado correctamente.");
+            }
         }
+        // Si el usuario elige NO, simplemente no hace nada y retorna
     }
-
 
     private void llenarDatosDesdeFormulario(Socio socio) {
         socio.setNombreSocio(txtNombre.getText());
         socio.setApellidosSocio(txtApellidos.getText());
         socio.setDni(txtDni.getText());
         socio.setTelefono(txtTelefono.getText());
-        socio.setContrasena(txtContrasena.getText());
+        socio.setContrasena(Seguridad.hashear(txtContrasena.getText()));
         socio.setTipoMembresia((TipoMembresia) comboMembresia.getSelectedItem());
         socio.setTipoUsuario((TipoUsuario) comboTipoUsuario.getSelectedItem());
         socio.setFotoPerfil(fotoPerfilSeleccionada);

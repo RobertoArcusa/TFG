@@ -355,17 +355,17 @@ public class PanelEntrenador extends JPanel {
         EntrenadorDAO dao = new EntrenadorDAO();
         boolean eliminado = dao.eliminarEntrenador(id);
 
-        if (!eliminado) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "No se puede eliminar el entrenador porque tiene datos relacionados. Por favor, elimine primero los datos relacionados.",
-                    "Advertencia",
-                    JOptionPane.WARNING_MESSAGE
-            );
-        } else {
+        if (eliminado) {
             cargarEntrenadores();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Entrenador eliminado correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Ocurrió un error al intentar eliminar el entrenador.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 

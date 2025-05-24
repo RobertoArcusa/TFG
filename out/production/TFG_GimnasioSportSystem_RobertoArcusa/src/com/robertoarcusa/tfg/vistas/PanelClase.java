@@ -381,7 +381,7 @@ public class PanelClase extends JPanel {
         }
     }
 
-    private void cargarClases() {
+    public void cargarClases() {
         modeloTabla.setRowCount(0);
         ClaseDAO dao = new ClaseDAO();
         List<Clase> clases = dao.obtenerTodasLasClases();

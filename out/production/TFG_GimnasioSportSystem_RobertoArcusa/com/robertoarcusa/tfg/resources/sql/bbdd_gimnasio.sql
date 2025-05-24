@@ -68,52 +68,52 @@ CREATE TABLE Inscripcion (
 );
 
 INSERT INTO Socio (nombre_socio, apellidos_socio, dni, fecha_nacimiento, telefono, tipo_membresia, foto_perfil, tipo_usuario, contrasena) VALUES
-('Carlos', 'Martínez', '11111111H', '1985-03-12', '600123456', 'PREMIUM', NULL, 'ADMIN', '$2a$12$e5Bme/Gzcqc83Tdwfq9zDOU4k3jb3wsibcgEg1/pDdOR/ssbTJat.'),
+('Carlos', 'Martinez', '11111111H', '1985-03-12', '600123456', 'PREMIUM', NULL, 'ADMIN', '$2a$12$e5Bme/Gzcqc83Tdwfq9zDOU4k3jb3wsibcgEg1/pDdOR/ssbTJat.'),
 ('Roberto', 'Alonso', '12345678Z', '1994-11-24', '606997856', 'PREMIUM', NULL, 'EDITOR', '$2a$12$Zdx0DyvzKjYd1Yo6FRb8aeciKLUfeZrug8cOEBFkw2n4eo65QAly.'),
-('Laura', 'Gómez', '22222222J', '1990-07-23', '612345678', 'VIP', NULL, 'BASIC', '$2a$12$Frgc.4C4xgeYQXhtCK3cAus9vqU16YqYzOpIuHZOqFU9Vscf1paH.'),
-('Miguel', 'Sánchez', '00000004G', '1988-11-05', '698765432', 'BASICA', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
-('Lucía', 'Fernández', '87654321X', '1992-04-18', '611223344', 'PREMIUM', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
-('Javier', 'López', '88990011K', '1987-06-10', '633445566', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Laura', 'Gomez', '22222222J', '1990-07-23', '612345678', 'VIP', NULL, 'BASIC', '$2a$12$Frgc.4C4xgeYQXhtCK3cAus9vqU16YqYzOpIuHZOqFU9Vscf1paH.'),
+('Miguel', 'Sanchez', '00000004G', '1988-11-05', '698765432', 'BASICA', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Lucia', 'Fernandez', '87654321X', '1992-04-18', '611223344', 'PREMIUM', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Javier', 'Lopez', '88990011K', '1987-06-10', '633445566', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Ana', 'Ruiz', '14151617Q', '1993-09-25', '644556677', 'BASICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Diego', 'Morales', '00000001R', '1980-12-03', '655667788', 'PREMIUM', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
-('Sofía', 'Navarro', '00000002W', '1996-01-30', '666778899', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
+('Sofia', 'Navarro', '00000002W', '1996-01-30', '666778899', 'VIP', NULL, 'EDITOR', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO'),
 ('Pablo', 'Torres', '00000003A', '1991-08-14', '677889900', 'BASICA', NULL, 'BASIC', '$2a$12$N/Ui5GdwnKhal96eHKHlcu9VGKGByAoI.SXb0wXm3zW5LKsqyCGcO');
 
 INSERT INTO Entrenador (nombre_entrenador, apellidos_entrenador, especialidad, telefono, fecha_contratacion, salario, foto_perfil) VALUES
-('Juan', 'Pérez', 'Fitness', '612345678', '2020-01-15', 1800.00, NULL),
-('María', 'López', 'Yoga', '623456789', '2018-06-20', 1900.00, NULL),
-('Carlos', 'García', 'Pilates', '634567890', '2019-09-10', 1750.00, NULL),
-('Ana', 'Martínez', 'Entrenamiento funcional', '645678901', '2021-03-05', 2000.00, NULL),
-('Luis', 'Fernández', 'Crossfit', '656789012', '2017-11-30', 2100.00, NULL),
-('Sofía', 'Ruiz', 'Fitness', '667890123', '2022-02-28', 1850.00, NULL),
+('Juan', 'Perez', 'Fitness', '612345678', '2020-01-15', 1800.00, NULL),
+('Maria', 'Lopez', 'Yoga', '623456789', '2018-06-20', 1900.00, NULL),
+('Carlos', 'Garcia', 'Pilates', '634567890', '2019-09-10', 1750.00, NULL),
+('Ana', 'Martinez', 'Entrenamiento funcional', '645678901', '2021-03-05', 2000.00, NULL),
+('Luis', 'Fernandez', 'Crossfit', '656789012', '2017-11-30', 2100.00, NULL),
+('Sofia', 'Ruiz', 'Fitness', '667890123', '2022-02-28', 1850.00, NULL),
 ('Miguel', 'Santos', 'Boxeo', '678901234', '2016-05-17', 1950.00, NULL),
-('Elena', 'Gómez', 'Zumba', '689012345', '2019-08-23', 1700.00, NULL),
+('Elena', 'Gomez', 'Zumba', '689012345', '2019-08-23', 1700.00, NULL),
 ('Javier', 'Moreno', 'Entrenamiento personal', '690123456', '2020-12-01', 2200.00, NULL),
-('Laura', 'Díaz', 'Spinning', '601234567', '2015-07-14', 1250.00, NULL);
+('Laura', 'Diaz', 'Spinning', '601234567', '2015-07-14', 1250.00, NULL);
 
 INSERT INTO Clase (nombre_clase, id_entrenador, capacidad_maxima, nivel_dificultad, sala, imagen_clase) VALUES
-('Pilates Básico', 1, 15, 'PRINCIPIANTE', 'Sala 2', NULL),
-('Pilates Avanzado', 2, 12, 'AVANZADO', 'Sala 2', NULL),
-('Yoga Hatha', 3, 20, 'INTERMEDIO', 'Sala 1', NULL),
-('Yoga Vinyasa', 4, 18, 'AVANZADO', 'Sala 1', NULL),
-('Zumba Fitness', 5, 25, 'PRINCIPIANTE', 'Sala 4', NULL),
-('Zumba Avanzado', 6, 22, 'INTERMEDIO', 'Sala 4', NULL),
-('Spinning Indoor', 7, 20, 'INTERMEDIO', 'Sala 3', NULL),
-('Spinning Competición', 8, 15, 'AVANZADO', 'Sala 3', NULL),
-('Crossfit Beginners', 9, 10, 'PRINCIPIANTE', 'Sala 5', NULL),
-('Crossfit Pro', 10, 12, 'AVANZADO', 'Sala 5', NULL);
+('Fitness Basico', 1, 15, 'PRINCIPIANTE', 'Sala 1', NULL),
+('Yoga Hatha', 2, 20, 'INTERMEDIO', 'Sala 2', NULL),
+('Pilates Avanzado', 3, 12, 'AVANZADO', 'Sala 3', NULL),
+('Funcional Power', 4, 18, 'AVANZADO', 'Sala 4', NULL),
+('Crossfit Beginners', 5, 10, 'PRINCIPIANTE', 'Sala 5', NULL),
+('Fitness Power', 6, 25, 'AVANZADO', 'Sala 1', NULL),
+('Boxeo Total', 7, 22, 'INTERMEDIO', 'Sala 6', NULL),
+('Zumba Sensation', 8, 20, 'INTERMEDIO', 'Sala 7', NULL),
+('Total Transformation', 9, 15, 'AVANZADO', 'Sala 8', NULL),
+('Spinning Session', 10, 12, 'AVANZADO', 'Sala 9', NULL);
 
 INSERT INTO SesionClase (id_clase, fecha_hora, capacidad_disponible) VALUES
-(1, '2025-05-19 09:00:00', 15),
-(2, '2025-05-19 11:00:00', 12),
-(3, '2025-05-20 18:00:00', 20),
-(4, '2025-05-21 07:30:00', 18),
-(5, '2025-05-21 10:00:00', 25),
-(6, '2025-05-22 12:30:00', 22),
-(7, '2025-05-22 17:00:00', 20),
-(8, '2025-05-23 09:00:00', 15),
-(9, '2025-05-23 19:30:00', 10),
-(10, '2025-05-24 08:00:00', 12);
+(1, '2025-05-19 17:00:00', 15),
+(2, '2025-05-19 10:00:00', 12),
+(3, '2025-05-20 12:00:00', 20),
+(4, '2025-05-21 18:30:00', 18),
+(5, '2025-05-21 20:00:00', 25),
+(6, '2025-05-22 17:30:00', 22),
+(7, '2025-05-22 19:30:00', 20),
+(8, '2025-05-23 12:00:00', 15),
+(9, '2025-05-23 16:30:00', 10),
+(10, '2025-05-24 18:00:00', 12);
 
 INSERT INTO Inscripcion (id_socio, id_sesion, fecha_inscripcion) VALUES
 (1, 3, '2025-05-10'),
