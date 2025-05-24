@@ -338,7 +338,7 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
-    private void cargarInscripciones() {
+    public void cargarInscripciones() {
         modeloTabla.setRowCount(0);
         InscripcionDAO dao = new InscripcionDAO();
         List<Inscripcion> inscripciones;

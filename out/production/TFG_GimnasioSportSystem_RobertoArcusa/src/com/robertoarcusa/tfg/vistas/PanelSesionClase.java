@@ -279,7 +279,7 @@ public class PanelSesionClase extends JPanel {
             boolean eliminada = dao.eliminarSesion(sesion);
             if (!eliminada) {
                 JOptionPane.showMessageDialog(this,
-                        "No se puede eliminar la sesión porque tiene datos relacionados. Primero elimínelos.",
+                        "No se puede eliminar la sesion porque tiene inscripciones asociadas.\nPor favor, elimine primero las inscripciones asociadas para eliminar la clase.",
                         "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 actualizarCapacidadDisponible();

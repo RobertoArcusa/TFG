@@ -149,7 +149,7 @@ public class Socio {
         return result;
     }
 
-    @OneToMany(mappedBy = "socio")
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Inscripcion> getInscripciones() {
         return inscripciones;
     }
@@ -158,7 +158,7 @@ public class Socio {
         this.inscripciones = inscripciones;
     }
 
-    @OneToMany(mappedBy = "socio")
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Pago> getPagos() {
         return pagos;
     }

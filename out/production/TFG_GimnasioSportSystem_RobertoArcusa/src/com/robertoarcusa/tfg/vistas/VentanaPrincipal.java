@@ -45,7 +45,7 @@ public class VentanaPrincipal extends JFrame {
         // Configuración de la ventana principal
         setTitle("Panel de administración - SportSystem");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null); // Centrar ventana al iniciar
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1024, 768));
 
@@ -158,6 +158,9 @@ public class VentanaPrincipal extends JFrame {
             } else if (selected instanceof PanelInscripciones) {
                 ((PanelInscripciones) selected).cargarSocios();
                 ((PanelInscripciones) selected).cargarSesiones();
+                ((PanelInscripciones) selected).cargarInscripciones();
+            } else if (selected instanceof PanelPagos) {
+                ((PanelPagos) selected).cargarPagos();
             }
         });
 

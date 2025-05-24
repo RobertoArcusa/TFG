@@ -363,9 +363,8 @@ public class PanelSocios extends JPanel {
         boolean eliminado = dao.eliminarSocio(id);
 
         if (!eliminado) {
-            JOptionPane.showMessageDialog(this, "No se puede eliminar el socio porque tiene datos relacionados. \nPor favor, compruebe primero si tiene inscripciones" +
-                            " o pagos insertados y elimine primero esos datos.","Advertencia",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el socio. Por favor, inténtelo de nuevo o contacte con el administrador.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             cargarSocios();
             limpiarCampos();

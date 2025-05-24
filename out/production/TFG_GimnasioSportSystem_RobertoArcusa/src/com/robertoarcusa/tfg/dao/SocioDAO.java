@@ -2,6 +2,7 @@ package com.robertoarcusa.tfg.dao;
 
 import com.robertoarcusa.tfg.clases.Socio;
 import com.robertoarcusa.tfg.util.HibernateUtil;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -40,30 +41,17 @@ public class SocioDAO {
             Socio socio = session.get(Socio.class, id);
 
             if (socio != null) {
-                // Comprueba datos relacionados
-                Long pagosCount = (Long) session.createQuery("SELECT COUNT(p) FROM Pago p WHERE p.socio.idSocio = :id")
-                        .setParameter("id", id).uniqueResult();
-
-                Long inscripcionesCount = (Long) session.createQuery("SELECT COUNT(i) FROM Inscripcion i WHERE i.socio.idSocio = :id")
-                        .setParameter("id", id).uniqueResult();
-
-                if (pagosCount > 0 || inscripcionesCount > 0) {
-                    return false;  // No se elimina porque hay datos relacionados
-                }
-
-                session.delete(socio);
+                session.delete(socio); // Se eliminan también pagos e inscripciones automáticamente
                 session.getTransaction().commit();
-                return true;  // Eliminado con éxito
+                return true;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error al eliminar el socio");
         }
-        return false;  // No encontrado o no eliminado
+        return false;
     }
-
-
 
     public boolean existeDni(String dni) {
         Session session = HibernateUtil.getSessionFactory().openSession();

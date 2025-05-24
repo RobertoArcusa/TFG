@@ -316,7 +316,7 @@ public class PanelPagos extends JPanel {
         }
     }
 
-    private void cargarPagos() {
+    public void cargarPagos() {
         modeloTabla.setRowCount(0);
         PagoDAO dao = new PagoDAO();
         for (Pago p : dao.obtenerTodosLosPagos()) {
