@@ -8,11 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -204,7 +200,7 @@
       <workItem from="1747933537219" duration="12628000" />
       <workItem from="1748010663965" duration="3280000" />
       <workItem from="1748162163665" duration="12053000" />
-      <workItem from="1748194440186" duration="2081000" />
+      <workItem from="1748194440186" duration="2579000" />
     </task>
     <servers />
   </component>

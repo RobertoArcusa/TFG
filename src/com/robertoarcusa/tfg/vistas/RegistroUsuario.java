@@ -166,6 +166,7 @@ public class RegistroUsuario extends JFrame {
         if (guardarSocio(socio)) {
             JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
             limpiarFormulario();
+            iniciarSesion();
         } else {
             JOptionPane.showMessageDialog(this, "Hubo un error al registrar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
         }
