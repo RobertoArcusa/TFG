@@ -34,10 +34,10 @@ public class PanelEntrenador extends JPanel {
     private byte[] fotoPerfilSeleccionada;
     private JTextField txtBuscarEntrenador;
 
-
     public PanelEntrenador() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10)); // Pequeños gaps
 
+        // PANEL CAMPOS CON GRIDBAGLAYOUT
         JPanel panelCampos = new JPanel(new GridBagLayout());
         panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -45,43 +45,51 @@ public class PanelEntrenador extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // --- Columna 1 ---
+        // --- COLUMNA 1 ---
         JPanel columna1 = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
         c1.insets = new Insets(5, 5, 5, 5);
         c1.fill = GridBagConstraints.HORIZONTAL;
         c1.weightx = 1.0;
 
-        txtNombre = new JTextField(); txtNombre.setPreferredSize(new Dimension(350, 40));
-        txtApellidos = new JTextField(); txtApellidos.setPreferredSize(new Dimension(350, 40));
-        txtEspecialidad = new JTextField(); txtEspecialidad.setPreferredSize(new Dimension(350, 40));
-        txtTelefono = new JTextField(); txtTelefono.setPreferredSize(new Dimension(350, 40));
-
         c1.gridx = 0; c1.gridy = 0;
-        columna1.add(new JLabel("NOMBRE:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("NOMBRE:"), c1);
+        c1.gridx = 1;
+        txtNombre = new JTextField();
+        txtNombre.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtNombre, c1);
 
         c1.gridx = 0; c1.gridy++;
-        columna1.add(new JLabel("APELLIDOS:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("APELLIDOS:"), c1);
+        c1.gridx = 1;
+        txtApellidos = new JTextField();
+        txtApellidos.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtApellidos, c1);
 
         c1.gridx = 0; c1.gridy++;
-        columna1.add(new JLabel("ESPECIALIDAD:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("ESPECIALIDAD:"), c1);
+        c1.gridx = 1;
+        txtEspecialidad = new JTextField();
+        txtEspecialidad.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtEspecialidad, c1);
 
         c1.gridx = 0; c1.gridy++;
-        columna1.add(new JLabel("TELÉFONO:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("TELÉFONO:"), c1);
+        c1.gridx = 1;
+        txtTelefono = new JTextField();
+        txtTelefono.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtTelefono, c1);
 
-        // --- Columna 2 ---
+        // --- COLUMNA 2 ---
         JPanel columna2 = new JPanel(new GridBagLayout());
         GridBagConstraints c2 = new GridBagConstraints();
         c2.insets = new Insets(5, 5, 5, 5);
         c2.fill = GridBagConstraints.HORIZONTAL;
         c2.weightx = 1.0;
 
-        txtSalario = new JTextField(); txtSalario.setPreferredSize(new Dimension(350, 40));
-
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("FECHA CONTRATACIÓN:"), c2);
+        c2.gridx = 1;
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
         p.put("text.today", "Hoy");
@@ -90,16 +98,16 @@ public class PanelEntrenador extends JPanel {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datepickerContratacion = new JDatePickerImpl(datePanel, new FormateadorFecha());
         datepickerContratacion.setPreferredSize(new Dimension(350, 40));
-
-        c2.gridx = 0; c2.gridy = 0;
-        columna2.add(new JLabel("FECHA CONTRATACIÓN:"), c2); c2.gridx = 1;
         columna2.add(datepickerContratacion, c2);
 
         c2.gridx = 0; c2.gridy++;
-        columna2.add(new JLabel("SALARIO:"), c2); c2.gridx = 1;
+        columna2.add(new JLabel("SALARIO:"), c2);
+        c2.gridx = 1;
+        txtSalario = new JTextField();
+        txtSalario.setPreferredSize(new Dimension(350, 40));
         columna2.add(txtSalario, c2);
 
-        // --- Columna 3: Foto ---
+        // --- COLUMNA 3: FOTO ---
         JPanel columna3 = new JPanel(new BorderLayout(5, 5));
         JLabel lblTituloFoto = new JLabel("FOTO ENTRENADOR", SwingConstants.CENTER);
         columna3.add(lblTituloFoto, BorderLayout.NORTH);
@@ -109,10 +117,10 @@ public class PanelEntrenador extends JPanel {
         lblFoto.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         columna3.add(lblFoto, BorderLayout.CENTER);
 
-        JButton btnCargarFoto = new JButton("Cargar Foto");
+        JButton btnCargarFoto = new JButton("CARGAR FOTO");
         btnCargarFoto.addActionListener(e -> cargarFoto());
 
-        JButton btnEliminarFoto = new JButton("Eliminar Foto");
+        JButton btnEliminarFoto = new JButton("ELIMINAR FOTO");
         btnEliminarFoto.addActionListener(e -> {
             fotoPerfilSeleccionada = null;
             lblFoto.setIcon(null);
@@ -124,34 +132,20 @@ public class PanelEntrenador extends JPanel {
         panelBotonesFoto.add(btnEliminarFoto);
         columna3.add(panelBotonesFoto, BorderLayout.SOUTH);
 
-        // Añadir columnas a panelCampos
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
+        // AGREGAMOS LAS COLUMNAS AL PANEL CAMPOS
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.weightx = 1.0;
         panelCampos.add(columna1, gbc);
 
-        gbc.gridx = 1; gbc.weightx = 0.4;
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
         panelCampos.add(columna2, gbc);
 
-        gbc.gridx = 2; gbc.weightx = 0.2;
+        gbc.gridx = 2;
+        gbc.weightx = 1.0;
         panelCampos.add(columna3, gbc);
 
-        // Tabla
-        modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Apellidos", "Especialidad", "Teléfono", "Fecha Contratación", "Salario"}, 0) {
-            public boolean isCellEditable(int row, int column) { return false; }
-        };
-        tablaEntrenadores = new JTable(modeloTabla);
-        JScrollPane scrollTabla = new JScrollPane(tablaEntrenadores);
-
-        // Botones
-        btnAgregar = new JButton("Añadir entrenador");
-        btnGuardar = new JButton("Modificar entrenador");
-        btnEliminar = new JButton("Eliminar entrenador");
-        btnLimpiarCampos = new JButton("Limpiar Campos");
-
-        btnAgregar.addActionListener(e -> agregarNuevoEntrenador());
-        btnGuardar.addActionListener(e -> modificarEntrenador());
-        btnEliminar.addActionListener(e -> eliminarEntrenador());
-        btnLimpiarCampos.addActionListener(e -> limpiarCampos());
-
+        // BUSCADOR Y BOTONES
         txtBuscarEntrenador = new JTextField(20);
         setTextFieldHint(txtBuscarEntrenador, "Introduce un nombre de entrenador");
         txtBuscarEntrenador.addKeyListener(new KeyAdapter() {
@@ -161,34 +155,62 @@ public class PanelEntrenador extends JPanel {
             }
         });
 
-        // Panel combinado: búsqueda + botones centrados
-        JPanel panelContenedorInferior = new JPanel(new GridBagLayout());
-        panelContenedorInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        GridBagConstraints ci = new GridBagConstraints();
-        ci.insets = new Insets(5, 5, 5, 5);
-        ci.gridx = 0;
-        ci.gridy = 0;
+        btnAgregar = new JButton("AÑADIR ENTRENADOR");
+        btnGuardar = new JButton("MODIFICAR ENTRENADOR");
+        btnEliminar = new JButton("ELIMINAR ENTRENADOR");
+        btnLimpiarCampos = new JButton("LIMPIAR CAMPOS");
 
-        // Subpanel con FlowLayout centrado
-        JPanel panelCentral = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        btnAgregar.addActionListener(e -> agregarNuevoEntrenador());
+        btnGuardar.addActionListener(e -> modificarEntrenador());
+        btnEliminar.addActionListener(e -> eliminarEntrenador());
+        btnLimpiarCampos.addActionListener(e -> limpiarCampos());
 
-        // Añadir campo de búsqueda
-        panelCentral.add(new JLabel("BUSCAR ENTRENADOR"));
-        panelCentral.add(txtBuscarEntrenador);
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
 
-        // Añadir botones
-        panelCentral.add(btnAgregar);
-        panelCentral.add(btnGuardar);
-        panelCentral.add(btnEliminar);
-        panelCentral.add(btnLimpiarCampos);
+        // Panel para botones centrados arriba
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        // Agregar el subpanel centrado al panel contenedor
-        panelContenedorInferior.add(panelCentral, ci);
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnGuardar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnLimpiarCampos);
 
+        // Ajustar tamaño preferido para hacer botones un poco más grandes
+        Dimension tamañoOriginal = btnAgregar.getPreferredSize();
+        Dimension tamañoNuevo = new Dimension(tamañoOriginal.width + 35, tamañoOriginal.height + 10);
 
-        add(panelCampos, BorderLayout.NORTH);
+        btnAgregar.setPreferredSize(tamañoNuevo);
+        btnGuardar.setPreferredSize(tamañoNuevo);
+        btnEliminar.setPreferredSize(tamañoNuevo);
+        btnLimpiarCampos.setPreferredSize(tamañoNuevo);
+
+        // Panel para búsqueda alineada a la izquierda abajo
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelBusqueda.add(new JLabel("BUSCAR ENTRENADOR"));
+        panelBusqueda.add(txtBuscarEntrenador);
+
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
+
+        // MODELO Y TABLA
+        modeloTabla = new DefaultTableModel(
+                new String[]{"ID", "NOMBRE", "APELLIDOS", "ESPECIALIDAD", "TELÉFONO", "FECHA CONTRATACIÓN", "SALARIO"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tablaEntrenadores = new JTable(modeloTabla);
+        JScrollPane scrollTabla = new JScrollPane(tablaEntrenadores);
+
+        // PANEL ARRIBA QUE CONTIENE CAMPOS Y BOTONES+BUSQUEDA
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
+
+        // AÑADIR AL LAYOUT PRINCIPAL
+        add(panelArriba, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelContenedorInferior, BorderLayout.SOUTH);
 
         cargarEntrenadores();
 
@@ -206,10 +228,14 @@ public class PanelEntrenador extends JPanel {
         Socio usuarioActual = Sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             panelCampos.setVisible(false);
-            panelContenedorInferior.setVisible(false);
+            panelBusquedaBotones.setVisible(false);
 
-            DefaultTableModel modeloBasico = new DefaultTableModel(new String[]{"Nombre", "Apellidos", "Especialidad"}, 0) {
-                public boolean isCellEditable(int row, int column) { return false; }
+            DefaultTableModel modeloBasico = new DefaultTableModel(
+                    new String[]{"Nombre", "Apellidos", "Especialidad"}, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
             };
 
             for (Entrenador ent : obtenerEntrenadoresDesdeDAO()) {
@@ -223,6 +249,8 @@ public class PanelEntrenador extends JPanel {
             tablaEntrenadores.setModel(modeloBasico);
         }
     }
+
+
 
 
     private List<Entrenador> obtenerEntrenadoresDesdeDAO() {

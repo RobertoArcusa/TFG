@@ -27,7 +27,7 @@ public class PanelSocios extends JPanel {
     private JTextField txtNombre, txtApellidos, txtDni, txtTelefono, txtContrasena;
     private JComboBox<TipoMembresia> comboMembresia;
     private JComboBox<TipoUsuario> comboTipoUsuario;
-    private JButton btnGuardar, btnAgregar, btnEliminar, btnLimpiar;
+    private JButton btnModificarSocio, btnAgregarSocio, btnEliminarSocio, btnLimpiarCampos;
     private JDatePickerImpl datePicker;
     private JLabel lblFoto;
     private byte[] fotoPerfilSeleccionada;
@@ -41,7 +41,7 @@ public class PanelSocios extends JPanel {
         panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
         // --- COLUMNA 1 ---
@@ -49,13 +49,13 @@ public class PanelSocios extends JPanel {
         GridBagConstraints c1 = new GridBagConstraints();
         c1.insets = new Insets(5, 5, 5, 5);
         c1.fill = GridBagConstraints.HORIZONTAL;
-        c1.weightx = 1.0;  // Para que el JTextField se expanda horizontalmente
+        c1.weightx = 1.0;
 
         c1.gridx = 0; c1.gridy = 0;
         columna1.add(new JLabel("NOMBRE:"), c1);
         c1.gridx = 1;
         txtNombre = new JTextField();
-        txtNombre.setPreferredSize(new Dimension(350, 40));  // Tamaño preferido mayor
+        txtNombre.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtNombre, c1);
 
         c1.gridx = 0; c1.gridy++;
@@ -86,7 +86,6 @@ public class PanelSocios extends JPanel {
         txtContrasena.setPreferredSize(new Dimension(350, 40));
         columna1.add(txtContrasena, c1);
 
-
         // --- COLUMNA 2 ---
         JPanel columna2 = new JPanel(new GridBagLayout());
         GridBagConstraints c2 = new GridBagConstraints();
@@ -104,14 +103,14 @@ public class PanelSocios extends JPanel {
         p.put("text.year", "Año");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new FormateadorFecha());
-        datePicker.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        datePicker.setPreferredSize(new Dimension(350, 40));
         columna2.add(datePicker, c2);
 
         c2.gridx = 0; c2.gridy++;
         columna2.add(new JLabel("TIPO USUARIO:"), c2);
         c2.gridx = 1;
         comboTipoUsuario = new JComboBox<>(TipoUsuario.values());
-        comboTipoUsuario.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        comboTipoUsuario.setPreferredSize(new Dimension(350, 40));
         if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
             comboTipoUsuario.setEnabled(false);
             comboTipoUsuario.setSelectedIndex(-1);
@@ -122,9 +121,8 @@ public class PanelSocios extends JPanel {
         columna2.add(new JLabel("TIPO MEMBRESÍA:"), c2);
         c2.gridx = 1;
         comboMembresia = new JComboBox<>(TipoMembresia.values());
-        comboMembresia.setPreferredSize(new Dimension(350, 40));  // Tamaño uniforme
+        comboMembresia.setPreferredSize(new Dimension(350, 40));
         columna2.add(comboMembresia, c2);
-
 
         // --- COLUMNA 3: FOTO ---
         JPanel columna3 = new JPanel(new BorderLayout(5,5));
@@ -135,9 +133,9 @@ public class PanelSocios extends JPanel {
         columna3.add(lblFoto, BorderLayout.CENTER);
 
         JPanel panelBotonesFoto = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        JButton btnCargarFoto = new JButton("Cargar Foto");
+        JButton btnCargarFoto = new JButton("CARGAR FOTO");
         btnCargarFoto.addActionListener(e -> cargarFoto());
-        JButton btnEliminarFoto = new JButton("Eliminar Foto");
+        JButton btnEliminarFoto = new JButton("ELIMINAR FOTO");
         btnEliminarFoto.addActionListener(e -> {
             fotoPerfilSeleccionada = null;
             lblFoto.setIcon(null);
@@ -149,39 +147,18 @@ public class PanelSocios extends JPanel {
 
         // AGREGAMOS LAS COLUMNAS AL PANEL CAMPOS
         gbc.gridx = 0; gbc.gridy = 0;
-        gbc.weightx = 0.4;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
         panelCampos.add(columna1, gbc);
 
         gbc.gridx = 1;
-        gbc.weightx = 0.4;
+        gbc.weightx = 1.0;
         panelCampos.add(columna2, gbc);
 
         gbc.gridx = 2;
-        gbc.weightx = 0.2;
+        gbc.weightx = 1.0;
         panelCampos.add(columna3, gbc);
 
-        // TABLA Y MODELO
-        modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Apellidos", "DNI", "Teléfono", "Fecha nacimiento", "Tipo membresía", "Tipo usuario"}, 0) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        tablaSocios = new JTable(modeloTabla);
-        JScrollPane scrollTabla = new JScrollPane(tablaSocios);
-
-        // BOTONES ACCIÓN
-        btnAgregar = new JButton("Añadir socio");
-        btnGuardar = new JButton("Modificar socio");
-        btnEliminar = new JButton("Eliminar socio");
-        btnLimpiar = new JButton("Limpiar Campos");
-
-        btnAgregar.addActionListener(e -> agregarNuevoSocio());
-        btnGuardar.addActionListener(e -> modificarSocio());
-        btnEliminar.addActionListener(e -> eliminarSocio());
-        btnLimpiar.addActionListener(e -> limpiarCampos());
-
-        // BUSCADOR
+        // BUSCADOR Y BOTONES
         txtBuscarSocio = new JTextField(20);
         setTextFieldHint(txtBuscarSocio, "Introduce un nombre de socio");
         txtBuscarSocio.addKeyListener(new KeyAdapter() {
@@ -191,39 +168,62 @@ public class PanelSocios extends JPanel {
             }
         });
 
-        // Panel combinado: búsqueda + botones, centrado
-        JPanel panelBusquedaBotones = new JPanel(new GridBagLayout());
-        panelBusquedaBotones.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        GridBagConstraints ci = new GridBagConstraints();
-        ci.insets = new Insets(5, 5, 5, 5);
-        ci.gridx = 0;
-        ci.gridy = 0;
+        btnAgregarSocio = new JButton("AÑADIR SOCIO");
+        btnModificarSocio = new JButton("MODIFICAR SOCIO");
+        btnEliminarSocio = new JButton("ELIMINAR SOCIO");
+        btnLimpiarCampos = new JButton("LIMPIAR CAMPOS");
 
-        // Subpanel con FlowLayout centrado
-        JPanel panelCentral = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Ajustar tamaño preferido para hacer botones un poco más grandes
+        Dimension tamañoOriginal = btnAgregarSocio.getPreferredSize();
+        Dimension tamañoNuevo = new Dimension(tamañoOriginal.width + 35, tamañoOriginal.height + 10);
 
-        // Añadir búsqueda
-        panelCentral.add(new JLabel("BUSCAR SOCIO"));
-        panelCentral.add(txtBuscarSocio);
+        btnAgregarSocio.setPreferredSize(tamañoNuevo);
+        btnModificarSocio.setPreferredSize(tamañoNuevo);
+        btnEliminarSocio.setPreferredSize(tamañoNuevo);
+        btnLimpiarCampos.setPreferredSize(tamañoNuevo);
 
-        // Añadir botones
-        panelCentral.add(btnAgregar);
-        panelCentral.add(btnGuardar);
-        panelCentral.add(btnEliminar);
-        panelCentral.add(btnLimpiar);
+        btnAgregarSocio.addActionListener(e -> agregarNuevoSocio());
+        btnModificarSocio.addActionListener(e -> modificarSocio());
+        btnEliminarSocio.addActionListener(e -> eliminarSocio());
+        btnLimpiarCampos.addActionListener(e -> limpiarCampos());
 
-        // Agregar el panel central al panel con GridBagLayout
-        panelBusquedaBotones.add(panelCentral, ci);
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
 
+        // Panel para botones centrados arriba
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        panelBotones.add(btnAgregarSocio);
+        panelBotones.add(btnModificarSocio);
+        panelBotones.add(btnEliminarSocio);
+        panelBotones.add(btnLimpiarCampos);
+
+        // Panel para búsqueda alineada a la izquierda abajo
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelBusqueda.add(new JLabel("BUSCAR SOCIO"));
+        panelBusqueda.add(txtBuscarSocio);
+
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
+
+        // TABLA Y MODELO
+        modeloTabla = new DefaultTableModel(new String[]{"ID", "NOMBRE", "APELLIDOS", "DNI", "TELÉFONO", "FECHA NACIMIENTO", "TIPO MEMBRESÍA", "TIPO USUARIO"}, 0) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tablaSocios = new JTable(modeloTabla);
+        JScrollPane scrollTabla = new JScrollPane(tablaSocios);
 
         // Añadir a layout principal
-        add(panelCampos, BorderLayout.NORTH);
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
+
+        add(panelArriba, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelBusquedaBotones, BorderLayout.SOUTH);
 
         cargarSocios();
 
-        // Selección tabla para cargar datos
         tablaSocios.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int fila = tablaSocios.getSelectedRow();
@@ -234,6 +234,8 @@ public class PanelSocios extends JPanel {
             }
         });
     }
+
+
 
     private void filtrarSociosPorNombre(String filtro) {
         modeloTabla.setRowCount(0);  // Limpiar la tabla antes de aplicar el filtro
@@ -429,7 +431,7 @@ public class PanelSocios extends JPanel {
         }
     }
 
-    private void limpiarCampos() {
+    public void limpiarCampos() {
         txtNombre.setText("");
         txtApellidos.setText("");
         txtDni.setText("");

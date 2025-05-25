@@ -28,123 +28,155 @@ public class PanelSesionClase extends JPanel {
     private JTextField txtBuscarSesionClase;
 
     public PanelSesionClase() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        JPanel panelCampos = new JPanel(new GridLayout(1, 3, 10, 10));
-        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        // PANEL CAMPOS con GridBagLayout
+        JPanel panelCampos = new JPanel(new GridBagLayout());
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
+        // --- COLUMNA 1 ---
         JPanel columna1 = new JPanel(new GridBagLayout());
-        JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel();
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.weightx = 1.0;
 
         comboClase = new JComboBox<>();
-        comboClase.setPreferredSize(new Dimension(250, 45));
+        comboClase.setPreferredSize(new Dimension(350, 40));
         comboClase.addActionListener(e -> actualizarCapacidadDisponible());
 
         dateChooser = new JDateChooser();
         dateChooser.setDateFormatString("yyyy-MM-dd");
-        dateChooser.setPreferredSize(new Dimension(250, 45));
+        dateChooser.setPreferredSize(new Dimension(350, 40));
+
+        c1.gridx = 0; c1.gridy = 0;
+        columna1.add(new JLabel("CLASE:"), c1);
+        c1.gridx = 1;
+        columna1.add(comboClase, c1);
+
+        c1.gridx = 0; c1.gridy++;
+        columna1.add(new JLabel("FECHA:"), c1);
+        c1.gridx = 1;
+        columna1.add(dateChooser, c1);
+
+        // --- COLUMNA 2 ---
+        JPanel columna2 = new JPanel(new GridBagLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1.0;
 
         txtCapacidadDisponible = new JTextField();
-        txtCapacidadDisponible.setPreferredSize(new Dimension(250, 45));
+        txtCapacidadDisponible.setPreferredSize(new Dimension(350, 40));
         txtCapacidadDisponible.setEditable(false);
 
         spinnerHora = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor editorHora = new JSpinner.DateEditor(spinnerHora, "HH:mm");
         spinnerHora.setEditor(editorHora);
-        spinnerHora.setPreferredSize(new Dimension(250, 45));
+        spinnerHora.setPreferredSize(new Dimension(350, 40));
 
-        cargarClases();
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("CAPACIDAD DISPONIBLE:"), c2);
+        c2.gridx = 1;
+        columna2.add(txtCapacidadDisponible, c2);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 5, 35);
+        c2.gridx = 0; c2.gridy++;
+        columna2.add(new JLabel("HORA:"), c2);
+        c2.gridx = 1;
+        columna2.add(spinnerHora, c2);
 
-        columna1.add(new JLabel("CLASE:"), gbc); gbc.gridx = 1;
-        columna1.add(comboClase, gbc);
+        // --- COLUMNA 3: Vacía, igual que PanelClase ---
+        JPanel columna3 = new JPanel();
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna1.add(new JLabel("FECHA:"), gbc); gbc.gridx = 1;
-        columna1.add(dateChooser, gbc);
+        // Añadir columnas a panelCampos con pesos para layout proporcional
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
+        panelCampos.add(columna1, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 0;
-        columna2.add(new JLabel("CAPACIDAD DISPONIBLE:"), gbc); gbc.gridx = 1;
-        columna2.add(txtCapacidadDisponible, gbc);
+        gbc.gridx = 1; gbc.weightx = 0.4;
+        panelCampos.add(columna2, gbc);
 
-        gbc.gridx = 0; gbc.gridy++;
-        columna2.add(new JLabel("HORA:"), gbc); gbc.gridx = 1;
-        columna2.add(spinnerHora, gbc);
+        gbc.gridx = 2; gbc.weightx = 0.2;
+        panelCampos.add(columna3, gbc);
 
-        panelCampos.add(columna1);
-        panelCampos.add(columna2);
-        panelCampos.add(columna3);
-
-        modeloTabla = new DefaultTableModel(new String[]{"ID", "Clase", "Fecha y Hora", "Capacidad Disponible"}, 0) {
+        // MODELO Y TABLA
+        modeloTabla = new DefaultTableModel(
+                new String[]{"ID", "Clase", "Fecha y Hora", "Capacidad Disponible"}, 0) {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
         tablaSesiones = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaSesiones);
 
-        btnAgregar = new JButton("Añadir Sesión");
-        btnModificar = new JButton("Modificar Sesión");
-        btnEliminar = new JButton("Eliminar Sesión");
-        btnLimpiarCampos = new JButton("Limpiar Campos");
+        // BOTONES Y BUSQUEDA
+        btnAgregar = new JButton("AÑADIR SESIÓN");
+        btnModificar = new JButton("MODIFICAR SESIÓN");
+        btnEliminar = new JButton("ELIMINAR SESIÓN");
+        btnLimpiarCampos = new JButton("LIMPIAR CAMPOS");
 
         btnAgregar.addActionListener(e -> agregarSesionClase());
         btnModificar.addActionListener(e -> modificarSesionClase());
         btnEliminar.addActionListener(e -> eliminarSesionClase());
         btnLimpiarCampos.addActionListener(e -> limpiarCampos());
 
+        // Ajustar tamaño botones para ser consistentes con PanelClase
+        Dimension tamañoOriginal = btnAgregar.getPreferredSize();
+        Dimension tamañoNuevo = new Dimension(tamañoOriginal.width + 35, tamañoOriginal.height + 10);
+
+        btnAgregar.setPreferredSize(tamañoNuevo);
+        btnModificar.setPreferredSize(tamañoNuevo);
+        btnEliminar.setPreferredSize(tamañoNuevo);
+        btnLimpiarCampos.setPreferredSize(tamañoNuevo);
+
         txtBuscarSesionClase = new JTextField(20);
-        txtBuscarSesionClase.setForeground(Color.GRAY);
-        txtBuscarSesionClase.setText("Introduce el nombre de una clase");
-
-        txtBuscarSesionClase.addFocusListener(new FocusAdapter() {
-            public void focusGained(FocusEvent e) {
-                if (txtBuscarSesionClase.getText().equals("Introduce el nombre de una clase")) {
-                    txtBuscarSesionClase.setText("");
-                    txtBuscarSesionClase.setForeground(Color.BLACK);
-                }
-            }
-
-            public void focusLost(FocusEvent e) {
-                if (txtBuscarSesionClase.getText().isEmpty()) {
-                    txtBuscarSesionClase.setText("Introduce el nombre de una clase");
-                    txtBuscarSesionClase.setForeground(Color.GRAY);
-                }
-            }
-        });
+        setTextFieldHint(txtBuscarSesionClase, "Introduce un nombre de una sesión");
 
         txtBuscarSesionClase.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyReleased(KeyEvent e) {
                 filtrarSesionesPorNombre(txtBuscarSesionClase.getText());
             }
         });
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBotones.add(new JLabel("BUSCAR SESIÓN CLASE"));
-        panelBotones.add(txtBuscarSesionClase);
+        // Panel búsqueda + botones (misma estructura que PanelClase)
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
+
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         panelBotones.add(btnAgregar);
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnLimpiarCampos);
 
-        add(panelCampos, BorderLayout.NORTH);
-        add(scrollTabla, BorderLayout.CENTER);
-        add(panelBotones, BorderLayout.SOUTH);
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelBusqueda.add(new JLabel("BUSCAR SESIÓN CLASE"));
+        panelBusqueda.add(txtBuscarSesionClase);
 
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
+
+        // PANEL ARRIBA QUE CONTIENE CAMPOS Y BOTONES+BUSQUEDA
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
+
+        // Añadir al layout principal
+        add(panelArriba, BorderLayout.NORTH);
+        add(scrollTabla, BorderLayout.CENTER);
+
+        // Cargar datos y manejar restricciones por tipo usuario
         Socio usuarioActual = Sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
-            // Ocultar campos y botones
             panelCampos.setVisible(false);
-            panelBotones.setVisible(false);
+            panelBusquedaBotones.setVisible(false);
 
-            // Crear tabla sin ID
-            DefaultTableModel modeloBasico = new DefaultTableModel(new String[]{"Clase", "Fecha y Hora", "Capacidad Disponible"}, 0) {
+            DefaultTableModel modeloBasico = new DefaultTableModel(
+                    new String[]{"CLASE", "FECHA Y HORA", "CAPACIDAD DISPONIBLE"}, 0) {
+                @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
@@ -172,6 +204,29 @@ public class PanelSesionClase extends JPanel {
                 }
             });
         }
+    }
+
+    private void setTextFieldHint(JTextField txtBuscarSesionClase, String s) {
+        txtBuscarSesionClase.setText(s);
+        txtBuscarSesionClase.setForeground(Color.GRAY);
+
+        txtBuscarSesionClase.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (txtBuscarSesionClase.getText().equals(s)) {
+                    txtBuscarSesionClase.setText("");
+                    txtBuscarSesionClase.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (txtBuscarSesionClase.getText().isEmpty()) {
+                    txtBuscarSesionClase.setText(s);
+                    txtBuscarSesionClase.setForeground(Color.GRAY);
+                }
+            }
+        });
     }
 
     private void agregarSesionClase() {
@@ -333,7 +388,7 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
-    private void limpiarCampos() {
+    public void limpiarCampos() {
         comboClase.setSelectedIndex(-1);
         dateChooser.setDate(null);
         spinnerHora.setValue(new Date());

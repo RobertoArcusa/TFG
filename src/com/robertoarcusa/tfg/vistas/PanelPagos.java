@@ -6,6 +6,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
@@ -42,45 +43,44 @@ public class PanelPagos extends JPanel {
     private TableRowSorter<DefaultTableModel> sorter;
 
     public PanelPagos() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        // Panel de campos responsive
+        // === PANEL CAMPOS ===
         JPanel panelCampos = new JPanel(new GridBagLayout());
         panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        GridBagConstraints pc = new GridBagConstraints();
-        pc.insets = new Insets(5, 10, 5, 10);
-        pc.fill = GridBagConstraints.HORIZONTAL;
-        pc.anchor = GridBagConstraints.NORTHWEST;
-        pc.weighty = 1.0;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // Componentes
         comboSocio = new JComboBox<>();
+        comboSocio.setPreferredSize(new Dimension(250, 40));
         cargarIdsSocios();
-        comboSocio.setPreferredSize(new Dimension(250, 45));
 
-        UtilDateModel model = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Hoy");
-        p.put("text.month", "Mes");
-        p.put("text.year", "Año");
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        datePicker = new JDatePickerImpl(datePanel, new FormateadorFecha());
-        datePicker.setPreferredSize(new Dimension(250, 45));
+        datePicker = new JDatePickerImpl(
+                new JDatePanelImpl(new UtilDateModel(), new Properties() {{
+                    put("text.today", "Hoy");
+                    put("text.month", "Mes");
+                    put("text.year", "Año");
+                }}),
+                new FormateadorFecha()
+        );
+        datePicker.setPreferredSize(new Dimension(250, 40));
 
         txtImporte = new JTextField();
-        txtImporte.setPreferredSize(new Dimension(250, 45));
+        txtImporte.setPreferredSize(new Dimension(250, 40));
 
         comboTipoCuota = new JComboBox<>(TipoCuota.values());
-        comboTipoCuota.setPreferredSize(new Dimension(250, 45));
+        comboTipoCuota.setPreferredSize(new Dimension(250, 40));
 
         comboTipoPago = new JComboBox<>(TipoPago.values());
-        comboTipoPago.setPreferredSize(new Dimension(250, 45));
+        comboTipoPago.setPreferredSize(new Dimension(250, 40));
 
         comboMetodoPago = new JComboBox<>(MetodoPago.values());
-        comboMetodoPago.setPreferredSize(new Dimension(250, 45));
+        comboMetodoPago.setPreferredSize(new Dimension(250, 40));
 
         comboEstado = new JComboBox<>(Estado.values());
-        comboEstado.setPreferredSize(new Dimension(250, 45));
+        comboEstado.setPreferredSize(new Dimension(250, 40));
 
         lblRecibo = new JLabel("Sin recibo", SwingConstants.CENTER);
         lblRecibo.setPreferredSize(new Dimension(150, 150));
@@ -88,82 +88,90 @@ public class PanelPagos extends JPanel {
 
         btnCargarRecibo = new JButton("Cargar Recibo");
         btnEliminarRecibo = new JButton("Eliminar Recibo");
-
         btnCargarRecibo.addActionListener(e -> cargarRecibo());
         btnEliminarRecibo.addActionListener(e -> {
             reciboSeleccionado = null;
             lblRecibo.setText("Sin recibo");
         });
 
-        JPanel panelBotonesRecibo = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panelBotonesRecibo.add(btnCargarRecibo);
-        panelBotonesRecibo.add(btnEliminarRecibo);
-
-        // Columnas internas
+        // === COLUMNA 1 ===
         JPanel columna1 = new JPanel(new GridBagLayout());
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.weightx = 1.0;
+
+        c1.gridx = 0; c1.gridy = 0;
+        columna1.add(new JLabel("SOCIO:"), c1);
+        c1.gridx = 1;
+        columna1.add(comboSocio, c1);
+
+        c1.gridy++;
+        c1.gridx = 0;
+        columna1.add(new JLabel("FECHA PAGO:"), c1);
+        c1.gridx = 1;
+        columna1.add(datePicker, c1);
+
+        c1.gridy++;
+        c1.gridx = 0;
+        columna1.add(new JLabel("IMPORTE:"), c1);
+        c1.gridx = 1;
+        columna1.add(txtImporte, c1);
+
+        c1.gridy++;
+        c1.gridx = 0;
+        columna1.add(new JLabel("TIPO CUOTA:"), c1);
+        c1.gridx = 1;
+        columna1.add(comboTipoCuota, c1);
+
+        // === COLUMNA 2 ===
         JPanel columna2 = new JPanel(new GridBagLayout());
-        JPanel columna3 = new JPanel(new BorderLayout());
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1.0;
 
-        // Configuración GridBagConstraints para columnas internas
-        GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 5, 5, 5);
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c2.gridx = 0; c2.gridy = 0;
+        columna2.add(new JLabel("TIPO PAGO:"), c2);
+        c2.gridx = 1;
+        columna2.add(comboTipoPago, c2);
 
-        // Columna 1
-        c.gridx = 0; c.gridy = 0;
-        columna1.add(new JLabel("SOCIO:"), c);
-        c.gridx = 1;
-        columna1.add(comboSocio, c);
+        c2.gridy++;
+        c2.gridx = 0;
+        columna2.add(new JLabel("MÉTODO PAGO:"), c2);
+        c2.gridx = 1;
+        columna2.add(comboMetodoPago, c2);
 
-        c.gridx = 0; c.gridy++;
-        columna1.add(new JLabel("FECHA PAGO:"), c);
-        c.gridx = 1;
-        columna1.add(datePicker, c);
+        c2.gridy++;
+        c2.gridx = 0;
+        columna2.add(new JLabel("ESTADO:"), c2);
+        c2.gridx = 1;
+        columna2.add(comboEstado, c2);
 
-        c.gridx = 0; c.gridy++;
-        columna1.add(new JLabel("IMPORTE:"), c);
-        c.gridx = 1;
-        columna1.add(txtImporte, c);
+        // === COLUMNA 3 ===
+        JPanel columna3 = new JPanel(new GridBagLayout());
+        GridBagConstraints c3 = new GridBagConstraints();
+        c3.insets = new Insets(5, 5, 5, 5);
+        c3.fill = GridBagConstraints.HORIZONTAL;
+        c3.weightx = 1.0;
 
-        c.gridx = 0; c.gridy++;
-        columna1.add(new JLabel("TIPO CUOTA:"), c);
-        c.gridx = 1;
-        columna1.add(comboTipoCuota, c);
+        c3.gridx = 0; c3.gridy = 0;
+        columna3.add(new JLabel("FOTO RECIBO:"), c3);
+        c3.gridy++;
+        columna3.add(lblRecibo, c3);
+        c3.gridy++;
+        columna3.add(btnCargarRecibo, c3);
+        c3.gridy++;
+        columna3.add(btnEliminarRecibo, c3);
 
-        // Columna 2
-        c.gridx = 0; c.gridy = 0;
-        columna2.add(new JLabel("TIPO PAGO:"), c);
-        c.gridx = 1;
-        columna2.add(comboTipoPago, c);
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
+        panelCampos.add(columna1, gbc);
+        gbc.gridx = 1;
+        panelCampos.add(columna2, gbc);
+        gbc.gridx = 2; gbc.weightx = 0.2;
+        panelCampos.add(columna3, gbc);
 
-        c.gridx = 0; c.gridy++;
-        columna2.add(new JLabel("MÉTODO PAGO:"), c);
-        c.gridx = 1;
-        columna2.add(comboMetodoPago, c);
-
-        c.gridx = 0; c.gridy++;
-        columna2.add(new JLabel("ESTADO:"), c);
-        c.gridx = 1;
-        columna2.add(comboEstado, c);
-
-        // Columna 3 (imagen recibo)
-        columna3.add(new JLabel("FOTO RECIBO", SwingConstants.CENTER), BorderLayout.NORTH);
-        columna3.add(lblRecibo, BorderLayout.CENTER);
-        columna3.add(panelBotonesRecibo, BorderLayout.SOUTH);
-
-        // Añadir columnas al panelCampos con pesos para que sean responsivas
-        pc.weightx = 0.33;
-        pc.gridx = 0; pc.gridy = 0;
-        panelCampos.add(columna1, pc);
-
-        pc.gridx = 1;
-        panelCampos.add(columna2, pc);
-
-        pc.gridx = 2;
-        panelCampos.add(columna3, pc);
-
-        // Tabla y modelo
+        // === TABLA ===
         modeloTabla = new DefaultTableModel(new String[]{
                 "ID", "Socio", "Fecha", "Importe", "Tipo Cuota", "Tipo Pago", "Método", "Estado"
         }, 0) {
@@ -171,25 +179,30 @@ public class PanelPagos extends JPanel {
                 return false;
             }
         };
-
         tablaPagos = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaPagos);
 
-        btnAgregar = new JButton("Añadir pago");
-        btnGuardar = new JButton("Modificar pago");
-        btnEliminar = new JButton("Eliminar pago");
-        btnLimpiar = new JButton("Limpiar Campos");
+        // === BOTONES ===
+        btnAgregar = new JButton("AÑADIR PAGO");
+        btnGuardar = new JButton("MODIFICAR PAGO");
+        btnEliminar = new JButton("ELIMINAR PAGO");
+        btnLimpiar = new JButton("LIMPIAR CAMPOS");
+
+        Dimension btnSize = new Dimension(180, 40);
+        for (JButton b : new JButton[]{btnAgregar, btnGuardar, btnEliminar, btnLimpiar}) {
+            b.setPreferredSize(btnSize);
+        }
 
         btnAgregar.addActionListener(e -> agregarNuevoPago());
         btnGuardar.addActionListener(e -> modificarPago());
         btnEliminar.addActionListener(e -> eliminarPago());
         btnLimpiar.addActionListener(e -> limpiarCampos());
 
+        // === CAMPO BÚSQUEDA ===
         txtBuscarPago = new JTextField(20);
         txtBuscarPago.setForeground(Color.GRAY);
         txtBuscarPago.setText("Introduce ID o nombre del socio");
-
-        txtBuscarPago.addFocusListener(new FocusListener() {
+        txtBuscarPago.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
                 if (txtBuscarPago.getText().equals("Introduce ID o nombre del socio")) {
                     txtBuscarPago.setText("");
@@ -206,45 +219,36 @@ public class PanelPagos extends JPanel {
         });
 
         txtBuscarPago.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e) {
-                actualizarFiltro();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                actualizarFiltro();
-            }
-
-            public void changedUpdate(DocumentEvent e) {
-                actualizarFiltro();
-            }
+            public void insertUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void removeUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void changedUpdate(DocumentEvent e) { actualizarFiltro(); }
         });
 
-        // Panel inferior con GridBagLayout para más control responsivo
-        JPanel panelBotones = new JPanel(new GridBagLayout());
-        GridBagConstraints pb = new GridBagConstraints();
-        pb.insets = new Insets(5, 5, 5, 5);
-        pb.gridx = 0; pb.gridy = 0;
-        panelBotones.add(new JLabel("BUSCAR PAGO"), pb);
-        pb.gridx++;
-        pb.weightx = 1.0;
-        pb.fill = GridBagConstraints.HORIZONTAL;
-        panelBotones.add(txtBuscarPago, pb);
-        pb.weightx = 0;
-        pb.fill = GridBagConstraints.NONE;
-        pb.gridx++;
-        panelBotones.add(btnAgregar, pb);
-        pb.gridx++;
-        panelBotones.add(btnGuardar, pb);
-        pb.gridx++;
-        panelBotones.add(btnEliminar, pb);
-        pb.gridx++;
-        panelBotones.add(btnLimpiar, pb);
+        // === PANEL BOTONES Y BÚSQUEDA ===
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
 
-        // Añadir al panel principal
-        add(panelCampos, BorderLayout.NORTH);
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnGuardar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnLimpiar);
+
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelBusqueda.add(new JLabel("BUSCAR PAGO"));
+        panelBusqueda.add(txtBuscarPago);
+
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
+
+        // === PANEL ARRIBA ===
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
+
+        add(panelArriba, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelBotones, BorderLayout.SOUTH);
 
+        // === DATOS ===
         cargarPagos();
 
         tablaPagos.getSelectionModel().addListSelectionListener(e -> {
@@ -260,6 +264,7 @@ public class PanelPagos extends JPanel {
         sorter = new TableRowSorter<>(modeloTabla);
         tablaPagos.setRowSorter(sorter);
     }
+
 
 
     private void agregarNuevoPago() {
@@ -429,7 +434,7 @@ public class PanelPagos extends JPanel {
     }
 
 
-    private void limpiarCampos() {
+    public void limpiarCampos() {
         comboSocio.setSelectedIndex(-1);
         datePicker.getModel().setSelected(false);
         txtImporte.setText("");
@@ -440,5 +445,28 @@ public class PanelPagos extends JPanel {
         reciboSeleccionado = null;
         lblRecibo.setText("Sin recibo");
         tablaPagos.clearSelection();
+    }
+
+    private void setTextFieldHint(JTextField textField, String hint) {
+        textField.setForeground(Color.GRAY);
+        textField.setText(hint);
+
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(hint)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setForeground(Color.GRAY);
+                    textField.setText(hint);
+                }
+            }
+        });
     }
 }

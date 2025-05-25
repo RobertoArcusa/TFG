@@ -153,15 +153,21 @@ public class VentanaPrincipal extends JFrame {
             if (selected instanceof PanelClase) {
                 ((PanelClase) selected).cargarEntrenadores();
                 ((PanelClase) selected).cargarClases();
+                ((PanelClase) selected).limpiarCampos();
             } else if (selected instanceof PanelSesionClase) {
                 ((PanelSesionClase) selected).cargarClases();
                 ((PanelSesionClase) selected).cargarSesiones();
+                ((PanelSesionClase) selected).limpiarCampos();
             } else if (selected instanceof PanelInscripciones) {
                 ((PanelInscripciones) selected).cargarSocios();
                 ((PanelInscripciones) selected).cargarSesiones();
                 ((PanelInscripciones) selected).cargarInscripciones();
+                ((PanelInscripciones) selected).limpiarCampos();
             } else if (selected instanceof PanelPagos) {
                 ((PanelPagos) selected).cargarPagos();
+                ((PanelPagos) selected).limpiarCampos();
+            } else if (selected instanceof PanelSocios) {
+                ((PanelSocios) selected).limpiarCampos();
             }
         });
 

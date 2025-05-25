@@ -34,8 +34,9 @@ public class PanelClase extends JPanel {
     private JTextField txtBuscarClase;
 
     public PanelClase() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10)); // Añadidos gaps como en PanelEntrenador
 
+        // PANEL CAMPOS CON GRIDBAGLAYOUT
         JPanel panelCampos = new JPanel(new GridBagLayout());
         panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -43,30 +44,36 @@ public class PanelClase extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // --- Columna 1 ---
+        // --- COLUMNA 1 ---
         JPanel columna1 = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
         c1.insets = new Insets(5, 5, 5, 5);
         c1.fill = GridBagConstraints.HORIZONTAL;
         c1.weightx = 1.0;
 
-        txtNombreClase = new JTextField(); txtNombreClase.setPreferredSize(new Dimension(350, 40));
-        txtCapacidadMaxima = new JTextField(); txtCapacidadMaxima.setPreferredSize(new Dimension(350, 40));
-        txtSala = new JTextField(); txtSala.setPreferredSize(new Dimension(350, 40));
+        txtNombreClase = new JTextField();
+        txtNombreClase.setPreferredSize(new Dimension(350, 40));
+        txtCapacidadMaxima = new JTextField();
+        txtCapacidadMaxima.setPreferredSize(new Dimension(350, 40));
+        txtSala = new JTextField();
+        txtSala.setPreferredSize(new Dimension(350, 40));
 
         c1.gridx = 0; c1.gridy = 0;
-        columna1.add(new JLabel("NOMBRE DE LA CLASE:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("NOMBRE DE LA CLASE:"), c1);
+        c1.gridx = 1;
         columna1.add(txtNombreClase, c1);
 
         c1.gridx = 0; c1.gridy++;
-        columna1.add(new JLabel("CAPACIDAD MÁXIMA:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("CAPACIDAD MÁXIMA:"), c1);
+        c1.gridx = 1;
         columna1.add(txtCapacidadMaxima, c1);
 
         c1.gridx = 0; c1.gridy++;
-        columna1.add(new JLabel("SALA:"), c1); c1.gridx = 1;
+        columna1.add(new JLabel("SALA:"), c1);
+        c1.gridx = 1;
         columna1.add(txtSala, c1);
 
-        // --- Columna 2 ---
+        // --- COLUMNA 2 ---
         JPanel columna2 = new JPanel(new GridBagLayout());
         GridBagConstraints c2 = new GridBagConstraints();
         c2.insets = new Insets(5, 5, 5, 5);
@@ -80,14 +87,16 @@ public class PanelClase extends JPanel {
         comboEntrenador.setPreferredSize(new Dimension(350, 40));
 
         c2.gridx = 0; c2.gridy = 0;
-        columna2.add(new JLabel("NIVEL DE DIFICULTAD:"), c2); c2.gridx = 1;
+        columna2.add(new JLabel("NIVEL DE DIFICULTAD:"), c2);
+        c2.gridx = 1;
         columna2.add(comboNivelDificultad, c2);
 
         c2.gridx = 0; c2.gridy++;
-        columna2.add(new JLabel("ENTRENADOR:"), c2); c2.gridx = 1;
+        columna2.add(new JLabel("ENTRENADOR:"), c2);
+        c2.gridx = 1;
         columna2.add(comboEntrenador, c2);
 
-        // --- Columna 3: Imagen ---
+        // --- COLUMNA 3: Imagen ---
         JPanel columna3 = new JPanel(new BorderLayout(5, 5));
         JLabel lblTituloImagen = new JLabel("FOTO SALA", SwingConstants.CENTER);
         columna3.add(lblTituloImagen, BorderLayout.NORTH);
@@ -97,10 +106,10 @@ public class PanelClase extends JPanel {
         lblImagenClase.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         columna3.add(lblImagenClase, BorderLayout.CENTER);
 
-        JButton btnCargarImagen = new JButton("Cargar Imagen");
+        JButton btnCargarImagen = new JButton("CARGAR FOTO");
         btnCargarImagen.addActionListener(e -> cargarImagenClase());
 
-        JButton btnEliminarImagen = new JButton("Eliminar Imagen");
+        JButton btnEliminarImagen = new JButton("ELIMINAR FOTO");
         btnEliminarImagen.addActionListener(e -> {
             imagenClaseSeleccionada = null;
             lblImagenClase.setIcon(null);
@@ -112,7 +121,7 @@ public class PanelClase extends JPanel {
         panelBotonesImagen.add(btnEliminarImagen);
         columna3.add(panelBotonesImagen, BorderLayout.SOUTH);
 
-        // Añadir columnas al panel principal
+        // Añadir columnas al panelCampos
         gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
         panelCampos.add(columna1, gbc);
 
@@ -122,23 +131,36 @@ public class PanelClase extends JPanel {
         gbc.gridx = 2; gbc.weightx = 0.2;
         panelCampos.add(columna3, gbc);
 
-        // Tabla
-        modeloTabla = new DefaultTableModel(new String[]{"ID", "Nombre", "Capacidad", "Sala", "Nivel Dificultad", "Entrenador"}, 0) {
-            public boolean isCellEditable(int row, int column) { return false; }
+        // MODELO Y TABLA
+        modeloTabla = new DefaultTableModel(
+                new String[]{"ID", "NOMBRE", "CAPACIDAD", "SALA", "NIVEL DIFICULTAD", "ENTRENADOR"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
         tablaClases = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaClases);
 
-        // Botones y búsqueda
-        btnAgregar = new JButton("Añadir Clase");
-        btnGuardar = new JButton("Modificar Clase");
-        btnEliminar = new JButton("Eliminar Clase");
-        btnLimpiarCampos = new JButton("Limpiar Campos");
+        // BOTONES Y BUSQUEDA
+        btnAgregar = new JButton("AÑADIR CLASE");
+        btnGuardar = new JButton("MODIFICAR CLASE");
+        btnEliminar = new JButton("ELIMINAR CLASE");
+        btnLimpiarCampos = new JButton("LIMPIAR CAMPOS");
 
         btnAgregar.addActionListener(e -> agregarNuevaClase());
         btnGuardar.addActionListener(e -> modificarClase());
         btnEliminar.addActionListener(e -> eliminarClase());
         btnLimpiarCampos.addActionListener(e -> limpiarCampos());
+
+        // Ajustar tamaño preferido para hacer botones un poco más grandes (como en PanelEntrenador)
+        Dimension tamañoOriginal = btnAgregar.getPreferredSize();
+        Dimension tamañoNuevo = new Dimension(tamañoOriginal.width + 35, tamañoOriginal.height + 10);
+
+        btnAgregar.setPreferredSize(tamañoNuevo);
+        btnGuardar.setPreferredSize(tamañoNuevo);
+        btnEliminar.setPreferredSize(tamañoNuevo);
+        btnLimpiarCampos.setPreferredSize(tamañoNuevo);
 
         txtBuscarClase = new JTextField(20);
         setTextFieldHint(txtBuscarClase, "Introduce un nombre de una clase");
@@ -149,40 +171,45 @@ public class PanelClase extends JPanel {
             }
         });
 
-        JPanel panelContenedorInferior = new JPanel();
-        panelContenedorInferior.setLayout(new GridBagLayout());
-        panelContenedorInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        GridBagConstraints ci = new GridBagConstraints();
-        ci.insets = new Insets(5, 5, 5, 5);
-        ci.gridx = 0;
-        ci.gridy = 0;
+        // Panel búsqueda + botones organizado igual que PanelEntrenador
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
 
-        // Panel búsqueda + botones
-        JPanel panelBusquedaYBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        // Panel para botones centrados arriba
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnGuardar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnLimpiarCampos);
 
-        panelBusquedaYBotones.add(new JLabel("BUSCAR CLASE"));
-        panelBusquedaYBotones.add(txtBuscarClase);
+        // Panel búsqueda alineada a la izquierda abajo
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelBusqueda.add(new JLabel("BUSCAR CLASE"));
+        panelBusqueda.add(txtBuscarClase);
 
-        panelBusquedaYBotones.add(btnAgregar);
-        panelBusquedaYBotones.add(btnGuardar);
-        panelBusquedaYBotones.add(btnEliminar);
-        panelBusquedaYBotones.add(btnLimpiarCampos);
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
 
-        panelContenedorInferior.add(panelBusquedaYBotones, ci);
+        // PANEL ARRIBA QUE CONTIENE CAMPOS Y BOTONES+BUSQUEDA
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
 
-
-        add(panelCampos, BorderLayout.NORTH);
+        // AÑADIR AL LAYOUT PRINCIPAL
+        add(panelArriba, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelContenedorInferior, BorderLayout.SOUTH);
 
         // Cargamos los datos y aplicamos restricciones por tipo de usuario
         Socio usuarioActual = Sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             panelCampos.setVisible(false);
-            panelContenedorInferior.setVisible(false);
+            panelBusquedaBotones.setVisible(false);
 
-            DefaultTableModel modeloBasico = new DefaultTableModel(new String[]{"Nombre", "Capacidad", "Sala", "Nivel Dificultad", "Entrenador"}, 0) {
-                public boolean isCellEditable(int row, int column) { return false; }
+            DefaultTableModel modeloBasico = new DefaultTableModel(
+                    new String[]{"Nombre", "Capacidad", "Sala", "Nivel Dificultad", "Entrenador"}, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
             };
 
             for (Clase c : ClaseDAO.obtenerTodasLasClases()) {
@@ -210,6 +237,7 @@ public class PanelClase extends JPanel {
             });
         }
     }
+
 
     private void cargarDatosClase(int id) {
         ClaseDAO dao = new ClaseDAO();
@@ -414,7 +442,7 @@ public class PanelClase extends JPanel {
         }
     }
 
-    private void limpiarCampos() {
+    public void limpiarCampos() {
         txtNombreClase.setText("");
         txtCapacidadMaxima.setText("");
         txtSala.setText("");

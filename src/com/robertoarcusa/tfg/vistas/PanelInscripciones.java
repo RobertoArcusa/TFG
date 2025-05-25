@@ -6,19 +6,15 @@ import com.robertoarcusa.tfg.clases.SesionClase;
 import com.robertoarcusa.tfg.dao.InscripcionDAO;
 import com.robertoarcusa.tfg.dao.SocioDAO;
 import com.robertoarcusa.tfg.dao.SesionClaseDAO;
+import com.robertoarcusa.tfg.enums.TipoUsuario;
 import com.robertoarcusa.tfg.util.Sesion;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.List;
 
 public class PanelInscripciones extends JPanel {
@@ -32,100 +28,98 @@ public class PanelInscripciones extends JPanel {
     private TableRowSorter<DefaultTableModel> sorter;
 
     public PanelInscripciones() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        // Panel de campos con GridBagLayout para hacerlo responsive
+        // === PANEL CAMPOS ===
         JPanel panelCampos = new JPanel(new GridBagLayout());
         panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        GridBagConstraints pc = new GridBagConstraints();
-        pc.insets = new Insets(5, 10, 5, 10);
-        pc.fill = GridBagConstraints.HORIZONTAL;
-        pc.anchor = GridBagConstraints.CENTER;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
         comboSocios = new JComboBox<>();
-        comboSocios.setPreferredSize(new Dimension(250, 45));
+        comboSocios.setPreferredSize(new Dimension(250, 40));
 
         comboSesiones = new JComboBox<>();
-        comboSesiones.setPreferredSize(new Dimension(250, 45));
+        comboSesiones.setPreferredSize(new Dimension(250, 40));
 
         lblCapacidadDisponible = new JLabel("CAPACIDAD DISPONIBLE: ");
 
         cargarSocios();
         cargarSesiones();
 
-        // Panel columna 1: SOCIO
+        // === COLUMNA 1 ===
         JPanel columna1 = new JPanel(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
         c1.insets = new Insets(5, 5, 5, 5);
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.weightx = 1.0;
+
         c1.gridx = 0; c1.gridy = 0;
         columna1.add(new JLabel("SOCIO:"), c1);
         c1.gridx = 1;
         columna1.add(comboSocios, c1);
 
-        // Panel columna 2: SESIÓN
+        // === COLUMNA 2 ===
         JPanel columna2 = new JPanel(new GridBagLayout());
         GridBagConstraints c2 = new GridBagConstraints();
         c2.insets = new Insets(5, 5, 5, 5);
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.weightx = 1.0;
+
         c2.gridx = 0; c2.gridy = 0;
         columna2.add(new JLabel("SESIÓN CLASE:"), c2);
         c2.gridx = 1;
         columna2.add(comboSesiones, c2);
 
-        // Panel columna 3: CAPACIDAD
+        // === COLUMNA 3 ===
         JPanel columna3 = new JPanel(new GridBagLayout());
         GridBagConstraints c3 = new GridBagConstraints();
         c3.insets = new Insets(5, 5, 5, 5);
+        c3.fill = GridBagConstraints.HORIZONTAL;
+        c3.weightx = 1.0;
+
         c3.gridx = 0; c3.gridy = 0;
         columna3.add(lblCapacidadDisponible, c3);
 
         // Añadir columnas al panelCampos
-        pc.gridx = 0; pc.gridy = 0;
-        panelCampos.add(columna1, pc);
-        pc.gridx = 1;
-        panelCampos.add(columna2, pc);
-        pc.gridx = 2;
-        panelCampos.add(columna3, pc);
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.4;
+        panelCampos.add(columna1, gbc);
+        gbc.gridx = 1;
+        panelCampos.add(columna2, gbc);
+        gbc.gridx = 2; gbc.weightx = 0.2;
+        panelCampos.add(columna3, gbc);
 
+        // === TABLA ===
         modeloTabla = new DefaultTableModel(new String[]{"ID", "Socio", "Sesión", "Fecha Inscripción"}, 0) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
         tablaInscripciones = new JTable(modeloTabla);
         JScrollPane scrollTabla = new JScrollPane(tablaInscripciones);
 
-        // Botones
-        btnAgregar = new JButton("Añadir Inscripción");
-        btnModificar = new JButton("Modificar Inscripción");
-        btnEliminar = new JButton("Eliminar Inscripción");
-        btnLimpiarCampos = new JButton("Limpiar Campos");
+        // === BOTONES ===
+        btnAgregar = new JButton("AÑADIR INSCRIPCIÓN");
+        btnModificar = new JButton("MODIFICAR INSCRIPCIÓN");
+        btnEliminar = new JButton("ELIMINAR INSCRIPCIÓN");
+        btnLimpiarCampos = new JButton("LIMPIAR CAMPOS");
 
         btnAgregar.addActionListener(e -> agregarInscripcion());
         btnModificar.addActionListener(e -> modificarInscripcion());
         btnEliminar.addActionListener(e -> eliminarInscripcion());
         btnLimpiarCampos.addActionListener(e -> limpiarCampos());
 
-        // Campo de búsqueda
+        Dimension btnSize = new Dimension(180, 40);
+        btnAgregar.setPreferredSize(btnSize);
+        btnModificar.setPreferredSize(btnSize);
+        btnEliminar.setPreferredSize(btnSize);
+        btnLimpiarCampos.setPreferredSize(btnSize);
+
+        // === CAMPO DE BÚSQUEDA ===
         txtBuscarInscripcion = new JTextField(20);
-        txtBuscarInscripcion.setForeground(Color.GRAY);
-        txtBuscarInscripcion.setText("Introduce un nombre de un usuario");
-
-        txtBuscarInscripcion.addFocusListener(new FocusAdapter() {
-            public void focusGained(FocusEvent e) {
-                if (txtBuscarInscripcion.getText().equals("Introduce un nombre de un usuario")) {
-                    txtBuscarInscripcion.setText("");
-                    txtBuscarInscripcion.setForeground(Color.BLACK);
-                }
-            }
-
-            public void focusLost(FocusEvent e) {
-                if (txtBuscarInscripcion.getText().isEmpty()) {
-                    txtBuscarInscripcion.setText("Introduce un nombre de un usuario");
-                    txtBuscarInscripcion.setForeground(Color.GRAY);
-                }
-            }
-        });
+        setTextFieldHint(txtBuscarInscripcion, "Introduce un nombre de un usuario");
 
         txtBuscarInscripcion.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
@@ -133,29 +127,32 @@ public class PanelInscripciones extends JPanel {
             }
         });
 
-        // Panel inferior combinado
-        JPanel panelInferior = new JPanel(new GridBagLayout());
-        GridBagConstraints pi = new GridBagConstraints();
-        pi.insets = new Insets(5, 5, 5, 5);
-        pi.gridx = 0; pi.gridy = 0;
-        panelInferior.add(new JLabel("BUSCAR INSCRIPCIÓN"), pi);
-        pi.gridx++;
-        panelInferior.add(txtBuscarInscripcion, pi);
-        pi.gridx++;
-        panelInferior.add(btnAgregar, pi);
-        pi.gridx++;
-        panelInferior.add(btnModificar, pi);
-        pi.gridx++;
-        panelInferior.add(btnEliminar, pi);
-        pi.gridx++;
-        panelInferior.add(btnLimpiarCampos, pi);
+        // === PANEL BOTONES Y BÚSQUEDA ===
+        JPanel panelBusquedaBotones = new JPanel(new BorderLayout());
 
-        // Añadir todo al layout principal
-        add(panelCampos, BorderLayout.NORTH);
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnModificar);
+        panelBotones.add(btnEliminar);
+        panelBotones.add(btnLimpiarCampos);
+
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        panelBusqueda.add(new JLabel("BUSCAR INSCRIPCIÓN"));
+        panelBusqueda.add(txtBuscarInscripcion);
+
+        panelBusquedaBotones.add(panelBotones, BorderLayout.CENTER);
+        panelBusquedaBotones.add(panelBusqueda, BorderLayout.SOUTH);
+
+        // === PANEL ARRIBA ===
+        JPanel panelArriba = new JPanel(new BorderLayout());
+        panelArriba.add(panelCampos, BorderLayout.CENTER);
+        panelArriba.add(panelBusquedaBotones, BorderLayout.SOUTH);
+
+        // Añadir al layout principal
+        add(panelArriba, BorderLayout.NORTH);
         add(scrollTabla, BorderLayout.CENTER);
-        add(panelInferior, BorderLayout.SOUTH);
 
-        // Carga datos
+        // === CARGA DE DATOS Y RESTRICCIONES ===
         cargarInscripciones();
 
         tablaInscripciones.getSelectionModel().addListSelectionListener(e -> {
@@ -173,10 +170,31 @@ public class PanelInscripciones extends JPanel {
         sorter = new TableRowSorter<>(modeloTabla);
         tablaInscripciones.setRowSorter(sorter);
 
-        if (Sesion.esBasic()) {
-            btnLimpiarCampos.setVisible(false);
+        Socio usuarioActual = Sesion.getUsuarioActual();
+        if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
+            panelCampos.setVisible(false);
+            panelBusquedaBotones.setVisible(false);
+
+            DefaultTableModel modeloBasico = new DefaultTableModel(
+                    new String[]{"SOCIO", "SESIÓN", "FECHA INSCRIPCION"}, 0) {
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+
+            for (Inscripcion i : InscripcionDAO.obtenerTodasLasInscripciones()) {
+                modeloBasico.addRow(new Object[]{
+                        i.getSocio().getNombreSocio(),
+                        i.getSesionclase().getClase().getNombreClase(),
+                        i.getFechaInscripcion()
+                });
+            }
+
+            tablaInscripciones.setModel(modeloBasico);
         }
     }
+
+
 
 
     private void agregarInscripcion() {
@@ -405,7 +423,7 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
-    private void limpiarCampos() {
+    public void limpiarCampos() {
         if (comboSocios.getItemCount() > 0) {
             comboSocios.setSelectedIndex(-1);
         }
@@ -414,6 +432,30 @@ public class PanelInscripciones extends JPanel {
             comboSesiones.setSelectedIndex(-1);
         }
     }
+
+    private void setTextFieldHint(JTextField textField, String hint) {
+        textField.setText(hint);
+        textField.setForeground(Color.GRAY);
+
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(hint)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(hint);
+                    textField.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
+
 
 }
 
