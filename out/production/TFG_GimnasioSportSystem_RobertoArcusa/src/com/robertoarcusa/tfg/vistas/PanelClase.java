@@ -365,23 +365,37 @@ public class PanelClase extends JPanel {
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
-        ClaseDAO dao = new ClaseDAO();
-        Clase clase = dao.obtenerClasePorId(id);
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar esta clase?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (clase != null) {
-            boolean eliminada = dao.eliminarClase(clase);
-            if (!eliminada) {
-                JOptionPane.showMessageDialog(this,
-                        "No se puede eliminar la clase porque tiene sesiones o inscripciones asociadas.\nPor favor, elimine primero esos datos.",
-                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            int id = (int) modeloTabla.getValueAt(fila, 0);
+            ClaseDAO dao = new ClaseDAO();
+            Clase clase = dao.obtenerClasePorId(id);
+
+            if (clase != null) {
+                boolean eliminada = dao.eliminarClase(clase);
+                if (eliminada) {
+                    cargarClases();
+                    limpiarCampos();
+                    JOptionPane.showMessageDialog(this, "Clase eliminada correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo eliminar la clase. Por favor, inténtalo de nuevo o contacta al administrador.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                cargarClases();
-                limpiarCampos();
-                JOptionPane.showMessageDialog(this, "Clase eliminada.");
+                JOptionPane.showMessageDialog(this,
+                        "No se encontró la clase seleccionada.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
+
 
     private void filtrarClasesPorNombre(String filtro) {
         modeloTabla.setRowCount(0);  // Limpiar la tabla

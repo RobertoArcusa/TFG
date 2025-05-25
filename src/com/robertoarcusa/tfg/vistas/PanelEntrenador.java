@@ -250,9 +250,6 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
-
-
-
     private List<Entrenador> obtenerEntrenadoresDesdeDAO() {
         return EntrenadorDAO.obtenerTodosLosEntrenadores();
     }
@@ -379,21 +376,30 @@ public class PanelEntrenador extends JPanel {
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
-        EntrenadorDAO dao = new EntrenadorDAO();
-        boolean eliminado = dao.eliminarEntrenador(id);
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar este entrenador?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (eliminado) {
-            cargarEntrenadores();
-            limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Entrenador eliminado correctamente.");
-        } else {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Ocurrió un error al intentar eliminar el entrenador.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+        if (opcion == JOptionPane.YES_OPTION) {
+            int id = (int) modeloTabla.getValueAt(fila, 0);
+            EntrenadorDAO dao = new EntrenadorDAO();
+            boolean eliminado = dao.eliminarEntrenador(id);
+
+            if (eliminado) {
+                cargarEntrenadores();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Entrenador eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se pudo eliminar el entrenador. Por favor, inténtelo de nuevo o contacte con el administrador.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
     }
 

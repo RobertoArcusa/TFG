@@ -206,29 +206,6 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
-    private void setTextFieldHint(JTextField txtBuscarSesionClase, String s) {
-        txtBuscarSesionClase.setText(s);
-        txtBuscarSesionClase.setForeground(Color.GRAY);
-
-        txtBuscarSesionClase.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (txtBuscarSesionClase.getText().equals(s)) {
-                    txtBuscarSesionClase.setText("");
-                    txtBuscarSesionClase.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (txtBuscarSesionClase.getText().isEmpty()) {
-                    txtBuscarSesionClase.setText(s);
-                    txtBuscarSesionClase.setForeground(Color.GRAY);
-                }
-            }
-        });
-    }
-
     private void agregarSesionClase() {
         Clase claseSeleccionada = (Clase) comboClase.getSelectedItem();
         if (claseSeleccionada == null) {
@@ -326,21 +303,34 @@ public class PanelSesionClase extends JPanel {
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
-        SesionClaseDAO dao = new SesionClaseDAO();
-        SesionClase sesion = dao.obtenerSesionPorId(id);
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar esta sesión?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (sesion != null) {
-            boolean eliminada = dao.eliminarSesion(sesion);
-            if (!eliminada) {
-                JOptionPane.showMessageDialog(this,
-                        "No se puede eliminar la sesion porque tiene inscripciones asociadas.\nPor favor, elimine primero las inscripciones asociadas para eliminar la clase.",
-                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            int id = (int) modeloTabla.getValueAt(fila, 0);
+            SesionClaseDAO dao = new SesionClaseDAO();
+            SesionClase sesion = dao.obtenerSesionPorId(id);
+
+            if (sesion != null) {
+                boolean eliminada = dao.eliminarSesion(sesion);
+                if (eliminada) {
+                    actualizarCapacidadDisponible();
+                    cargarSesiones();
+                    limpiarCampos();
+                    JOptionPane.showMessageDialog(this, "Sesión eliminada correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo eliminar la sesión. Por favor, inténtalo de nuevo o contacta al administrador.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                actualizarCapacidadDisponible();
-                cargarSesiones();
-                limpiarCampos();
-                JOptionPane.showMessageDialog(this, "Sesión eliminada.");
+                JOptionPane.showMessageDialog(this,
+                        "No se encontró la sesión seleccionada.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -388,13 +378,6 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
-    public void limpiarCampos() {
-        comboClase.setSelectedIndex(-1);
-        dateChooser.setDate(null);
-        spinnerHora.setValue(new Date());
-        txtCapacidadDisponible.setText("");
-    }
-
     private void filtrarSesionesPorNombre(String filtro) {
         modeloTabla.setRowCount(0);
         SesionClaseDAO dao = new SesionClaseDAO();
@@ -410,4 +393,35 @@ public class PanelSesionClase extends JPanel {
             }
         }
     }
+
+    public void limpiarCampos() {
+        comboClase.setSelectedIndex(-1);
+        dateChooser.setDate(null);
+        spinnerHora.setValue(new Date());
+        txtCapacidadDisponible.setText("");
+    }
+
+    private void setTextFieldHint(JTextField txtBuscarSesionClase, String s) {
+        txtBuscarSesionClase.setText(s);
+        txtBuscarSesionClase.setForeground(Color.GRAY);
+
+        txtBuscarSesionClase.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (txtBuscarSesionClase.getText().equals(s)) {
+                    txtBuscarSesionClase.setText("");
+                    txtBuscarSesionClase.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (txtBuscarSesionClase.getText().isEmpty()) {
+                    txtBuscarSesionClase.setText(s);
+                    txtBuscarSesionClase.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
+
 }

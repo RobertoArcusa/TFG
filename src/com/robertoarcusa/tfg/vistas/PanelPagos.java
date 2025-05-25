@@ -265,8 +265,6 @@ public class PanelPagos extends JPanel {
         tablaPagos.setRowSorter(sorter);
     }
 
-
-
     private void agregarNuevoPago() {
         Pago pago = new Pago();
         if (!llenarDatosDesdeFormulario(pago)) return;
@@ -299,18 +297,27 @@ public class PanelPagos extends JPanel {
             return;
         }
 
-        int idPago = (int) modeloTabla.getValueAt(fila, 0);
-        PagoDAO dao = new PagoDAO();
-        boolean eliminado = dao.eliminarPago(idPago);
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar este pago?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (!eliminado) {
-            JOptionPane.showMessageDialog(this,
-                    "No se puede eliminar el pago porque tiene datos relacionados o ha ocurrido un error.",
-                    "Advertencia", JOptionPane.WARNING_MESSAGE);
-        } else {
-            cargarPagos();
-            limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Pago eliminado.");
+        if (opcion == JOptionPane.YES_OPTION) {
+            int idPago = (int) modeloTabla.getValueAt(fila, 0);
+            PagoDAO dao = new PagoDAO();
+            boolean eliminado = dao.eliminarPago(idPago);
+
+            if (eliminado) {
+                cargarPagos();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Pago eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar el pago. Por favor, inténtalo de nuevo o contacta al administrador.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

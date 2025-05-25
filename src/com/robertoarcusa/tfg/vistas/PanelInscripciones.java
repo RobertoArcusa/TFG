@@ -194,9 +194,6 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
-
-
-
     private void agregarInscripcion() {
         Socio socioSeleccionado = (Socio) comboSocios.getSelectedItem();
         SesionClase sesionSeleccionada = (SesionClase) comboSesiones.getSelectedItem();
@@ -301,29 +298,42 @@ public class PanelInscripciones extends JPanel {
             return;
         }
 
-        int filaModelo = tablaInscripciones.convertRowIndexToModel(filaVista);
-        int id = (int) modeloTabla.getValueAt(filaModelo, 0);
-        InscripcionDAO dao = new InscripcionDAO();
-        Inscripcion inscripcion = dao.obtenerInscripcionPorId(id);
+        // Confirmar eliminación
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar esta inscripción?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (inscripcion != null) {
-            boolean eliminada = dao.eliminarInscripcion(inscripcion);
-            if (!eliminada) {
-                JOptionPane.showMessageDialog(this,
-                        "No se puede eliminar la inscripción porque tiene datos relacionados. Primero elimínelos.",
-                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            int filaModelo = tablaInscripciones.convertRowIndexToModel(filaVista);
+            int id = (int) modeloTabla.getValueAt(filaModelo, 0);
+            InscripcionDAO dao = new InscripcionDAO();
+            Inscripcion inscripcion = dao.obtenerInscripcionPorId(id);
+
+            if (inscripcion != null) {
+                boolean eliminada = dao.eliminarInscripcion(inscripcion);
+                if (eliminada) {
+                    // Actualizar la capacidad disponible
+                    SesionClase sesion = inscripcion.getSesionclase();
+                    sesion.setCapacidadDisponible(sesion.getCapacidadDisponible() + 1);
+
+                    SesionClaseDAO sesionDao = new SesionClaseDAO();
+                    sesionDao.actualizarSesion(sesion);
+
+                    cargarSesiones();
+                    cargarInscripciones();
+                    JOptionPane.showMessageDialog(this, "Inscripción eliminada correctamente.");
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo eliminar la inscripción. Por favor, inténtalo de nuevo o contacta al administrador.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                // Solo actualizar la capacidad si la eliminación fue correcta
-                SesionClase sesion = inscripcion.getSesionclase();
-                sesion.setCapacidadDisponible(sesion.getCapacidadDisponible() + 1);
-
-                SesionClaseDAO sesionDao = new SesionClaseDAO();
-                sesionDao.actualizarSesion(sesion);
-
-                cargarSesiones();
-                cargarInscripciones();
-                JOptionPane.showMessageDialog(this, "Inscripción eliminada.");
-                limpiarCampos();
+                JOptionPane.showMessageDialog(this,
+                        "No se encontró la inscripción seleccionada.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
