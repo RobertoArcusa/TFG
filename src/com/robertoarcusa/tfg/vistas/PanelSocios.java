@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Properties;
+import com.toedter.calendar.JDateChooser;
 
 public class PanelSocios extends JPanel {
 
@@ -28,7 +29,7 @@ public class PanelSocios extends JPanel {
     private JComboBox<TipoMembresia> comboMembresia;
     private JComboBox<TipoUsuario> comboTipoUsuario;
     private JButton btnModificarSocio, btnAgregarSocio, btnEliminarSocio, btnLimpiarCampos;
-    private JDatePickerImpl datePicker;
+    private JDateChooser dateChooser;
     private JLabel lblFoto;
     private byte[] fotoPerfilSeleccionada;
     private JTextField txtBuscarSocio;
@@ -96,15 +97,12 @@ public class PanelSocios extends JPanel {
         c2.gridx = 0; c2.gridy = 0;
         columna2.add(new JLabel("FECHA NACIMIENTO:"), c2);
         c2.gridx = 1;
-        UtilDateModel model = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Hoy");
-        p.put("text.month", "Mes");
-        p.put("text.year", "Año");
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        datePicker = new JDatePickerImpl(datePanel, new FormateadorFecha());
-        datePicker.setPreferredSize(new Dimension(350, 40));
-        columna2.add(datePicker, c2);
+        dateChooser = new JDateChooser();
+        dateChooser.setPreferredSize(new Dimension(350, 40));
+        dateChooser.setDateFormatString("dd/MM/yyyy");
+        columna2.add(dateChooser, c2);
+
+
 
         c2.gridx = 0; c2.gridy++;
         columna2.add(new JLabel("TIPO USUARIO:"), c2);
@@ -273,12 +271,10 @@ public class PanelSocios extends JPanel {
 
             // Fecha de nacimiento
             if (socio.getFechaNacimiento() != null) {
-                java.util.Calendar cal = java.util.Calendar.getInstance();
-                cal.setTime(socio.getFechaNacimiento());
-                datePicker.getModel().setDate(cal.get(java.util.Calendar.YEAR),
-                        cal.get(java.util.Calendar.MONTH),
-                        cal.get(java.util.Calendar.DAY_OF_MONTH));
-                datePicker.getModel().setSelected(true);
+                java.util.Date fecha = socio.getFechaNacimiento();
+                dateChooser.setDate(fecha);
+            } else {
+                dateChooser.setDate(null);
             }
 
             // Foto de perfil
@@ -398,10 +394,11 @@ public class PanelSocios extends JPanel {
         socio.setTipoUsuario((TipoUsuario) comboTipoUsuario.getSelectedItem());
         socio.setFotoPerfil(fotoPerfilSeleccionada);
 
-        if (datePicker.getModel().getValue() != null) {
-            java.util.Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
+        if (dateChooser.getDate() != null) {
+            java.util.Date selectedDate = dateChooser.getDate();
             socio.setFechaNacimiento(new java.sql.Date(selectedDate.getTime()));
         }
+
     }
 
     private void cargarSocios() {
@@ -439,7 +436,7 @@ public class PanelSocios extends JPanel {
         txtContrasena.setText("");
         comboMembresia.setSelectedIndex(-1);
         comboTipoUsuario.setSelectedIndex(-1);
-        datePicker.getModel().setSelected(false);
+        dateChooser.setDate(null);
         fotoPerfilSeleccionada = null;
         tablaSocios.clearSelection();
         lblFoto.setIcon(null);

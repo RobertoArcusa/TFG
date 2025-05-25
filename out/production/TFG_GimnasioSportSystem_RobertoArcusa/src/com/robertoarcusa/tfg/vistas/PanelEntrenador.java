@@ -4,10 +4,9 @@ import com.robertoarcusa.tfg.clases.Entrenador;
 import com.robertoarcusa.tfg.clases.Socio;
 import com.robertoarcusa.tfg.dao.EntrenadorDAO;
 import com.robertoarcusa.tfg.enums.TipoUsuario;
-import com.robertoarcusa.tfg.util.FormateadorFecha;
 import com.robertoarcusa.tfg.util.Sesion;
+import com.toedter.calendar.JDateChooser;
 import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +18,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -29,7 +27,7 @@ public class PanelEntrenador extends JPanel {
     private DefaultTableModel modeloTabla;
     private JTextField txtNombre, txtApellidos, txtEspecialidad, txtTelefono, txtSalario;
     private JButton btnGuardar, btnAgregar, btnEliminar, btnLimpiarCampos;
-    private JDatePickerImpl datepickerContratacion;
+    private JDateChooser dateChooserContratacion;
     private JLabel lblFoto;
     private byte[] fotoPerfilSeleccionada;
     private JTextField txtBuscarEntrenador;
@@ -96,9 +94,11 @@ public class PanelEntrenador extends JPanel {
         p.put("text.month", "Mes");
         p.put("text.year", "Año");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        datepickerContratacion = new JDatePickerImpl(datePanel, new FormateadorFecha());
-        datepickerContratacion.setPreferredSize(new Dimension(350, 40));
-        columna2.add(datepickerContratacion, c2);
+        dateChooserContratacion = new JDateChooser();
+        dateChooserContratacion.setDateFormatString("dd/MM/yyyy"); // Formato personalizado si quieres
+
+        dateChooserContratacion.setPreferredSize(new Dimension(350, 40));
+        columna2.add(dateChooserContratacion, c2);
 
         c2.gridx = 0; c2.gridy++;
         columna2.add(new JLabel("SALARIO:"), c2);
@@ -267,15 +267,7 @@ public class PanelEntrenador extends JPanel {
 
             // Fecha de contratación
             if (entrenador.getFechaContratacion() != null) {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(entrenador.getFechaContratacion());
-
-                datepickerContratacion.getModel().setDate(
-                        cal.get(Calendar.YEAR),
-                        cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)
-                );
-                datepickerContratacion.getModel().setSelected(true);
+                dateChooserContratacion.setDate(entrenador.getFechaContratacion());
             }
 
             // Foto de perfil
@@ -330,7 +322,7 @@ public class PanelEntrenador extends JPanel {
             JOptionPane.showMessageDialog(this, "Por favor, rellene el campo SALARIO.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (datepickerContratacion.getModel().getValue() == null) {
+        if (dateChooserContratacion.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor, rellene el campo FECHA DE CONTRATACIÓN.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -410,8 +402,8 @@ public class PanelEntrenador extends JPanel {
         entrenador.setTelefono(txtTelefono.getText());
         entrenador.setSalario(Double.parseDouble(txtSalario.getText()));
 
-        if (datepickerContratacion.getModel().getValue() != null) {
-            java.util.Date selectedDate = (java.util.Date) datepickerContratacion.getModel().getValue();
+        if (dateChooserContratacion.getDate() != null) {
+            java.util.Date selectedDate = dateChooserContratacion.getDate();
             entrenador.setFechaContratacion(new java.sql.Date(selectedDate.getTime()));
         }
 
@@ -483,7 +475,7 @@ public class PanelEntrenador extends JPanel {
         txtEspecialidad.setText("");
         txtTelefono.setText("");
         txtSalario.setText("");
-        datepickerContratacion.getModel().setSelected(false);
+        dateChooserContratacion.setDate(null);
         fotoPerfilSeleccionada = null; // Importantísimo
         lblFoto.setIcon(null);
         lblFoto.setText("Sin foto");

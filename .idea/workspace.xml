@@ -8,7 +8,10 @@
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -200,7 +203,7 @@
       <workItem from="1747933537219" duration="12628000" />
       <workItem from="1748010663965" duration="3280000" />
       <workItem from="1748162163665" duration="12053000" />
-      <workItem from="1748194440186" duration="2579000" />
+      <workItem from="1748194440186" duration="6261000" />
     </task>
     <servers />
   </component>

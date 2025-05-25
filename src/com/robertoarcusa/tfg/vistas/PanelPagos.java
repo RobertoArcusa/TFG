@@ -11,7 +11,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Properties;
 
 import com.robertoarcusa.tfg.clases.Pago;
@@ -23,6 +22,7 @@ import com.robertoarcusa.tfg.enums.MetodoPago;
 import com.robertoarcusa.tfg.enums.TipoCuota;
 import com.robertoarcusa.tfg.enums.TipoPago;
 import com.robertoarcusa.tfg.util.FormateadorFecha;
+import com.toedter.calendar.JDateChooser;
 import org.jdatepicker.impl.*;
 
 public class PanelPagos extends JPanel {
@@ -30,7 +30,7 @@ public class PanelPagos extends JPanel {
     private JTable tablaPagos;
     private DefaultTableModel modeloTabla;
     private JComboBox<String> comboSocio;
-    private JDatePickerImpl datePicker;
+    private JDateChooser dateChooserFechaPago;
     private JTextField txtImporte;
     private JComboBox<TipoCuota> comboTipoCuota;
     private JComboBox<TipoPago> comboTipoPago;
@@ -57,15 +57,10 @@ public class PanelPagos extends JPanel {
         comboSocio.setPreferredSize(new Dimension(250, 40));
         cargarIdsSocios();
 
-        datePicker = new JDatePickerImpl(
-                new JDatePanelImpl(new UtilDateModel(), new Properties() {{
-                    put("text.today", "Hoy");
-                    put("text.month", "Mes");
-                    put("text.year", "Año");
-                }}),
-                new FormateadorFecha()
-        );
-        datePicker.setPreferredSize(new Dimension(250, 40));
+        dateChooserFechaPago = new JDateChooser();
+        dateChooserFechaPago.setDateFormatString("dd-MM-yyyy");
+
+        dateChooserFechaPago.setPreferredSize(new Dimension(250, 40));
 
         txtImporte = new JTextField();
         txtImporte.setPreferredSize(new Dimension(250, 40));
@@ -110,7 +105,7 @@ public class PanelPagos extends JPanel {
         c1.gridx = 0;
         columna1.add(new JLabel("FECHA PAGO:"), c1);
         c1.gridx = 1;
-        columna1.add(datePicker, c1);
+        columna1.add(dateChooserFechaPago, c1);
 
         c1.gridy++;
         c1.gridx = 0;
@@ -364,12 +359,7 @@ public class PanelPagos extends JPanel {
 
             java.util.Calendar cal = java.util.Calendar.getInstance();
             cal.setTime(pago.getFechaPago());
-            datePicker.getModel().setDate(
-                    cal.get(java.util.Calendar.YEAR),
-                    cal.get(java.util.Calendar.MONTH),
-                    cal.get(java.util.Calendar.DAY_OF_MONTH));
-            datePicker.getModel().setSelected(true);
-
+            dateChooserFechaPago.setDate(cal.getTime());
             txtImporte.setText(String.valueOf(pago.getImporte()));
             comboTipoCuota.setSelectedItem(pago.getTipoCuota());
             comboTipoPago.setSelectedItem(pago.getTipoPago());
@@ -407,7 +397,8 @@ public class PanelPagos extends JPanel {
             socio.setIdSocio(idSocio);
             pago.setSocio(socio);
 
-            java.util.Date utilDate = (java.util.Date) datePicker.getModel().getValue();
+            java.util.Date utilDate = dateChooserFechaPago.getDate();
+
             if (utilDate == null) {
                 JOptionPane.showMessageDialog(this, "Selecciona una fecha de pago válida.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -443,7 +434,7 @@ public class PanelPagos extends JPanel {
 
     public void limpiarCampos() {
         comboSocio.setSelectedIndex(-1);
-        datePicker.getModel().setSelected(false);
+        dateChooserFechaPago.setDate(null);
         txtImporte.setText("");
         comboTipoCuota.setSelectedIndex(-1);
         comboTipoPago.setSelectedIndex(-1);
