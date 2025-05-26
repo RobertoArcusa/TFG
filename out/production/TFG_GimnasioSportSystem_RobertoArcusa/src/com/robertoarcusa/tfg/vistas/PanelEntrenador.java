@@ -27,9 +27,9 @@ import java.util.Properties;
  *
  * Muestra campos de entrada para los datos del entrenador, tabla de resultados y funcionalidades CRUD.
  *
- *  * @author Roberto Arcusa
- *  * @version 1.0
- *  * @since 2025
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
  */
 
 public class PanelEntrenador extends JPanel {
@@ -345,34 +345,29 @@ public class PanelEntrenador extends JPanel {
      * Muestra mensajes de error si hay campos vacíos o teléfono duplicado.
      */
     private void agregarNuevoEntrenador() {
-        // Verificar que todos los campos estén rellenos
-        if (txtNombre.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo NOMBRE.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (txtApellidos.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo APELLIDOS.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (txtEspecialidad.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo ESPECIALIDAD.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (txtTelefono.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo TELÉFONO.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (txtSalario.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo SALARIO.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (dateChooserContratacion.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo FECHA DE CONTRATACIÓN.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Verificar que todos los campos obligatorios estén rellenados
+        if (txtNombre.getText().trim().isEmpty() ||
+                txtApellidos.getText().trim().isEmpty() ||
+                txtEspecialidad.getText().trim().isEmpty() ||
+                txtTelefono.getText().trim().isEmpty() ||
+                txtSalario.getText().trim().isEmpty() ||
+                dateChooserContratacion.getDate() == null) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios:\n" +
+                            "- Nombre\n" +
+                            "- Apellidos\n" +
+                            "- Especialidad\n" +
+                            "- Teléfono\n" +
+                            "- Salario\n" +
+                            "- Fecha de contratación",
+                    "Campos obligatorios",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Verificar si ya existe un teléfono registrado
-        if (existeTelefono(txtTelefono.getText())) {
+        if (existeTelefono(txtTelefono.getText().trim())) {
             JOptionPane.showMessageDialog(this, "Ya existe un entrenador con este teléfono.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

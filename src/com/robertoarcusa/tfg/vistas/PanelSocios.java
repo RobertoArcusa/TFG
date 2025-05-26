@@ -4,6 +4,7 @@ import com.robertoarcusa.tfg.clases.Socio;
 import com.robertoarcusa.tfg.dao.SocioDAO;
 import com.robertoarcusa.tfg.enums.TipoMembresia;
 import com.robertoarcusa.tfg.enums.TipoUsuario;
+import com.robertoarcusa.tfg.util.DNIUtils;
 import com.robertoarcusa.tfg.util.Seguridad;
 import com.robertoarcusa.tfg.util.Sesion;
 import javax.swing.*;
@@ -347,22 +348,50 @@ public class PanelSocios extends JPanel {
     private void agregarNuevoSocio() {
         if (!tablaSocios.getSelectionModel().isSelectionEmpty()) return;
 
+        // Validar campos obligatorios
+        if (txtNombre.getText().trim().isEmpty() ||
+                txtApellidos.getText().trim().isEmpty() ||
+                txtDni.getText().trim().isEmpty() ||
+                txtContrasena.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios:\n- Nombre\n- Apellidos\n- DNI\n- Contraseña",
+                    "Campos obligatorios",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar formato del DNI
+        if (!DNIUtils.esDNIValido(txtDni.getText().trim())) {
+            JOptionPane.showMessageDialog(this,
+                    "El DNI introducido no es válido. Asegúrese de que tiene un formato correcto.",
+                    "DNI inválido",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         SocioDAO dao = new SocioDAO();
-        if (dao.existeDni(txtDni.getText())) {
-            JOptionPane.showMessageDialog(this, "Ya existe un socio con ese DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        if (dao.existeDni(txtDni.getText().trim())) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe un socio con ese DNI.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Socio nuevo = new Socio();
         llenarDatosDesdeFormulario(nuevo);
-        if (nuevo.getTipoUsuario()==null) {
+
+        if (nuevo.getTipoUsuario() == null) {
             nuevo.setTipoUsuario(TipoUsuario.BASIC);
         }
+
         dao.agregarSocio(nuevo);
         limpiarCampos();
         cargarSocios();
         JOptionPane.showMessageDialog(this, "Socio añadido.");
     }
+
 
     /**
      * Modifica los datos del socio actualmente seleccionado en la tabla,
@@ -372,6 +401,16 @@ public class PanelSocios extends JPanel {
         int fila = tablaSocios.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(this, "Selecciona un socio.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar el DNI antes de modificar
+        String dni = txtDni.getText().trim();
+        if (!DNIUtils.esDNIValido(dni)) {
+            JOptionPane.showMessageDialog(this,
+                    "El DNI introducido no es válido. Asegúrese de que tiene un formato correcto.",
+                    "DNI inválido",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 

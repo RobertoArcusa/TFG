@@ -17,6 +17,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * PanelSesionClase es un JPanel que proporciona una interfaz gráfica para gestionar
+ * las sesiones de las clases disponibles en el sistema.
+ * <p>
+ * Permite al usuario agregar, modificar, eliminar y buscar sesiones de clase,
+ * visualizando la información en una tabla y gestionando los detalles como clase,
+ * fecha, hora y capacidad disponible.
+ * <p>
+ * La visibilidad y permisos de ciertos componentes están condicionados al tipo de usuario actual.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class PanelSesionClase extends JPanel {
     private JTable tablaSesiones;
     private DefaultTableModel modeloTabla;
@@ -27,6 +42,11 @@ public class PanelSesionClase extends JPanel {
     private JDateChooser dateChooser;
     private JTextField txtBuscarSesionClase;
 
+    /**
+     * Constructor que inicializa el panel con sus componentes gráficos,
+     * configura el layout, crea la tabla y el formulario para gestionar sesiones,
+     * además de cargar los datos y manejar la visibilidad según el tipo de usuario.
+     */
     public PanelSesionClase() {
         setLayout(new BorderLayout(10, 10));
 
@@ -206,6 +226,12 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Agrega una nueva sesión de clase con los datos introducidos en el formulario.
+     * Valida que se haya seleccionado una clase, una fecha y una hora,
+     * y que no exista ya una sesión en la misma fecha y hora.
+     * Luego actualiza la tabla y muestra mensajes informativos.
+     */
     private void agregarSesionClase() {
         Clase claseSeleccionada = (Clase) comboClase.getSelectedItem();
         if (claseSeleccionada == null) {
@@ -254,6 +280,11 @@ public class PanelSesionClase extends JPanel {
         limpiarCampos();
     }
 
+    /**
+     * Modifica la sesión de clase seleccionada en la tabla con los datos actuales del formulario.
+     * Valida la selección y los datos de fecha y hora antes de actualizar.
+     * Refresca la tabla y muestra mensajes según el resultado.
+     */
     private void modificarSesionClase() {
         int fila = tablaSesiones.getSelectedRow();
         if (fila < 0) {
@@ -296,6 +327,10 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Elimina la sesión de clase seleccionada tras confirmación del usuario.
+     * Actualiza la tabla, limpia el formulario y muestra mensajes de éxito o error.
+     */
     private void eliminarSesionClase() {
         int fila = tablaSesiones.getSelectedRow();
         if (fila < 0) {
@@ -335,6 +370,10 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Carga todas las sesiones de clase desde la base de datos y actualiza la tabla.
+     * Los datos mostrados incluyen ID, nombre de clase, fecha y hora, y capacidad disponible.
+     */
     public void cargarSesiones() {
         modeloTabla.setRowCount(0);
         SesionClaseDAO dao = new SesionClaseDAO();
@@ -349,6 +388,9 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Carga todas las clases disponibles en el comboBox para su selección en el formulario.
+     */
     public void cargarClases() {
         comboClase.removeAllItems();
         ClaseDAO dao = new ClaseDAO();
@@ -358,6 +400,12 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Carga los datos de una sesión de clase específica en el formulario,
+     * dado su ID, para facilitar la modificación.
+     *
+     * @param id Identificador único de la sesión a cargar.
+     */
     private void cargarDatosSesion(int id) {
         SesionClaseDAO dao = new SesionClaseDAO();
         SesionClase sesion = dao.obtenerSesionPorId(id);
@@ -369,6 +417,10 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Actualiza el campo de capacidad disponible según la clase seleccionada
+     * en el comboBox, mostrando la capacidad máxima de dicha clase.
+     */
     private void actualizarCapacidadDisponible() {
         Clase claseSeleccionada = (Clase) comboClase.getSelectedItem();
         if (claseSeleccionada != null) {
@@ -378,6 +430,12 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Filtra las sesiones mostradas en la tabla según el nombre de la clase
+     * que contenga el texto de búsqueda introducido.
+     *
+     * @param filtro Texto usado para filtrar las sesiones por nombre de clase.
+     */
     private void filtrarSesionesPorNombre(String filtro) {
         modeloTabla.setRowCount(0);
         SesionClaseDAO dao = new SesionClaseDAO();
@@ -394,6 +452,10 @@ public class PanelSesionClase extends JPanel {
         }
     }
 
+    /**
+     * Limpia los campos del formulario restableciendo sus valores
+     * a estado inicial para facilitar la entrada de nuevos datos.
+     */
     public void limpiarCampos() {
         comboClase.setSelectedIndex(-1);
         dateChooser.setDate(null);
@@ -401,6 +463,13 @@ public class PanelSesionClase extends JPanel {
         txtCapacidadDisponible.setText("");
     }
 
+    /**
+     * Configura un JTextField para mostrar un texto indicativo (hint) cuando está vacío y sin foco,
+     * y limpiar dicho texto cuando recibe foco, mejorando la experiencia del usuario.
+     *
+     * @param txtBuscarSesionClase Campo de texto a configurar.
+     * @param s Texto indicativo a mostrar como hint.
+     */
     private void setTextFieldHint(JTextField txtBuscarSesionClase, String s) {
         txtBuscarSesionClase.setText(s);
         txtBuscarSesionClase.setForeground(Color.GRAY);

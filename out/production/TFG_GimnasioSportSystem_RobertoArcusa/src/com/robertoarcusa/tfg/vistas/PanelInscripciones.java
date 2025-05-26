@@ -25,9 +25,9 @@ import java.util.List;
  *
  * Extiende JPanel y utiliza varios componentes Swing para la interacción del usuario.
  *
- *  * @author Roberto Arcusa
- *  * @version 1.0
- *  * @since 2025
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
  */
 
 public class PanelInscripciones extends JPanel {

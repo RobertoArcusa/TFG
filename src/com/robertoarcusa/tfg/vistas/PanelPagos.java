@@ -452,9 +452,33 @@ public class PanelPagos extends JPanel {
      * @return true si los datos son válidos y el objeto fue llenado correctamente; false en caso contrario.
      */
     private boolean llenarDatosDesdeFormulario(Pago pago) {
+        // Validación de campos obligatorios
+        if (comboSocio.getSelectedItem() == null ||
+                dateChooserFechaPago.getDate() == null ||
+                txtImporte.getText().trim().isEmpty() ||
+                comboTipoCuota.getSelectedItem() == null ||
+                comboTipoPago.getSelectedItem() == null ||
+                comboMetodoPago.getSelectedItem() == null ||
+                comboEstado.getSelectedItem() == null) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios:\n" +
+                            "- Socio\n" +
+                            "- Fecha de pago\n" +
+                            "- Importe\n" +
+                            "- Tipo de cuota\n" +
+                            "- Tipo de pago\n" +
+                            "- Método de pago\n" +
+                            "- Estado",
+                    "Campos obligatorios",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
         try {
+            // Obtener ID del socio seleccionado
             String itemSeleccionado = (String) comboSocio.getSelectedItem();
-            if (itemSeleccionado == null || !itemSeleccionado.contains(" - ")) {
+            if (!itemSeleccionado.contains(" - ")) {
                 JOptionPane.showMessageDialog(this, "Selecciona un socio válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -463,26 +487,45 @@ public class PanelPagos extends JPanel {
             socio.setIdSocio(idSocio);
             pago.setSocio(socio);
 
+            // Fecha
             java.util.Date utilDate = dateChooserFechaPago.getDate();
-
-            if (utilDate == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona una fecha de pago válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
             pago.setFechaPago(new java.sql.Date(utilDate.getTime()));
 
-            double importe = Double.parseDouble(txtImporte.getText().trim());
+            // Importe
+            double importe;
+            try {
+                importe = Double.parseDouble(txtImporte.getText().trim());
+                if (importe <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                            "El IMPORTE debe ser un número positivo.",
+                            "Importe inválido",
+                            JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                        "El IMPORTE debe ser un número válido.",
+                        "Formato inválido",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
             pago.setImporte(importe);
 
+            // Enums
             pago.setTipoCuota((TipoCuota) comboTipoCuota.getSelectedItem());
             pago.setTipoPago((TipoPago) comboTipoPago.getSelectedItem());
             pago.setMetodoPago((MetodoPago) comboMetodoPago.getSelectedItem());
             pago.setEstado((Estado) comboEstado.getSelectedItem());
+
+            // Archivo de recibo (opcional, según tu lógica)
             pago.setRecibo(reciboSeleccionado);
 
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error en los datos del formulario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Error en los datos del formulario: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

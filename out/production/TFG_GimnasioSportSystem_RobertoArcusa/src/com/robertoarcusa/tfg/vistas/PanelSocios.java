@@ -4,10 +4,9 @@ import com.robertoarcusa.tfg.clases.Socio;
 import com.robertoarcusa.tfg.dao.SocioDAO;
 import com.robertoarcusa.tfg.enums.TipoMembresia;
 import com.robertoarcusa.tfg.enums.TipoUsuario;
-import com.robertoarcusa.tfg.util.FormateadorFecha;
+import com.robertoarcusa.tfg.util.DNIUtils;
 import com.robertoarcusa.tfg.util.Seguridad;
 import com.robertoarcusa.tfg.util.Sesion;
-import org.jdatepicker.impl.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -18,8 +17,24 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Properties;
 import com.toedter.calendar.JDateChooser;
+
+/**
+ * Panel para la gestión de socios en la interfaz gráfica.
+ * Permite visualizar, agregar, modificar, eliminar y buscar socios,
+ * así como cargar y mostrar la foto de perfil de cada socio.
+ *
+ * Contiene un formulario con campos para nombre, apellidos, DNI, teléfono,
+ * contraseña, fecha de nacimiento, tipo de membresía y tipo de usuario.
+ * Además, incluye una tabla que muestra la lista de socios registrados.
+ *
+ * La clase se basa en Swing y utiliza un modelo de tabla para gestionar
+ * la visualización de los datos.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
 
 public class PanelSocios extends JPanel {
 
@@ -34,6 +49,10 @@ public class PanelSocios extends JPanel {
     private byte[] fotoPerfilSeleccionada;
     private JTextField txtBuscarSocio;
 
+    /**
+     * Constructor que inicializa el panel con todos sus componentes,
+     * configura el diseño, establece eventos y carga la lista inicial de socios.
+     */
     public PanelSocios() {
         setLayout(new BorderLayout(10, 10)); // Pequeños gaps
 
@@ -101,8 +120,6 @@ public class PanelSocios extends JPanel {
         dateChooser.setPreferredSize(new Dimension(350, 40));
         dateChooser.setDateFormatString("dd/MM/yyyy");
         columna2.add(dateChooser, c2);
-
-
 
         c2.gridx = 0; c2.gridy++;
         columna2.add(new JLabel("TIPO USUARIO:"), c2);
@@ -233,8 +250,11 @@ public class PanelSocios extends JPanel {
         });
     }
 
-
-
+    /**
+     * Filtra y muestra en la tabla los socios cuyo nombre contiene el texto dado.
+     *
+     * @param filtro Texto usado para filtrar los nombres de los socios.
+     */
     private void filtrarSociosPorNombre(String filtro) {
         modeloTabla.setRowCount(0);  // Limpiar la tabla antes de aplicar el filtro
         SocioDAO dao = new SocioDAO();
@@ -256,6 +276,12 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Carga los datos de un socio identificado por su ID en los campos del formulario.
+     * También carga la foto de perfil si está disponible.
+     *
+     * @param id ID del socio cuyos datos se cargarán.
+     */
     private void cargarDatosSocio(int id) {
         SocioDAO dao = new SocioDAO();
         Socio socio = dao.obtenerSocioPorId(id);
@@ -315,30 +341,76 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Agrega un nuevo socio a la base de datos con los datos introducidos en el formulario.
+     * Realiza validaciones básicas, como evitar duplicados de DNI.
+     */
     private void agregarNuevoSocio() {
         if (!tablaSocios.getSelectionModel().isSelectionEmpty()) return;
 
+        // Validar campos obligatorios
+        if (txtNombre.getText().trim().isEmpty() ||
+                txtApellidos.getText().trim().isEmpty() ||
+                txtDni.getText().trim().isEmpty() ||
+                txtContrasena.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios:\n- Nombre\n- Apellidos\n- DNI\n- Contraseña",
+                    "Campos obligatorios",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar formato del DNI
+        if (!DNIUtils.esDNIValido(txtDni.getText().trim())) {
+            JOptionPane.showMessageDialog(this,
+                    "El DNI introducido no es válido. Asegúrese de que tiene un formato correcto.",
+                    "DNI inválido",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         SocioDAO dao = new SocioDAO();
-        if (dao.existeDni(txtDni.getText())) {
-            JOptionPane.showMessageDialog(this, "Ya existe un socio con ese DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        if (dao.existeDni(txtDni.getText().trim())) {
+            JOptionPane.showMessageDialog(this,
+                    "Ya existe un socio con ese DNI.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Socio nuevo = new Socio();
         llenarDatosDesdeFormulario(nuevo);
-        if (nuevo.getTipoUsuario()==null) {
+
+        if (nuevo.getTipoUsuario() == null) {
             nuevo.setTipoUsuario(TipoUsuario.BASIC);
         }
+
         dao.agregarSocio(nuevo);
         limpiarCampos();
         cargarSocios();
         JOptionPane.showMessageDialog(this, "Socio añadido.");
     }
 
+
+    /**
+     * Modifica los datos del socio actualmente seleccionado en la tabla,
+     * actualizando la información con los datos del formulario.
+     */
     private void modificarSocio() {
         int fila = tablaSocios.getSelectedRow();
         if (fila < 0) {
             JOptionPane.showMessageDialog(this, "Selecciona un socio.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Validar el DNI antes de modificar
+        String dni = txtDni.getText().trim();
+        if (!DNIUtils.esDNIValido(dni)) {
+            JOptionPane.showMessageDialog(this,
+                    "El DNI introducido no es válido. Asegúrese de que tiene un formato correcto.",
+                    "DNI inválido",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -353,6 +425,10 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Elimina el socio actualmente seleccionado en la tabla,
+     * previa confirmación del usuario.
+     */
     private void eliminarSocio() {
         int fila = tablaSocios.getSelectedRow();
         if (fila < 0) {
@@ -384,6 +460,12 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Llena un objeto Socio con los datos actuales del formulario,
+     * incluyendo el hash de la contraseña y la foto seleccionada.
+     *
+     * @param socio Instancia de Socio a llenar con los datos del formulario.
+     */
     private void llenarDatosDesdeFormulario(Socio socio) {
         socio.setNombreSocio(txtNombre.getText());
         socio.setApellidosSocio(txtApellidos.getText());
@@ -401,6 +483,9 @@ public class PanelSocios extends JPanel {
 
     }
 
+    /**
+     * Carga todos los socios desde la base de datos y los muestra en la tabla.
+     */
     private void cargarSocios() {
         modeloTabla.setRowCount(0);
         SocioDAO dao = new SocioDAO();
@@ -409,6 +494,10 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Abre un diálogo para seleccionar una foto desde el sistema de archivos,
+     * la carga, redimensiona y muestra en el panel correspondiente.
+     */
     private void cargarFoto() {
         JFileChooser chooser = new JFileChooser();
         int opcion = chooser.showOpenDialog(this);
@@ -428,6 +517,10 @@ public class PanelSocios extends JPanel {
         }
     }
 
+    /**
+     * Limpia todos los campos del formulario, la selección de la tabla,
+     * y restablece el estado visual inicial (incluida la imagen predeterminada).
+     */
     public void limpiarCampos() {
         txtNombre.setText("");
         txtApellidos.setText("");
@@ -443,6 +536,13 @@ public class PanelSocios extends JPanel {
         lblFoto.setText("Sin foto");
     }
 
+    /**
+     * Añade un texto de sugerencia (hint) a un JTextField que desaparece
+     * cuando el campo recibe foco y vuelve a aparecer si está vacío al perder foco.
+     *
+     * @param textField El campo de texto al que se le aplicará el hint.
+     * @param hint Texto de sugerencia a mostrar.
+     */
     private void setTextFieldHint(JTextField textField, String hint) {
         textField.setText(hint);
         textField.setForeground(Color.GRAY);  // Establece el color del hint a gris

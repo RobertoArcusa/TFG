@@ -32,9 +32,9 @@ import java.util.Map;
  * y utilizando archivos .jasper previamente compilados.
  * </p>
  *
- *  * @author Roberto Arcusa
- *  * @version 1.0
- *  * @since 2025
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
  */
 
 public class PanelInformes extends JPanel {

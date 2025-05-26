@@ -305,46 +305,43 @@ public class PanelClase extends JPanel {
      * Muestra mensajes de error si hay campos inválidos o vacíos.
      */
     private void agregarNuevaClase() {
-        // Validamos que todos los campos estén rellenados
-        if (txtNombreClase.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo NOMBRE DE LA CLASE.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validación de campos obligatorios
+        if (txtNombreClase.getText().trim().isEmpty() ||
+                txtCapacidadMaxima.getText().trim().isEmpty() ||
+                txtSala.getText().trim().isEmpty() ||
+                comboNivelDificultad.getSelectedItem() == null ||
+                comboEntrenador.getSelectedItem() == null) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios:\n" +
+                            "- Nombre de la clase\n" +
+                            "- Capacidad máxima\n" +
+                            "- Sala\n" +
+                            "- Nivel de dificultad\n" +
+                            "- Entrenador",
+                    "Campos obligatorios",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (txtCapacidadMaxima.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo CAPACIDAD MÁXIMA.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        // Validamos que la capacidad máxima sea un número válido
+        // Validación de formato numérico para capacidad máxima
+        int capacidad;
         try {
-            Integer.parseInt(txtCapacidadMaxima.getText());
+            capacidad = Integer.parseInt(txtCapacidadMaxima.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La CAPACIDAD MÁXIMA debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "La CAPACIDAD MÁXIMA debe ser un número válido.",
+                    "Formato inválido",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (txtSala.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, rellene el campo SALA.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (comboNivelDificultad.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione el NIVEL DE DIFICULTAD.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (comboEntrenador.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un ENTRENADOR.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Si todos los campos están correctos, se crea la nueva clase y se añade
+        // Crear la nueva clase y asignar valores
         Clase nuevaClase = new Clase();
-        nuevaClase.setNombreClase(txtNombreClase.getText());
-        nuevaClase.setCapacidadMaxima(Integer.parseInt(txtCapacidadMaxima.getText()));
-        nuevaClase.setSala(txtSala.getText());
+        nuevaClase.setNombreClase(txtNombreClase.getText().trim());
+        nuevaClase.setCapacidadMaxima(capacidad);
+        nuevaClase.setSala(txtSala.getText().trim());
 
-        // Convertimos el String a NivelDificultad (enum)
         String nivelDificultadString = (String) comboNivelDificultad.getSelectedItem();
         NivelDificultad nivelDificultad = NivelDificultad.valueOf(nivelDificultadString.toUpperCase());
         nuevaClase.setNivelDificultad(nivelDificultad);
@@ -352,7 +349,7 @@ public class PanelClase extends JPanel {
         nuevaClase.setEntrenador((Entrenador) comboEntrenador.getSelectedItem());
         nuevaClase.setImagenClase(imagenClaseSeleccionada);
 
-        // Insertar la clase en la base de datos
+        // Guardar en base de datos
         ClaseDAO dao = new ClaseDAO();
         dao.agregarClase(nuevaClase);
         limpiarCampos();

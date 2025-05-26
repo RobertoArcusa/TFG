@@ -12,6 +12,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Clase que representa la ventana para el registro de un nuevo usuario en el sistema.
+ * Proporciona un formulario para que el usuario introduzca sus datos personales y registre una cuenta.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class RegistroUsuario extends JFrame {
     private JTextField txtNombre;
     private JTextField txtApellidos;
@@ -20,6 +29,10 @@ public class RegistroUsuario extends JFrame {
     private JButton btnRegistrar;
     private JButton btnIniciarSesion;
 
+    /**
+     * Constructor que inicializa y configura la ventana de registro, incluyendo
+     * la interfaz gráfica y los componentes necesarios.
+     */
     public RegistroUsuario() {
         setTitle("Registro de Usuario");
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Abrir maximizada
@@ -104,6 +117,16 @@ public class RegistroUsuario extends JFrame {
         contenedorCentrado.add(panelPrincipal);
     }
 
+    /**
+     * Crea un campo de texto para el formulario con su etiqueta y estilo definidos.
+     *
+     * @param formPanel El panel donde se agregará el campo.
+     * @param labelText Texto de la etiqueta asociada al campo.
+     * @param font Fuente para la etiqueta.
+     * @param bordeColor Color del borde del campo.
+     * @param fondo Color de fondo del campo.
+     * @return El campo de texto creado.
+     */
     private JTextField crearCampoFormulario(JPanel formPanel, String labelText, Font font, Color bordeColor, Color fondo) {
         JTextField campo = new JTextField(20);
         configurarCampoTexto(campo, bordeColor, fondo);
@@ -111,6 +134,13 @@ public class RegistroUsuario extends JFrame {
         return campo;
     }
 
+    /**
+     * Configura el estilo visual de un campo de texto.
+     *
+     * @param campo Campo de texto a configurar.
+     * @param bordeColor Color para el borde.
+     * @param fondo Color de fondo.
+     */
     private void configurarCampoTexto(JTextField campo, Color bordeColor, Color fondo) {
         campo.setFont(new Font("Arial", Font.PLAIN, 16));
         campo.setBackground(fondo);
@@ -123,6 +153,15 @@ public class RegistroUsuario extends JFrame {
         campo.setPreferredSize(new Dimension(250, 40));
     }
 
+    /**
+     * Añade una fila al formulario con una etiqueta y un campo de entrada.
+     *
+     * @param formPanel Panel que contiene el formulario.
+     * @param labelText Texto de la etiqueta.
+     * @param campo Componente de entrada (campo de texto o contraseña).
+     * @param font Fuente de la etiqueta.
+     * @param colorTexto Color del texto de la etiqueta.
+     */
     private void agregarFilaFormulario(JPanel formPanel, String labelText, JComponent campo, Font font, Color colorTexto) {
         JPanel fila = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fila.setOpaque(false);
@@ -135,6 +174,12 @@ public class RegistroUsuario extends JFrame {
         formPanel.add(fila);
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón registrar. Valida los datos
+     * del formulario y, si son correctos, crea un nuevo usuario y lo guarda en la base de datos.
+     *
+     * @param e Evento de acción del botón.
+     */
     private void registrarSocio(ActionEvent e) {
         String nombre = txtNombre.getText().trim();
         String apellidos = txtApellidos.getText().trim();
@@ -172,6 +217,12 @@ public class RegistroUsuario extends JFrame {
         }
     }
 
+    /**
+     * Verifica si ya existe un usuario registrado con el DNI especificado.
+     *
+     * @param dni DNI a verificar.
+     * @return true si el DNI ya está registrado, false en caso contrario.
+     */
     private boolean dniExiste(String dni) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -183,6 +234,12 @@ public class RegistroUsuario extends JFrame {
         }
     }
 
+    /**
+     * Guarda un objeto Socio en la base de datos.
+     *
+     * @param socio Objeto Socio a guardar.
+     * @return true si se guardó correctamente, false si ocurrió un error.
+     */
     private boolean guardarSocio(Socio socio) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -199,6 +256,9 @@ public class RegistroUsuario extends JFrame {
         }
     }
 
+    /**
+     * Limpia los campos del formulario dejando los valores en blanco.
+     */
     private void limpiarFormulario() {
         txtNombre.setText("");
         txtApellidos.setText("");
@@ -206,6 +266,9 @@ public class RegistroUsuario extends JFrame {
         txtContrasena.setText("");
     }
 
+    /**
+     * Abre la ventana de inicio de sesión y cierra la ventana de registro.
+     */
     private void iniciarSesion() {
         SwingUtilities.invokeLater(() -> {
             new LoginUsuario().setVisible(true);
