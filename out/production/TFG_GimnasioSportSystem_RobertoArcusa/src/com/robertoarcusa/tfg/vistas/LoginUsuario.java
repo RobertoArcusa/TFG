@@ -8,10 +8,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+
+/**
+ * Ventana de inicio de sesión para usuarios de la aplicación.
+ * Permite al usuario introducir su DNI y contraseña, y autentica su acceso.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
 
 public class LoginUsuario extends JFrame {
     private JTextField txtDni;
@@ -19,6 +27,10 @@ public class LoginUsuario extends JFrame {
     private JButton btnLogin;
     private JButton btnVolverRegistro;
 
+    /**
+     * Constructor que inicializa y configura la interfaz gráfica
+     * del formulario de inicio de sesión.
+     */
     public LoginUsuario() {
         setTitle("Inicio de Sesión");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -122,6 +134,13 @@ public class LoginUsuario extends JFrame {
         contenedorCentrado.add(panelPrincipal);
     }
 
+    /**
+     * Configura el estilo visual de un campo de texto.
+     *
+     * @param campo      Campo de texto a configurar.
+     * @param bordeColor Color del borde del campo.
+     * @param fondo      Color de fondo del campo.
+     */
     private void configurarCampoTexto(JTextField campo, Color bordeColor, Color fondo) {
         campo.setFont(new Font("Arial", Font.PLAIN, 16));
         campo.setBackground(fondo);
@@ -134,6 +153,10 @@ public class LoginUsuario extends JFrame {
         campo.setPreferredSize(new Dimension(250, 40));
     }
 
+    /**
+     * Redirige al usuario a la ventana de registro de cuenta.
+     * Se cierra la ventana actual.
+     */
     private void volverARegistro() {
         SwingUtilities.invokeLater(() -> {
             new RegistroUsuario().setVisible(true);
@@ -141,6 +164,11 @@ public class LoginUsuario extends JFrame {
         });
     }
 
+    /**
+     * Realiza el proceso de autenticación del usuario.
+     * Verifica si los campos están completos, valida el DNI,
+     * y comprueba las credenciales en la base de datos.
+     */
     private void autenticarUsuario() {
         String dni = txtDni.getText().trim();
         String contrasena = new String(txtContrasena.getPassword());
@@ -169,6 +197,12 @@ public class LoginUsuario extends JFrame {
         }
     }
 
+    /**
+     * Busca en la base de datos el usuario que corresponde al DNI ingresado.
+     *
+     * @param dni DNI del usuario a buscar.
+     * @return Objeto Socio si existe el usuario, o null si no se encuentra.
+     */
     private Socio buscarUsuarioPorDNI(String dni) {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
@@ -194,6 +228,10 @@ public class LoginUsuario extends JFrame {
         return socio;
     }
 
+    /**
+     * Abre la ventana principal de la aplicación tras un inicio de sesión exitoso
+     * y cierra la ventana actual.
+     */
     private void avanzarASiguientePantalla() {
         new VentanaPrincipal().setVisible(true);
         dispose();

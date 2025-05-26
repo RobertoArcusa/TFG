@@ -17,7 +17,21 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ * PanelInscripciones es un panel gráfico que gestiona la visualización y manipulación
+ * de inscripciones a sesiones de clases para socios.
+ * Permite agregar, modificar, eliminar inscripciones, así como buscar y filtrar inscripciones existentes.
+ * Además, muestra la capacidad disponible de las sesiones seleccionadas.
+ *
+ * Extiende JPanel y utiliza varios componentes Swing para la interacción del usuario.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class PanelInscripciones extends JPanel {
+
     private JTable tablaInscripciones;
     private DefaultTableModel modeloTabla;
     private JComboBox<Socio> comboSocios;
@@ -27,6 +41,10 @@ public class PanelInscripciones extends JPanel {
     private JTextField txtBuscarInscripcion;
     private TableRowSorter<DefaultTableModel> sorter;
 
+    /**
+     * Constructor que inicializa los componentes gráficos y carga los datos iniciales
+     * de socios, sesiones e inscripciones. Configura listeners para la interacción del usuario.
+     */
     public PanelInscripciones() {
         setLayout(new BorderLayout(10, 10));
 
@@ -194,6 +212,11 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Añade una nueva inscripción con el socio y la sesión seleccionados.
+     * Verifica que haya capacidad disponible en la sesión y actualiza la base de datos.
+     * Muestra mensajes de error o confirmación según corresponda.
+     */
     private void agregarInscripcion() {
         Socio socioSeleccionado = (Socio) comboSocios.getSelectedItem();
         SesionClase sesionSeleccionada = (SesionClase) comboSesiones.getSelectedItem();
@@ -233,6 +256,11 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Modifica la inscripción seleccionada con los nuevos datos de socio y sesión.
+     * Ajusta la capacidad disponible de las sesiones en caso de cambio.
+     * Actualiza la base de datos y recarga los datos en la tabla.
+     */
     private void modificarInscripcion() {
         int filaVista = tablaInscripciones.getSelectedRow();
         if (filaVista < 0) {
@@ -291,6 +319,11 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Elimina la inscripción seleccionada después de una confirmación del usuario.
+     * Actualiza la capacidad disponible de la sesión asociada y la base de datos.
+     * Muestra mensajes de confirmación o error.
+     */
     private void eliminarInscripcion() {
         int filaVista = tablaInscripciones.getSelectedRow();
         if (filaVista < 0) {
@@ -338,6 +371,12 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Actualiza el filtro de la tabla de inscripciones para mostrar solo
+     * aquellas cuyo nombre del socio contenga el texto de búsqueda.
+     *
+     * @param filtro texto utilizado para filtrar las inscripciones por nombre de socio.
+     */
     private void actualizarFiltro(String filtro) {
         modeloTabla.setRowCount(0);
         List<Inscripcion> inscripciones = InscripcionDAO.obtenerTodasLasInscripciones();
@@ -355,6 +394,11 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Carga los datos de la inscripción seleccionada en los campos del formulario.
+     *
+     * @param filaModelo índice de la fila en el modelo de la tabla correspondiente a la inscripción.
+     */
     private void cargarDatosInscripcion(int filaModelo) {
         int id = (int) modeloTabla.getValueAt(filaModelo, 0);
         InscripcionDAO dao = new InscripcionDAO();
@@ -366,6 +410,10 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Carga todas las inscripciones disponibles en la tabla.
+     * Si el usuario actual es de tipo BASIC, sólo carga sus propias inscripciones.
+     */
     public void cargarInscripciones() {
         modeloTabla.setRowCount(0);
         InscripcionDAO dao = new InscripcionDAO();
@@ -395,6 +443,10 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Carga la lista de socios en el combo correspondiente.
+     * Si el usuario actual es de tipo BASIC, solo se muestra su propio socio y el combo queda deshabilitado.
+     */
     public void cargarSocios() {
         comboSocios.removeAllItems();
 
@@ -415,6 +467,9 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Carga todas las sesiones disponibles en el combo correspondiente.
+     */
     public void cargarSesiones() {
         comboSesiones.removeAllItems();
         SesionClaseDAO dao = new SesionClaseDAO();
@@ -426,6 +481,9 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Actualiza la etiqueta que muestra la capacidad disponible de la sesión seleccionada.
+     */
     private void actualizarCapacidadDisponible() {
         SesionClase sesionSeleccionada = (SesionClase) comboSesiones.getSelectedItem();
         if (sesionSeleccionada != null) {
@@ -433,6 +491,9 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Limpia la selección de los combos de socios y sesiones.
+     */
     public void limpiarCampos() {
         if (comboSocios.getItemCount() > 0) {
             comboSocios.setSelectedIndex(-1);
@@ -443,6 +504,13 @@ public class PanelInscripciones extends JPanel {
         }
     }
 
+    /**
+     * Establece un texto de sugerencia (hint) en un JTextField que desaparece
+     * al obtener foco y reaparece si el campo queda vacío al perder foco.
+     *
+     * @param textField campo de texto donde se quiere mostrar el hint.
+     * @param hint texto de sugerencia a mostrar.
+     */
     private void setTextFieldHint(JTextField textField, String hint) {
         textField.setText(hint);
         textField.setForeground(Color.GRAY);
@@ -465,7 +533,6 @@ public class PanelInscripciones extends JPanel {
             }
         });
     }
-
 
 }
 

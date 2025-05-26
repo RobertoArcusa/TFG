@@ -17,7 +17,8 @@ public class EntrenadorDAO {
             session.save(entrenador);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback(); //rollback deshace los cambios hechos si ocurre algún error
+            // Rollback deshace los cambios hechos si ocurre algún error
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();

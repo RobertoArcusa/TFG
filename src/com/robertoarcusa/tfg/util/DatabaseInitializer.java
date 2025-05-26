@@ -5,6 +5,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.*;
 
+/**
+ * Clase utilitaria para inicializar la base de datos del gimnasio.
+ * <p>
+ * Comprueba si la base de datos "bbdd_gimnasio" existe en el servidor MySQL.
+ * Si no existe, ejecuta un script SQL para crear y poblar la base de datos.
+ * <p>
+ * La conexión se realiza sin especificar una base de datos para permitir
+ * la creación en caso de que no exista.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class DatabaseInitializer {
 
     // Nombre de la base de datos que vamos a comprobar o crear

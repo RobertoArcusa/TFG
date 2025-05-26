@@ -25,6 +25,26 @@ import com.robertoarcusa.tfg.util.FormateadorFecha;
 import com.toedter.calendar.JDateChooser;
 import org.jdatepicker.impl.*;
 
+/**
+ * PanelPagos es una clase que extiende JPanel y proporciona una interfaz gráfica
+ * para gestionar los pagos de los socios en la aplicación.
+ * <p>
+ * Este panel incluye:
+ * <ul>
+ *   <li>Formulario para agregar, modificar y eliminar pagos, incluyendo selección de socio, fecha, importe, tipo y estado del pago.</li>
+ *   <li>Visualización de los pagos existentes en una tabla con opciones de búsqueda y filtrado por ID o nombre del socio.</li>
+ *   <li>Gestión de recibos asociados a los pagos, permitiendo cargar y eliminar archivos adjuntos.</li>
+ *   <li>Control completo sobre los datos mediante botones para añadir, modificar, eliminar pagos y limpiar los campos del formulario.</li>
+ * </ul>
+ * <p>
+ * La clase interactúa con la capa de datos a través de objetos DAO para persistir los pagos,
+ * y mantiene la UI sincronizada con los datos almacenados.
+ *
+ *  * @author Roberto Arcusa
+ *  * @version 1.0
+ *  * @since 2025
+ */
+
 public class PanelPagos extends JPanel {
 
     private JTable tablaPagos;
@@ -42,6 +62,11 @@ public class PanelPagos extends JPanel {
     private JTextField txtBuscarPago;
     private TableRowSorter<DefaultTableModel> sorter;
 
+    /**
+     * Constructor que inicializa todos los componentes gráficos del panel,
+     * configura el layout, crea la tabla de pagos, el formulario, botones, y la lógica
+     * para la búsqueda y selección de pagos.
+     */
     public PanelPagos() {
         setLayout(new BorderLayout(10, 10));
 
@@ -260,6 +285,11 @@ public class PanelPagos extends JPanel {
         tablaPagos.setRowSorter(sorter);
     }
 
+    /**
+     * Agrega un nuevo pago basado en los datos ingresados en el formulario.
+     * Valida los datos antes de intentar agregar el pago y recarga la tabla con los pagos actualizados.
+     * Muestra mensajes de confirmación o error según corresponda.
+     */
     private void agregarNuevoPago() {
         Pago pago = new Pago();
         if (!llenarDatosDesdeFormulario(pago)) return;
@@ -268,6 +298,11 @@ public class PanelPagos extends JPanel {
         JOptionPane.showMessageDialog(this, "Pago añadido.");
     }
 
+    /**
+     * Modifica el pago seleccionado en la tabla con los datos actuales del formulario.
+     * Valida que un pago esté seleccionado y que los datos del formulario sean válidos antes de actualizar.
+     * Refresca la tabla con los datos actualizados y muestra mensajes informativos.
+     */
     private void modificarPago() {
         int fila = tablaPagos.getSelectedRow();
         if (fila < 0) {
@@ -285,6 +320,11 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Elimina el pago seleccionado en la tabla tras confirmar la acción con el usuario.
+     * Actualiza la tabla y limpia el formulario si la eliminación es exitosa.
+     * Muestra mensajes de confirmación o error según corresponda.
+     */
     private void eliminarPago() {
         int fila = tablaPagos.getSelectedRow();
         if (fila < 0) {
@@ -316,6 +356,10 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Carga en el comboBox todos los socios disponibles obtenidos a través del DAO.
+     * Cada elemento contiene el ID y el nombre completo del socio para facilitar la selección.
+     */
     private void cargarIdsSocios() {
         SocioDAO dao = new SocioDAO();
         for (Socio s : dao.obtenerTodosLosSocios()) {
@@ -323,6 +367,10 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Carga todos los pagos desde la base de datos mediante el DAO y actualiza la tabla
+     * para mostrar la información actualizada de cada pago.
+     */
     public void cargarPagos() {
         modeloTabla.setRowCount(0);
         PagoDAO dao = new PagoDAO();
@@ -342,6 +390,12 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Carga los datos de un pago específico (identificado por su ID) en el formulario,
+     * incluyendo la selección del socio, fecha, importe, tipos, estado y recibo.
+     *
+     * @param id El identificador único del pago que se desea cargar.
+     */
     private void cargarDatosPago(int id) {
         PagoDAO dao = new PagoDAO();
         Pago pago = dao.obtenerPagoPorId(id);
@@ -371,6 +425,11 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Abre un diálogo de selección de archivo para cargar un recibo (archivo) asociado
+     * al pago. El recibo se almacena en un array de bytes y se muestra una indicación visual.
+     * Maneja posibles errores durante la carga del archivo.
+     */
     private void cargarRecibo() {
         JFileChooser chooser = new JFileChooser();
         int opcion = chooser.showOpenDialog(this);
@@ -385,6 +444,13 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Llena el objeto Pago con los datos ingresados en el formulario.
+     * Valida que todos los campos requeridos sean correctos y notifica al usuario si hay errores.
+     *
+     * @param pago Objeto Pago que será llenado con los datos del formulario.
+     * @return true si los datos son válidos y el objeto fue llenado correctamente; false en caso contrario.
+     */
     private boolean llenarDatosDesdeFormulario(Pago pago) {
         try {
             String itemSeleccionado = (String) comboSocio.getSelectedItem();
@@ -421,6 +487,11 @@ public class PanelPagos extends JPanel {
         }
     }
 
+    /**
+     * Actualiza el filtro aplicado a la tabla de pagos para buscar por ID o nombre del socio,
+     * usando el texto ingresado en el campo de búsqueda. Si el texto está vacío o es el texto por defecto,
+     * se elimina el filtro.
+     */
     private void actualizarFiltro() {
         String texto = txtBuscarPago.getText().trim();
         if (texto.isEmpty() || texto.equalsIgnoreCase("Introduce ID o nombre del socio")) {
@@ -431,7 +502,10 @@ public class PanelPagos extends JPanel {
         }
     }
 
-
+    /**
+     * Limpia todos los campos del formulario, resetea las selecciones de combos,
+     * borra el recibo seleccionado y limpia la selección en la tabla de pagos.
+     */
     public void limpiarCampos() {
         comboSocio.setSelectedIndex(-1);
         dateChooserFechaPago.setDate(null);
@@ -444,6 +518,7 @@ public class PanelPagos extends JPanel {
         lblRecibo.setText("Sin recibo");
         tablaPagos.clearSelection();
     }
+
 
     private void setTextFieldHint(JTextField textField, String hint) {
         textField.setForeground(Color.GRAY);

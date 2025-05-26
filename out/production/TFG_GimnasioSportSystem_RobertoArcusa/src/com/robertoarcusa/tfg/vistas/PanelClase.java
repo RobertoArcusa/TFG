@@ -21,11 +21,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+/**
+ * * Panel de gestión de clases en la interfaz de usuario.
+ *  * Permite a los administradores y usuarios avanzados agregar, modificar, eliminar
+ *  * y visualizar clases disponibles en el sistema.
+ *  * También permite la carga de imágenes asociadas a cada clase y ofrece filtrado
+ *  * por nombre para facilitar la búsqueda.
+ *  *
+ *  * Los usuarios con rol BASIC solo pueden visualizar las clases.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class PanelClase extends JPanel {
 
     private JTable tablaClases;
     private DefaultTableModel modeloTabla;
-    private JTextField txtNombreClase, txtCapacidadMaxima, txtSala;
+    private JTextField txtNombreClase;
+    private JTextField txtCapacidadMaxima;
+    private JTextField txtSala;
     private JComboBox<String> comboNivelDificultad;
     private JComboBox<Entrenador>comboEntrenador;
     private JButton btnGuardar, btnAgregar, btnEliminar, btnLimpiarCampos;
@@ -33,6 +49,11 @@ public class PanelClase extends JPanel {
     private byte[] imagenClaseSeleccionada;
     private JTextField txtBuscarClase;
 
+    /**
+     * Constructor que inicializa y configura el panel de clases.
+     * Define la interfaz gráfica, carga los datos iniciales
+     * y establece restricciones de acceso según el tipo de usuario.
+     */
     public PanelClase() {
         setLayout(new BorderLayout(10, 10)); // Añadidos gaps como en PanelEntrenador
 
@@ -238,7 +259,12 @@ public class PanelClase extends JPanel {
         }
     }
 
-
+    /**
+     * Carga los datos de una clase específica en los campos del formulario
+     * a partir de su ID. También actualiza la imagen y el entrenador asignado.
+     *
+     * @param id el identificador único de la clase a cargar
+     */
     private void cargarDatosClase(int id) {
         ClaseDAO dao = new ClaseDAO();
         Clase clase = dao.obtenerClasePorId(id);
@@ -273,6 +299,11 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Agrega una nueva clase utilizando los datos introducidos en el formulario.
+     * Realiza validaciones de entrada antes de guardar en la base de datos.
+     * Muestra mensajes de error si hay campos inválidos o vacíos.
+     */
     private void agregarNuevaClase() {
         // Validamos que todos los campos estén rellenados
         if (txtNombreClase.getText().isEmpty()) {
@@ -329,6 +360,10 @@ public class PanelClase extends JPanel {
         JOptionPane.showMessageDialog(this, "Clase añadida con éxito.");
     }
 
+    /**
+     * Modifica una clase seleccionada de la tabla con los datos actuales del formulario.
+     * Valida los datos y actualiza la clase en la base de datos.
+     */
     private void modificarClase() {
         int fila = tablaClases.getSelectedRow();
         if (fila < 0) {
@@ -358,6 +393,10 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Elimina la clase seleccionada de la tabla previa confirmación del usuario.
+     * Si la clase no se puede eliminar, muestra un mensaje de error.
+     */
     private void eliminarClase() {
         int fila = tablaClases.getSelectedRow();
         if (fila < 0) {
@@ -396,7 +435,12 @@ public class PanelClase extends JPanel {
         }
     }
 
-
+    /**
+     * Filtra y muestra las clases en la tabla que contienen el texto especificado
+     * en su nombre. El filtro no distingue entre mayúsculas y minúsculas.
+     *
+     * @param filtro texto que se usará para filtrar las clases por nombre
+     */
     private void filtrarClasesPorNombre(String filtro) {
         modeloTabla.setRowCount(0);  // Limpiar la tabla
         ClaseDAO dao = new ClaseDAO();
@@ -414,6 +458,10 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Carga la lista de entrenadores desde la base de datos
+     * y los inserta en el comboBox correspondiente.
+     */
     public void cargarEntrenadores() {
         comboEntrenador.removeAllItems();
         EntrenadorDAO dao = new EntrenadorDAO();
@@ -423,6 +471,10 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Carga todas las clases desde la base de datos y las muestra
+     * en la tabla de la interfaz gráfica.
+     */
     public void cargarClases() {
         modeloTabla.setRowCount(0);
         ClaseDAO dao = new ClaseDAO();
@@ -439,6 +491,14 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Abre un selector de archivos para que el usuario elija una imagen desde su sistema.
+     *
+     * Si se selecciona un archivo, se lee su contenido como un arreglo de bytes y se asigna como imagen
+     * de la clase actual. La imagen se escala y muestra en un JLabel del formulario.
+     *
+     * En caso de error de lectura del archivo, se imprime la traza del error en la consola.
+     */
     private void cargarImagenClase() {
         JFileChooser fileChooser = new JFileChooser();
         int option = fileChooser.showOpenDialog(this);
@@ -456,6 +516,12 @@ public class PanelClase extends JPanel {
         }
     }
 
+    /**
+     * Limpia todos los campos del formulario, restableciendo sus valores por defecto.
+     *
+     * Elimina el texto de los campos de entrada, reinicia las selecciones de los ComboBoxes
+     * y borra la imagen seleccionada, mostrando nuevamente el texto "Sin foto".
+     */
     public void limpiarCampos() {
         txtNombreClase.setText("");
         txtCapacidadMaxima.setText("");
@@ -467,6 +533,15 @@ public class PanelClase extends JPanel {
         lblImagenClase.setText("Sin foto");
     }
 
+    /**
+     * Establece un texto de sugerencia (placeholder) en un JTextField.
+     *
+     * Cuando el campo gana el foco, si el texto coincide con la sugerencia, se borra y el color cambia a negro.
+     * Cuando pierde el foco y el campo está vacío, se vuelve a mostrar la sugerencia en color gris.
+     *
+     * @param textField El campo de texto al que se aplicará la sugerencia.
+     * @param hint El texto de sugerencia que se mostrará cuando el campo esté vacío.
+     */
     private void setTextFieldHint(JTextField textField, String hint) {
         textField.setText(hint);
         textField.setForeground(Color.GRAY);

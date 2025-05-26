@@ -17,7 +17,8 @@ public class InscripcionDAO {
             session.save(inscripcion);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback(); //rollback deshace los cambios hechos si ocurre algún error
+            // Rollback deshace los cambios hechos si ocurre algún error
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -43,7 +44,8 @@ public class InscripcionDAO {
     public Inscripcion obtenerInscripcionPorId(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            return session.get(Inscripcion.class, id);  // Buscamos la inscripción por su ID
+            // Buscamos la inscripción por su ID
+            return session.get(Inscripcion.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -55,7 +57,8 @@ public class InscripcionDAO {
     public static List<Inscripcion> obtenerTodasLasInscripciones() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            return session.createQuery("from Inscripcion", Inscripcion.class).list();  // Traemos todas las inscripciones
+            // Traemos todas las inscripciones
+            return session.createQuery("from Inscripcion", Inscripcion.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -87,7 +90,8 @@ public class InscripcionDAO {
             session.update(inscripcion);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();  // Rollback si ocurre un error
+            // Rollback si ocurre un error
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();

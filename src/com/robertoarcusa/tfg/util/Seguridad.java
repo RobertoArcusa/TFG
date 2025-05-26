@@ -5,9 +5,31 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * Clase utilitaria para la gestión de contraseñas utilizando el algoritmo BCrypt.
+ * <p>
+ * Ofrece métodos para verificar contraseñas, hashearlas y actualizar su valor
+ * en la base de datos si es necesario.
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class Seguridad {
 
-    // Método para verificar la contraseña
+    /**
+     * Verifica si la contraseña introducida coincide con el hash almacenado.
+     * <p>
+     * Si la contraseña es incorrecta pero el hash parece desactualizado o inválido,
+     * se genera un nuevo hash y se actualiza automáticamente en la base de datos
+     * del socio correspondiente.
+     *
+     * @param contrasenaIntroducida Contraseña introducida por el usuario.
+     * @param contrasenaHash        Hash de la contraseña almacenada en la base de datos.
+     * @param dni                   DNI del socio al que pertenece la contraseña.
+     * @return {@code true} si la contraseña es válida; {@code false} en caso contrario.
+     */
     public static boolean verificar(String contrasenaIntroducida, String contrasenaHash, String dni) {
         try {
             // Verificamos si la contraseña introducida coincide con el hash almacenado
@@ -29,7 +51,14 @@ public class Seguridad {
         }
     }
 
-    // Método para actualizar la contraseña con el nuevo hash en la base de datos
+    /**
+     * Actualiza el hash de la contraseña del socio en la base de datos.
+     * <p>
+     * Utiliza Hibernate para buscar el socio por DNI y actualizar su contraseña.
+     *
+     * @param nuevoHash Nuevo hash de la contraseña generado.
+     * @param dni       DNI del socio cuya contraseña se actualizará.
+     */
     private static void actualizarContrasena(String nuevoHash, String dni) {
         // Iniciar sesión con Hibernate
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -62,7 +91,14 @@ public class Seguridad {
         }
     }
 
-    // Método para encriptar una nueva contraseña (para el registro)
+    /**
+     * Genera un hash seguro de una contraseña utilizando BCrypt.
+     * <p>
+     * Este método debe usarse durante el registro o creación de usuarios.
+     *
+     * @param contrasena Contraseña en texto plano.
+     * @return Hash de la contraseña.
+     */
     public static String hashear(String contrasena) {
         return BCrypt.hashpw(contrasena, BCrypt.gensalt());
     }

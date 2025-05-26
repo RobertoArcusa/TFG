@@ -1,8 +1,6 @@
 package com.robertoarcusa.tfg.dao;
 
-import com.mysql.jdbc.Connection;
 import com.robertoarcusa.tfg.clases.Clase;
-import com.robertoarcusa.tfg.clases.Entrenador;
 import com.robertoarcusa.tfg.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,7 +17,8 @@ public class ClaseDAO {
             session.save(clase);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback(); //rollback deshace los cambios hechos si ocurre algún error
+            // Rollback deshace los cambios hechos si ocurre algún error
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             session.close();
@@ -72,7 +71,8 @@ public class ClaseDAO {
     public static List<Clase> obtenerTodasLasClases() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            return session.createQuery("from Clase", Clase.class).list();  // Obtenemos todas las clases
+            // Obtenemos todas las clases
+            return session.createQuery("from Clase", Clase.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -18,6 +18,21 @@ import java.util.Properties;
 
 import javax.swing.border.EmptyBorder; // Importar para usar EmptyBorder
 
+/**
+ * Clase que representa la ventana principal de la aplicación SportSystem.
+ * Esta ventana actúa como el panel de administración principal, con múltiples pestañas para
+ * gestionar socios, entrenadores, clases, sesiones, inscripciones, pagos e informes.
+ * <p>
+ * Además, permite alternar entre modo oscuro y modo claro, guardando esta preferencia
+ * en un archivo de configuración para mantenerla entre sesiones.
+ * <p>
+ * El acceso a ciertas pestañas se limita según el tipo de usuario (por ejemplo, usuarios BASIC tienen pestañas restringidas).
+ *
+ * @author Roberto Arcusa
+ * @version 1.0
+ * @since 2025
+ */
+
 public class VentanaPrincipal extends JFrame {
 
     private JTabbedPane tabbedPane;
@@ -28,6 +43,10 @@ public class VentanaPrincipal extends JFrame {
     private JLabel logoLabel;
     private boolean modoOscuro;
 
+    /**
+     * Constructor que inicializa la ventana principal, configurando el modo de apariencia,
+     * creando la barra de menú, configurando las pestañas funcionales y ajustando la interfaz.
+     */
     public VentanaPrincipal() {
         // Cargar el modo por defecto desde el archivo de configuración
         modoOscuro = cargarModo();  // Cargar la configuración del modo (oscuro o claro)
@@ -192,14 +211,18 @@ public class VentanaPrincipal extends JFrame {
         });
     }
 
-    // Método para abrir la ventana de LoginUsuario
+    /**
+     * Abre la ventana de login y cierra la ventana principal actual.
+     */
     private void abrirLoginUsuario() {
         LoginUsuario loginUsuario = new LoginUsuario();
         loginUsuario.setVisible(true);
         this.dispose();  // Cierra la ventana actual
     }
 
-    // Método para aplicar el modo oscuro
+    /**
+     * Aplica el tema visual de modo oscuro a la interfaz y actualiza la configuración guardada.
+     */
     private void aplicarModoOscuro() {
         modoOscuro = true;
         try {
@@ -215,7 +238,9 @@ public class VentanaPrincipal extends JFrame {
         cambiarModoMenuItem.setText("Cambiar a modo claro");
     }
 
-    // Método para aplicar el modo claro
+    /**
+     * Aplica el tema visual de modo claro a la interfaz y actualiza la configuración guardada.
+     */
     private void aplicarModoClaro() {
         modoOscuro = false;
         try {
@@ -231,7 +256,11 @@ public class VentanaPrincipal extends JFrame {
         cambiarModoMenuItem.setText("Cambiar a modo oscuro");
     }
 
-    // Método para cargar el estado del modo desde un archivo
+    /**
+     * Carga el estado actual del modo (oscuro o claro) desde un archivo de configuración.
+     *
+     * @return true si el modo oscuro está activado, false si está en modo claro o si ocurre algún error.
+     */
     private boolean cargarModo() {
         Properties propiedades = new Properties();
         try (InputStream input = new FileInputStream("config.properties")) {
@@ -243,7 +272,11 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // Método para guardar el estado del modo en un archivo
+    /**
+     * Guarda el estado actual del modo (oscuro o claro) en un archivo de configuración.
+     *
+     * @param modoOscuro true para modo oscuro, false para modo claro.
+     */
     private void guardarModo(boolean modoOscuro) {
         Properties propiedades = new Properties();
         try (OutputStream output = new FileOutputStream("config.properties")) {

@@ -21,6 +21,17 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Panel de gestión de entrenadores que permite crear, modificar, eliminar y visualizar entrenadores.
+ * Se adapta según el tipo de usuario (por ejemplo, si es BASIC, tiene acceso limitado).
+ *
+ * Muestra campos de entrada para los datos del entrenador, tabla de resultados y funcionalidades CRUD.
+ *
+ *  * @author Roberto Arcusa
+ *  * @version 1.0
+ *  * @since 2025
+ */
+
 public class PanelEntrenador extends JPanel {
 
     private JTable tablaEntrenadores;
@@ -32,6 +43,25 @@ public class PanelEntrenador extends JPanel {
     private byte[] fotoPerfilSeleccionada;
     private JTextField txtBuscarEntrenador;
 
+    /**
+     * Crea e inicializa el panel de gestión de entrenadores.
+     * <p>
+     * Este constructor configura todos los componentes visuales del panel, incluidos los campos de entrada,
+     * botones de acción, tabla de entrenadores, paneles de búsqueda y carga de fotos. También aplica restricciones
+     * de visualización para los usuarios con rol BASIC, y gestiona la carga de datos desde la base de datos.
+     * </p>
+     *
+     * <p>
+     * Funcionalidades principales:
+     * <ul>
+     *   <li>Visualización de lista de entrenadores en una tabla</li>
+     *   <li>Formulario de entrada para agregar o modificar entrenadores</li>
+     *   <li>Función de búsqueda por nombre</li>
+     *   <li>Carga y eliminación de fotografía de perfil</li>
+     *   <li>Restricción de edición según el tipo de usuario</li>
+     * </ul>
+     * </p>
+     */
     public PanelEntrenador() {
         setLayout(new BorderLayout(10, 10)); // Pequeños gaps
 
@@ -250,10 +280,20 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Devuelve una lista de todos los entrenadores obtenidos desde el DAO.
+     *
+     * @return Lista de entrenadores.
+     */
     private List<Entrenador> obtenerEntrenadoresDesdeDAO() {
         return EntrenadorDAO.obtenerTodosLosEntrenadores();
     }
 
+    /**
+     * Carga los datos de un entrenador específico en el formulario, incluyendo foto y fecha.
+     *
+     * @param id ID del entrenador a cargar.
+     */
     private void cargarDatosEntrenador(int id) {
         EntrenadorDAO dao = new EntrenadorDAO();
         Entrenador entrenador = dao.obtenerEntrenadorPorId(id);
@@ -300,6 +340,10 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Agrega un nuevo entrenador a la base de datos después de validar los campos.
+     * Muestra mensajes de error si hay campos vacíos o teléfono duplicado.
+     */
     private void agregarNuevoEntrenador() {
         // Verificar que todos los campos estén rellenos
         if (txtNombre.getText().isEmpty()) {
@@ -343,6 +387,10 @@ public class PanelEntrenador extends JPanel {
         JOptionPane.showMessageDialog(this, "Entrenador añadido.");
     }
 
+    /**
+     * Modifica un entrenador seleccionado en la tabla con los datos actuales del formulario.
+     * Muestra un mensaje si no se ha seleccionado ningún entrenador.
+     */
     private void modificarEntrenador() {
         int fila = tablaEntrenadores.getSelectedRow();
         if (fila < 0) {
@@ -361,6 +409,10 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Elimina el entrenador seleccionado de la base de datos después de confirmación.
+     * Muestra un mensaje si no se selecciona ningún entrenador.
+     */
     private void eliminarEntrenador() {
         int fila = tablaEntrenadores.getSelectedRow();
         if (fila < 0) {
@@ -395,6 +447,11 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Llena los datos del objeto Entrenador con los valores introducidos en el formulario.
+     *
+     * @param entrenador Objeto entrenador a rellenar.
+     */
     private void llenarDatosDesdeFormulario(Entrenador entrenador) {
         entrenador.setNombreEntrenador(txtNombre.getText());
         entrenador.setApellidosEntrenador(txtApellidos.getText());
@@ -410,11 +467,22 @@ public class PanelEntrenador extends JPanel {
         entrenador.setFotoPerfil(fotoPerfilSeleccionada);
     }
 
+    /**
+     * Verifica si ya existe un entrenador con el teléfono especificado.
+     *
+     * @param telefono Teléfono a verificar.
+     * @return true si el teléfono ya está registrado, false en caso contrario.
+     */
     private boolean existeTelefono(String telefono) {
         EntrenadorDAO dao = new EntrenadorDAO();
         return dao.existeTelefono(telefono);
     }
 
+    /**
+     * Filtra los entrenadores mostrados en la tabla por nombre.
+     *
+     * @param filtro Texto usado para filtrar por nombre.
+     */
     private void filtrarEntrenadoresPorNombre(String filtro) {
         modeloTabla.setRowCount(0);  // Limpiar la tabla
         EntrenadorDAO dao = new EntrenadorDAO();
@@ -434,6 +502,9 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Carga todos los entrenadores desde la base de datos usando el DAO y los muestra en la tabla.
+     */
     private void cargarEntrenadores() {
         modeloTabla.setRowCount(0);
         EntrenadorDAO dao = new EntrenadorDAO();
@@ -452,6 +523,10 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Muestra un diálogo para seleccionar una imagen del sistema de archivos.
+     * Carga y muestra la imagen en el formulario.
+     */
     private void cargarFoto() {
         JFileChooser fileChooser = new JFileChooser();
         int option = fileChooser.showOpenDialog(this);
@@ -469,6 +544,9 @@ public class PanelEntrenador extends JPanel {
         }
     }
 
+    /**
+     * Limpia todos los campos del formulario, incluida la imagen de perfil.
+     */
     private void limpiarCampos() {
         txtNombre.setText("");
         txtApellidos.setText("");
@@ -481,6 +559,12 @@ public class PanelEntrenador extends JPanel {
         lblFoto.setText("Sin foto");
     }
 
+    /**
+     * Establece un texto de ayuda (placeholder) para un campo JTextField.
+     *
+     * @param textField Campo al que se le aplicará el texto de ayuda.
+     * @param hint Texto de ayuda a mostrar.
+     */
     private void setTextFieldHint(JTextField textField, String hint) {
         textField.setText(hint);
         textField.setForeground(Color.GRAY);

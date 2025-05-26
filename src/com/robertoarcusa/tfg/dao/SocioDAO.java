@@ -41,7 +41,8 @@ public class SocioDAO {
             Socio socio = session.get(Socio.class, id);
 
             if (socio != null) {
-                session.delete(socio); // Se eliminan también pagos e inscripciones automáticamente
+                // Se eliminan también pagos e inscripciones automáticamente
+                session.delete(socio);
                 session.getTransaction().commit();
                 return true;
             }
@@ -83,7 +84,9 @@ public class SocioDAO {
             session.update(socio);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();  //rollback deshace los cambios hechos si ocurre algún error
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }

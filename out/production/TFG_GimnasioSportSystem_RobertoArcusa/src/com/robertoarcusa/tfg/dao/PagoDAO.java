@@ -17,7 +17,8 @@ public class PagoDAO {
             session.update(pago);
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback(); //rollback deshace los cambios hechos si ocurre algún error
+            // Rollback deshace los cambios hechos si ocurre algún error
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
     }
@@ -54,7 +55,7 @@ public class PagoDAO {
             }
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            e.printStackTrace(); // opcional para depurar
+            e.printStackTrace();
             return false;
         } finally {
             session.close();

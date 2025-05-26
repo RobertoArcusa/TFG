@@ -18,12 +18,39 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase que representa un panel gráfico para la generación de distintos informes
+ * relacionados con la gestión del gimnasio.
+ * <p>
+ * Esta clase proporciona una interfaz con botones para generar informes utilizando la biblioteca JasperReports.
+ * Los informes incluyen listados de socios, entrenadores por especialidad, media de capacidad máxima de clases,
+ * totales de entrenadores por especialidad y un gráfico de tipos de pago.
+ * </p>
+ *
+ * <p>
+ * Cada botón está asociado a un método que genera un informe específico conectándose a una base de datos MySQL
+ * y utilizando archivos .jasper previamente compilados.
+ * </p>
+ *
+ *  * @author Roberto Arcusa
+ *  * @version 1.0
+ *  * @since 2025
+ */
+
 public class PanelInformes extends JPanel {
     private JButton btnInformeSocios;
     private JButton btnInformeClases;
     private JButton btnInformeEntrenadores;
     private JButton btnInformeTotalEntrenadoresEspecialidad;
 
+    /**
+     * Constructor que inicializa el panel con todos sus componentes visuales
+     * y asigna los eventos correspondientes a cada botón.
+     * <p>
+     * Se establece el diseño, los estilos de fuente y la organización
+     * de los botones para generar los distintos informes.
+     * </p>
+     */
     public PanelInformes() {
         // Layout vertical para apilar título y panel de botones
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -106,8 +133,10 @@ public class PanelInformes extends JPanel {
         btnGraficoPagos.addActionListener(e -> generarGraficoTiposDePago());
     }
 
-
-
+    /**
+     * Genera y muestra el informe de la lista de socios.
+     * Utiliza un archivo Jasper precompilado y se conecta a una base de datos MySQL.
+     */
     public void generarInformeSocios() {
         try {
             InputStream inputt = getClass().getResourceAsStream("/com/robertoarcusa/tfg/informes/informeSocios.jasper");
@@ -144,6 +173,11 @@ public class PanelInformes extends JPanel {
         }
     }
 
+    /**
+     * Genera y muestra un informe con los entrenadores filtrados por una especialidad concreta.
+     *
+     * @param especialidad la especialidad por la cual se filtrarán los entrenadores en el informe.
+     */
     public void generarInformeEntrenadoresPorEspecialidad(String especialidad) {
         try {
             // Ruta del informe
@@ -183,6 +217,9 @@ public class PanelInformes extends JPanel {
         }
     }
 
+    /**
+     * Genera y muestra un informe que calcula la media de la capacidad máxima de las clases disponibles.
+     */
     public void generarInformeCapacidadMaximaClases() {
         try {
             // Ruta del informe
@@ -221,6 +258,9 @@ public class PanelInformes extends JPanel {
         }
     }
 
+    /**
+     * Genera y muestra un informe con el total de entrenadores agrupados por especialidad.
+     */
     public void generarInformeTotEntrenadoresEspecialidad() {
         try {
             // Ruta del informe
@@ -259,6 +299,9 @@ public class PanelInformes extends JPanel {
         }
     }
 
+    /**
+     * Genera y muestra un informe gráfico que representa los tipos de pago utilizados por los socios.
+     */
     public void generarGraficoTiposDePago() {
         try {
             // Ruta del informe
@@ -297,20 +340,5 @@ public class PanelInformes extends JPanel {
         }
     }
 
-    // Getters si necesitas manejar los eventos desde fuera
-    public JButton getBtnInformeSocios() {
-        return btnInformeSocios;
-    }
 
-    public JButton getBtnInformeClases() {
-        return btnInformeClases;
-    }
-
-    public JButton getBtnInformeEntrenadores() {
-        return btnInformeEntrenadores;
-    }
-
-    public JButton getBtnInformeTotalEntrenadoresEspecialidad() {
-        return btnInformeTotalEntrenadoresEspecialidad;
-    }
 }

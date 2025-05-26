@@ -8,10 +8,30 @@
   <component name="ChangeListManager">
     <list default="true" id="becedf4c-727c-4ba4-bde4-7eb102ef31bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/TFG_GimnasioSportSystem_RobertoArcusa_jar/TFG_GimnasioSportSystem_RobertoArcusa.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/ClaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/ClaseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/EntrenadorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/EntrenadorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/InscripcionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/InscripcionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/PagoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/PagoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SesionClaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SesionClaseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SocioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/dao/SocioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/DNIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/DNIUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/DatabaseInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/DatabaseInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/FormateadorFecha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/FormateadorFecha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/HibernateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/Seguridad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/Seguridad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/Sesion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/util/Sesion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/LoginUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelClase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelEntrenador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInformes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelInscripciones.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelPagos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSesionClase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/PanelSocios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/RegistroUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robertoarcusa/tfg/vistas/VentanaPrincipal.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +223,8 @@
       <workItem from="1747933537219" duration="12628000" />
       <workItem from="1748010663965" duration="3280000" />
       <workItem from="1748162163665" duration="12053000" />
-      <workItem from="1748194440186" duration="6261000" />
+      <workItem from="1748194440186" duration="7055000" />
+      <workItem from="1748279691541" duration="7973000" />
     </task>
     <servers />
   </component>
