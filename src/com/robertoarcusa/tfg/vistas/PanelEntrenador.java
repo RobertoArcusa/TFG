@@ -51,7 +51,7 @@ public class PanelEntrenador extends JPanel {
      * de visualización para los usuarios con rol BASIC, y gestiona la carga de datos desde la base de datos.
      * </p>
      *
-     * <p>
+     *
      * Funcionalidades principales:
      * <ul>
      *   <li>Visualización de lista de entrenadores en una tabla</li>
@@ -60,7 +60,7 @@ public class PanelEntrenador extends JPanel {
      *   <li>Carga y eliminación de fotografía de perfil</li>
      *   <li>Restricción de edición según el tipo de usuario</li>
      * </ul>
-     * </p>
+     *
      */
     public PanelEntrenador() {
         setLayout(new BorderLayout(10, 10)); // Pequeños gaps
