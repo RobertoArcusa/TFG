@@ -180,7 +180,9 @@ public class VentanaPrincipal extends JFrame {
                 ((PanelInscripciones) selected).cargarSocios();
                 ((PanelInscripciones) selected).cargarSesiones();
                 ((PanelInscripciones) selected).cargarInscripciones();
-                ((PanelInscripciones) selected).limpiarCampos();
+                if(!usuarioActual.getTipoUsuario().equals(TipoUsuario.BASIC)){
+                    ((PanelInscripciones) selected).limpiarCampos();
+                }
             } else if (selected instanceof PanelPagos) {
                 ((PanelPagos) selected).cargarPagos();
                 ((PanelPagos) selected).limpiarCampos();

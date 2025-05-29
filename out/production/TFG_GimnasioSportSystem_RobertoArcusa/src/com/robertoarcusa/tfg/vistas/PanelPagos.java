@@ -103,8 +103,8 @@ public class PanelPagos extends JPanel {
         lblRecibo.setPreferredSize(new Dimension(150, 150));
         lblRecibo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        btnCargarRecibo = new JButton("Cargar Recibo");
-        btnEliminarRecibo = new JButton("Eliminar Recibo");
+        btnCargarRecibo = new JButton("CARGAR RECIBO");
+        btnEliminarRecibo = new JButton("ELIMINAR RECIBO");
         btnCargarRecibo.addActionListener(e -> cargarRecibo());
         btnEliminarRecibo.addActionListener(e -> {
             reciboSeleccionado = null;

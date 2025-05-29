@@ -194,8 +194,7 @@ public class PanelInscripciones extends JPanel {
 
         Socio usuarioActual = sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
-            panelCampos.setVisible(false);
-            panelBusquedaBotones.setVisible(false);
+
 
         }
     }
@@ -442,6 +441,7 @@ public class PanelInscripciones extends JPanel {
         if (sesion.esBasic()) {
             Socio usuario = sesion.getUsuarioActual();
             comboSocios.addItem(usuario);
+            comboSocios.setSelectedItem(usuario);
             comboSocios.setEnabled(false); // Desactiva el JComboBox para que no se pueda cambiar
         } else {
             SocioDAO dao = new SocioDAO();
