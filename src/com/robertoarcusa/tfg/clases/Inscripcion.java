@@ -123,4 +123,11 @@ public class Inscripcion {
     public void setSocio(Socio socio) {
         this.socio = socio;
     }
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" +
+                "socio=" + socio +
+                '}';
+    }
 }

@@ -2,7 +2,6 @@ package com.robertoarcusa.tfg.dao;
 
 import com.robertoarcusa.tfg.clases.Socio;
 import com.robertoarcusa.tfg.util.HibernateUtil;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;

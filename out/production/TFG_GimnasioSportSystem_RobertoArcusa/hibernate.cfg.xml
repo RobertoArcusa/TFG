@@ -8,8 +8,8 @@
         <!-- Conexión a la base de datos -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bbdd_gimnasio?useSSL=false&amp;serverTimezone=UTC</property>
-        <property name="hibernate.connection.username">root</property> <!-- 🔁 cambia esto si tu usuario es distinto -->
-        <property name="hibernate.connection.password"></property>     <!-- 🔁 pon tu contraseña aquí si tienes -->
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
 
         <!-- Dialecto de MySQL -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>

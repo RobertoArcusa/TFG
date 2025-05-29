@@ -8,6 +8,7 @@ import com.robertoarcusa.tfg.dao.SocioDAO;
 import com.robertoarcusa.tfg.dao.SesionClaseDAO;
 import com.robertoarcusa.tfg.enums.TipoUsuario;
 import com.robertoarcusa.tfg.util.Sesion;
+import net.sf.jasperreports.engine.util.JsonUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -40,12 +41,15 @@ public class PanelInscripciones extends JPanel {
     private JLabel lblCapacidadDisponible;
     private JTextField txtBuscarInscripcion;
     private TableRowSorter<DefaultTableModel> sorter;
+    private Sesion sesion;
 
     /**
      * Constructor que inicializa los componentes gráficos y carga los datos iniciales
      * de socios, sesiones e inscripciones. Configura listeners para la interacción del usuario.
      */
-    public PanelInscripciones() {
+    public PanelInscripciones(Sesion sesion) {
+        this.sesion = sesion;
+
         setLayout(new BorderLayout(10, 10));
 
         // === PANEL CAMPOS ===
@@ -188,27 +192,11 @@ public class PanelInscripciones extends JPanel {
         sorter = new TableRowSorter<>(modeloTabla);
         tablaInscripciones.setRowSorter(sorter);
 
-        Socio usuarioActual = Sesion.getUsuarioActual();
+        Socio usuarioActual = sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             panelCampos.setVisible(false);
             panelBusquedaBotones.setVisible(false);
 
-            DefaultTableModel modeloBasico = new DefaultTableModel(
-                    new String[]{"SOCIO", "SESIÓN", "FECHA INSCRIPCION"}, 0) {
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
-            };
-
-            for (Inscripcion i : InscripcionDAO.obtenerTodasLasInscripciones()) {
-                modeloBasico.addRow(new Object[]{
-                        i.getSocio().getNombreSocio(),
-                        i.getSesionclase().getClase().getNombreClase(),
-                        i.getFechaInscripcion()
-                });
-            }
-
-            tablaInscripciones.setModel(modeloBasico);
         }
     }
 
@@ -419,8 +407,8 @@ public class PanelInscripciones extends JPanel {
         InscripcionDAO dao = new InscripcionDAO();
         List<Inscripcion> inscripciones;
 
-        if (com.robertoarcusa.tfg.util.Sesion.esBasic()) {
-            Socio usuario = com.robertoarcusa.tfg.util.Sesion.getUsuarioActual();
+        if (sesion.esBasic()) {
+            Socio usuario = sesion.getUsuarioActual();
             inscripciones = dao.obtenerInscripcionesPorSocio(usuario.getIdSocio());
         } else {
             inscripciones = dao.obtenerTodasLasInscripciones();
@@ -451,8 +439,8 @@ public class PanelInscripciones extends JPanel {
         comboSocios.removeAllItems();
 
         // Si el usuario es BASIC, solo se muestra él mismo
-        if (Sesion.esBasic()) {
-            Socio usuario = com.robertoarcusa.tfg.util.Sesion.getUsuarioActual();
+        if (sesion.esBasic()) {
+            Socio usuario = sesion.getUsuarioActual();
             comboSocios.addItem(usuario);
             comboSocios.setEnabled(false); // Desactiva el JComboBox para que no se pueda cambiar
         } else {

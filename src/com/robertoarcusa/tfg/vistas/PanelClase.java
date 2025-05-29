@@ -54,7 +54,7 @@ public class PanelClase extends JPanel {
      * Define la interfaz gráfica, carga los datos iniciales
      * y establece restricciones de acceso según el tipo de usuario.
      */
-    public PanelClase() {
+    public PanelClase(Sesion sesion) {
         setLayout(new BorderLayout(10, 10)); // Añadidos gaps como en PanelEntrenador
 
         // PANEL CAMPOS CON GRIDBAGLAYOUT
@@ -220,7 +220,7 @@ public class PanelClase extends JPanel {
         add(scrollTabla, BorderLayout.CENTER);
 
         // Cargamos los datos y aplicamos restricciones por tipo de usuario
-        Socio usuarioActual = Sesion.getUsuarioActual();
+        Socio usuarioActual = sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             panelCampos.setVisible(false);
             panelBusquedaBotones.setVisible(false);

@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.io.*;
-import java.net.URL;
 import java.util.Properties;
 
 import javax.swing.border.EmptyBorder; // Importar para usar EmptyBorder
@@ -47,7 +46,7 @@ public class VentanaPrincipal extends JFrame {
      * Constructor que inicializa la ventana principal, configurando el modo de apariencia,
      * creando la barra de menú, configurando las pestañas funcionales y ajustando la interfaz.
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(Sesion sesion) {
         // Cargar el modo por defecto desde el archivo de configuración
         modoOscuro = cargarModo();  // Cargar la configuración del modo (oscuro o claro)
 
@@ -138,11 +137,11 @@ public class VentanaPrincipal extends JFrame {
         tabbedPane = new JTabbedPane();
 
         // Añadir pestañas funcionales
-        tabbedPane.addTab("SOCIOS", null, new PanelSocios(), "Gestión de socios");
-        tabbedPane.addTab("ENTRENADORES", null, new PanelEntrenador(), "Gestión de entrenadores");
-        tabbedPane.addTab("CLASES", null, new PanelClase(), "Gestión de clases");
-        tabbedPane.addTab("SESIONES CLASES", null, new PanelSesionClase(), "Gestión de sesiones de clases");
-        tabbedPane.addTab("INSCRIPCIONES", null, new PanelInscripciones(), "Gestión de inscripciones");
+        tabbedPane.addTab("SOCIOS", null, new PanelSocios(sesion), "Gestión de socios");
+        tabbedPane.addTab("ENTRENADORES", null, new PanelEntrenador(sesion), "Gestión de entrenadores");
+        tabbedPane.addTab("CLASES", null, new PanelClase(sesion), "Gestión de clases");
+        tabbedPane.addTab("SESIONES CLASES", null, new PanelSesionClase(sesion), "Gestión de sesiones de clases");
+        tabbedPane.addTab("INSCRIPCIONES", null, new PanelInscripciones(sesion), "Gestión de inscripciones");
         tabbedPane.addTab("PAGOS", null, new PanelPagos(), "Gestión de pagos");
         tabbedPane.addTab("INFORMES", null, new PanelInformes(), "Generador de informes");
 
@@ -156,7 +155,7 @@ public class VentanaPrincipal extends JFrame {
         tabbedPane.setSelectedIndex(0);
 
         // Verificar si el usuario actual es de tipo BASIC y ocultar pestañas
-        Socio usuarioActual = Sesion.getUsuarioActual();
+        Socio usuarioActual = sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             for (int i = tabbedPane.getTabCount() - 1; i >= 0; i--) {
                 String titulo = tabbedPane.getTitleAt(i).toUpperCase();

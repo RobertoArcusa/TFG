@@ -8,10 +8,9 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Properties;
+
 
 import com.robertoarcusa.tfg.clases.Pago;
 import com.robertoarcusa.tfg.clases.Socio;
@@ -21,9 +20,7 @@ import com.robertoarcusa.tfg.enums.Estado;
 import com.robertoarcusa.tfg.enums.MetodoPago;
 import com.robertoarcusa.tfg.enums.TipoCuota;
 import com.robertoarcusa.tfg.enums.TipoPago;
-import com.robertoarcusa.tfg.util.FormateadorFecha;
 import com.toedter.calendar.JDateChooser;
-import org.jdatepicker.impl.*;
 
 /**
  * PanelPagos es una clase que extiende JPanel y proporciona una interfaz gráfica

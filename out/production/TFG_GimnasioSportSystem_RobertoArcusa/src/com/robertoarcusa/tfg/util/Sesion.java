@@ -26,7 +26,7 @@ public class Sesion {
      *
      * @param socio El objeto {@link Socio} correspondiente al usuario autenticado.
      */
-    public static void setUsuarioActual(Socio socio) {
+    public void setUsuarioActual(Socio socio) {
         usuarioActual = socio;
     }
 
@@ -35,7 +35,7 @@ public class Sesion {
      *
      * @return El objeto {@link Socio} correspondiente al usuario autenticado, o {@code null} si no hay sesión activa.
      */
-    public static Socio getUsuarioActual() {
+    public Socio getUsuarioActual() {
         return usuarioActual;
     }
 
@@ -71,7 +71,7 @@ public class Sesion {
      *
      * @return {@code true} si el tipo de usuario es {@link TipoUsuario#BASIC}, {@code false} en caso contrario.
      */
-    public static boolean esBasic() {
+    public boolean esBasic() {
         return getTipoUsuarioActual() == TipoUsuario.BASIC;
     }
 }

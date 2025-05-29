@@ -53,7 +53,7 @@ public class PanelSocios extends JPanel {
      * Constructor que inicializa el panel con todos sus componentes,
      * configura el diseño, establece eventos y carga la lista inicial de socios.
      */
-    public PanelSocios() {
+    public PanelSocios(Sesion sesion) {
         setLayout(new BorderLayout(10, 10)); // Pequeños gaps
 
         // PANEL CAMPOS CON GRIDBAGLAYOUT
@@ -126,7 +126,7 @@ public class PanelSocios extends JPanel {
         c2.gridx = 1;
         comboTipoUsuario = new JComboBox<>(TipoUsuario.values());
         comboTipoUsuario.setPreferredSize(new Dimension(350, 40));
-        if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
+        if (sesion.getUsuarioActual() != null && sesion.getUsuarioActual().getTipoUsuario() == TipoUsuario.EDITOR) {
             comboTipoUsuario.setEnabled(false);
             comboTipoUsuario.setSelectedIndex(-1);
         }

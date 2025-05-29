@@ -1,5 +1,5 @@
 package com.robertoarcusa.tfg.enums;
 
 public enum MetodoPago {
-    EFECTIVO, TARJETA, TRANSFERENCIA;
+    EFECTIVO, TARJETA, TRANSFERENCIA
 }

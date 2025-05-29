@@ -191,8 +191,9 @@ public class LoginUsuario extends JFrame {
                 JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "¡Inicio de sesión exitoso!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
-                Sesion.setUsuarioActual(socio);
-                avanzarASiguientePantalla();
+                Sesion sesion = new Sesion();
+                sesion.setUsuarioActual(socio);
+                avanzarASiguientePantalla(sesion);
             }
         }
     }
@@ -232,8 +233,8 @@ public class LoginUsuario extends JFrame {
      * Abre la ventana principal de la aplicación tras un inicio de sesión exitoso
      * y cierra la ventana actual.
      */
-    private void avanzarASiguientePantalla() {
-        new VentanaPrincipal().setVisible(true);
+    private void avanzarASiguientePantalla(Sesion sesion) {
+        new VentanaPrincipal(sesion).setVisible(true);
         dispose();
     }
 }

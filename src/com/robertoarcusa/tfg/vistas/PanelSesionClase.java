@@ -47,7 +47,7 @@ public class PanelSesionClase extends JPanel {
      * configura el layout, crea la tabla y el formulario para gestionar sesiones,
      * además de cargar los datos y manejar la visibilidad según el tipo de usuario.
      */
-    public PanelSesionClase() {
+    public PanelSesionClase(Sesion sesion) {
         setLayout(new BorderLayout(10, 10));
 
         // PANEL CAMPOS con GridBagLayout
@@ -189,7 +189,7 @@ public class PanelSesionClase extends JPanel {
         add(scrollTabla, BorderLayout.CENTER);
 
         // Cargar datos y manejar restricciones por tipo usuario
-        Socio usuarioActual = Sesion.getUsuarioActual();
+        Socio usuarioActual = sesion.getUsuarioActual();
         if (usuarioActual != null && usuarioActual.getTipoUsuario() == TipoUsuario.BASIC) {
             panelCampos.setVisible(false);
             panelBusquedaBotones.setVisible(false);
